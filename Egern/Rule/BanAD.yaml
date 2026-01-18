@@ -1,5 +1,6 @@
 # 规则名称: BanAD
 # 规则统计: 101938
+# 更新时间: 2026/01/18
 
 domain_set:
   - 1500020991.vodplayer.wxamedia.com
