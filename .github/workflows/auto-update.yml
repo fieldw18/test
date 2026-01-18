@@ -19,7 +19,7 @@ jobs:
 
       - name: Prepare Environment
         run: |
-          mkdir -p Rule
+          mkdir -p Egern/Rule
           mkdir -p tmp
 
       - name: Configure Rules & Download
