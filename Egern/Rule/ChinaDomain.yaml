@@ -633,40 +633,6 @@ domain_set:
   - xz.pphimalayanrt.com
   - ye.dun.163yun.com
 
-domain_wildcard_set:
-  - "*.qhimgs?.com"
-
-ip_cidr_set:
-  - 1.12.12.12/32
-  - 139.220.243.27/32
-  - 172.16.102.56/32
-  - 185.188.32.1/28
-  - 221.226.128.146/32
-
-ip_cidr6_set:
-  - 2a0b:b580::/48
-  - 2a0b:b581::/48
-  - 2a0b:b582::/48
-  - 2a0b:b583::/48
-
-domain_keyword_set:
-  - 360buy
-  - alicdn
-  - alimama
-  - alipay
-  - appzapp
-  - baidupcs
-  - bilibili
-  - ccgslb
-  - chinacache
-  - duobao
-  - jdpay
-  - moke
-  - qhimg
-  - vpimg
-  - xiami
-  - xiaomi
-
 domain_suffix_set:
   - 0.zone
   - 00.net
@@ -114849,4 +114815,38 @@ domain_suffix_set:
   - zzzyyy.com
   - zzzzaaaa.com
   - zzzzzz.me
+
+domain_keyword_set:
+  - 360buy
+  - alicdn
+  - alimama
+  - alipay
+  - appzapp
+  - baidupcs
+  - bilibili
+  - ccgslb
+  - chinacache
+  - duobao
+  - jdpay
+  - moke
+  - qhimg
+  - vpimg
+  - xiami
+  - xiaomi
+
+domain_wildcard_set:
+  - "*.qhimgs?.com"
+
+ip_cidr_set:
+  - 1.12.12.12/32
+  - 139.220.243.27/32
+  - 172.16.102.56/32
+  - 185.188.32.1/28
+  - 221.226.128.146/32
+
+ip_cidr6_set:
+  - 2a0b:b580::/48
+  - 2a0b:b581::/48
+  - 2a0b:b582::/48
+  - 2a0b:b583::/48
 

@@ -18,10 +18,6 @@ domain_set:
   - openrouter.ai
   - robinfrontend-pa.googleapis.com
 
-domain_keyword_set:
-  - alkalimakersuite-pa.clients6.google.com
-  - openai
-
 domain_suffix_set:
   - ai.com
   - aistudio.google.com
@@ -56,4 +52,8 @@ domain_suffix_set:
   - proactivebackend-pa.googleapis.com
   - sora.com
   - x.ai
+
+domain_keyword_set:
+  - alkalimakersuite-pa.clients6.google.com
+  - openai
 

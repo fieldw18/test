@@ -2,9 +2,6 @@
 # 规则统计: 247
 # 更新时间: 2026/01/18
 
-domain_keyword_set:
-  - paypal
-
 domain_suffix_set:
   - account-paypal.info
   - account-paypal.net
@@ -252,4 +249,7 @@ domain_suffix_set:
   - xoom.net.cn
   - xoom.us
   - xoomcom.com
+
+domain_keyword_set:
+  - paypal
 

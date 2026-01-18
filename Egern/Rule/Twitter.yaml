@@ -2,9 +2,6 @@
 # 规则统计: 12
 # 更新时间: 2026/01/18
 
-domain_keyword_set:
-  - twitter
-
 domain_suffix_set:
   - periscope.tv
   - pscp.tv
@@ -17,4 +14,7 @@ domain_suffix_set:
   - twitter.jp
   - vine.co
   - x.com
+
+domain_keyword_set:
+  - twitter
 

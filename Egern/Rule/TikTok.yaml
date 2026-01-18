@@ -2,9 +2,6 @@
 # 规则统计: 10
 # 更新时间: 2026/01/18
 
-domain_keyword_set:
-  - tiktokcdn
-
 domain_suffix_set:
   - byteoversea.com
   - ibytedtos.com
@@ -15,4 +12,7 @@ domain_suffix_set:
   - tiktok.com
   - tiktokcdn.com
   - tiktokv.com
+
+domain_keyword_set:
+  - tiktokcdn
 
