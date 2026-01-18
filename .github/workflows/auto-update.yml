@@ -19,7 +19,7 @@ jobs:
 
       - name: Prepare Environment
         run: |
-          mkdir -p Egern/Rule
+          mkdir -p Rule
           mkdir -p tmp
 
       - name: Configure Rules & Download
@@ -58,7 +58,7 @@ jobs:
             [ -e "$list_file" ] || { echo "No list files found."; break; }
             
             base_name=$(basename "$list_file" .list)
-            output_file="Egern/$base_name.yaml"
+            output_file="Egern/Rule/$base_name.yaml"
             echo "Converting: $base_name"
 
             grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-WILDCARD|IP-CIDR|IP-CIDR6|IP-ASN|URL-REGEX|DEST-PORT|GEOIP),' "$list_file" | sed 's/,no-resolve$//' > tmp/current_work.tmp
