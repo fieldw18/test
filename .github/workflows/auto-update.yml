@@ -30,8 +30,7 @@ https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Rulese
 https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Ruleset/Spotify.list
 BanAD
 - https://anti-ad.net/surge.txt
-- https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list
-          "
+- https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list"
 
           echo "开始处理规则..."
           CURRENT_MERGE_GROUP=""
