@@ -1,0 +1,139 @@
+name: Build Egern Rules
+
+on:
+  workflow_dispatch: # 支持手动触发
+  schedule:
+    - cron: '30 0 * * *' # 每日UTC 0:30 (北京时间8:30)自动运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Prepare Environment
+        run: |
+          mkdir -p Egern
+          mkdir -p tmp
+
+      - name: Configure Rules & Download
+        run: |
+          # ============== 【第一步：在此处配置您的规则源】 ==============
+          # 单个规则：一条链接生成一个文件。格式：<分类/自定义名>=<链接>
+          declare -A SINGLE_RULES=(
+            ["Advertising/AD"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Advertising/Advertising.list"
+            ["AI/ChatGPT"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AI/ChatGPT.list"
+            ["Game/Steam"]="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Steam.list"
+          )
+          # 合并规则：多个链接合并去重生成一个文件。格式：<输出文件名>=<链接1> <链接2> ...
+          declare -A MERGE_RULES=(
+            ["MyReject"]="https://raw.githubusercontent.com/ConnersHua/RuleGo/master/Surge/Ruleset/Extra/Reject/Advertising.list https://raw.githubusercontent.com/ConnersHua/RuleGo/master/Surge/Ruleset/Extra/Reject/Tracking.list"
+          )
+          # ============== 配置结束，以下为自动处理逻辑 ==============
+
+          # 下载并处理单个规则
+          echo "正在处理 ${#SINGLE_RULES[@]} 个单独规则..."
+          for key in "${!SINGLE_RULES[@]}"; do
+            output_name="$key"
+            source_url="${SINGLE_RULES[$key]}"
+            echo "  [单独] $output_name.yaml <- $source_url"
+            curl -sL -f "$source_url" -o "tmp/$output_name.list" || echo "下载失败: $source_url"
+          done
+
+          # 下载、合并并处理合并规则
+          echo "正在处理 ${#MERGE_RULES[@]} 组合并规则..."
+          for key in "${!MERGE_RULES[@]}"; do
+            output_name="$key"
+            urls="${MERGE_RULES[$key]}"
+            echo "  [合并] $output_name.yaml <- $urls"
+            temp_file="tmp/$output_name.merged"
+            > "$temp_file" # 清空文件
+            for url in $urls; do
+              echo "    追加: $url"
+              curl -sL -f "$url" >> "$temp_file" && echo "" >> "$temp_file" || echo "    下载失败: $url"
+            done
+            # 去重并确保标准格式（一行一条规则）
+            sort -u "$temp_file" | grep -v '^$' > "tmp/$output_name.list"
+          done
+          
+      - name: Convert to Egern Format
+        run: |
+          echo "开始转换所有规则为Egern格式..."
+          for list_file in tmp/*.list; do
+            [ -e "$list_file" ] || continue
+            base_name=$(basename "$list_file" .list)
+            # 处理文件路径中的'/'，将其转换为'_'作为最终文件名
+            final_name="${base_name//\//_}"
+            output_file="Egern/$final_name.yaml"
+            echo "转换: $base_name -> $final_name.yaml"
+
+            # 步骤1: 复制并初步清理，移除不支持的规则类型
+            grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-WILDCARD|IP-CIDR|IP-CIDR6|IP-ASN|URL-REGEX|DEST-PORT|GEOIP),' "$list_file" > tmp/current_work.tmp
+
+            # 步骤2: 检查并添加 no_resolve 标志
+            if grep -qE '^(IP-(ASN|CIDR|CIDR6)),.*,no-resolve$' tmp/current_work.tmp; then
+              echo "no_resolve: true" > "$output_file"
+              echo "" >> "$output_file"
+            else
+              > "$output_file"
+            fi
+
+            # 步骤3: 按规则类型分组处理
+            # 定义所有规则类型及其对应的Egern集合名
+            declare -A RULE_MAP=(
+              ["DOMAIN"]="domain_set"
+              ["DOMAIN-SUFFIX"]="domain_suffix_set"
+              ["DOMAIN-KEYWORD"]="domain_keyword_set"
+              ["DOMAIN-WILDCARD"]="domain_wildcard_set"
+              ["IP-CIDR"]="ip_cidr_set"
+              ["IP-CIDR6"]="ip_cidr6_set"
+              ["IP-ASN"]="asn_set"
+              ["URL-REGEX"]="url_regex_set"
+              ["DEST-PORT"]="dest_port_set"
+              ["GEOIP"]="geoip_set"
+            )
+
+            for rule_type in "${!RULE_MAP[@]}"; do
+              egern_type="${RULE_MAP[$rule_type]}"
+              # 提取该类型的所有规则值，并进行去重排序
+              grep "^$rule_type," tmp/current_work.tmp | \
+              awk -F',' '{ 
+                value=$2; 
+                # 对需要引号包裹的类型添加引号
+                if (rule_type == "URL-REGEX" || rule_type == "DOMAIN-WILDCARD") {
+                  value="\"" value "\""
+                }
+                print value 
+              }' | sort -u > tmp/values.tmp
+
+              if [ -s tmp/values.tmp ]; then
+                count=$(wc -l < tmp/values.tmp)
+                echo "$egern_type:" >> "$output_file"
+                sed 's/^/  - /' tmp/values.tmp >> "$output_file"
+                # 在每个类型组后添加一个空行
+                echo "" >> "$output_file"
+              fi
+            done
+
+            # 步骤4: 计算总规则数并添加文件头注释
+            total_rules=$(grep -c '^  - ' "$output_file" 2>/dev/null || echo 0)
+            sed -i "1i# 规则名称: $final_name\n# 规则统计: $total_rules" "$output_file"
+            echo "  生成完毕，共 $total_rules 条规则。"
+          done
+          
+      - name: Commit Changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add Egern/
+          if git diff --cached --quiet; then
+            echo "没有检测到规则文件变更，无需提交。"
+          else
+            git commit -m "Auto Update Egern Rules: $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M')"
+            git push
+            echo "规则已更新并推送。"
+          fi
