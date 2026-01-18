@@ -1,10 +1,8 @@
 name: Build Egern Rules
-
 on:
   workflow_dispatch:
   schedule:
     - cron: '30 0 * * *'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,54 +10,65 @@ jobs:
       TZ: Asia/Shanghai
     permissions:
       contents: write
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Prepare Environment
+      - name: Prepare Directories
         run: |
           mkdir -p Egern/Rule
           mkdir -p tmp
-
-      - name: Configure Rules & Download
+      - name: Download and Convert Rules
         run: |
-          declare -A SINGLE_RULES=(
-            ["YouTube"]="https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Ruleset/YouTube.list"
-            ["Twitter"]="https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Ruleset/Twitter.list"
-          )
-          declare -A MERGE_RULES=(
-            ["BanAD"]="https://anti-ad.net/surge.txt
-                        https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list"
-          )
+          # 配置单条规则：直接写链接
+          # 配置合并规则：组名
+          RULE_SOURCES="
+https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Ruleset/YouTube.list
+https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Ruleset/Twitter.list
+https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Ruleset/Google.list
+https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Ruleset/TikTok.list
+https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Ruleset/Telegram.list
+https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Ruleset/Spotify.list
+BanAD
+- https://anti-ad.net/surge.txt
+- https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list
+          "
 
-          for key in "${!SINGLE_RULES[@]}"; do
-            output_name="$key"
-            source_url="${SINGLE_RULES[$key]}"
-            echo "  [Single] $output_name.yaml <- $source_url"
-            curl -sL -f "$source_url" -o "tmp/$output_name.list" || echo "Download failed: $source_url"
+          echo "开始处理规则..."
+          CURRENT_MERGE_GROUP=""
+          while IFS= read -r line; do
+            line_trimmed=$(echo "$line" | xargs)
+            if [[ -z "$line_trimmed" || "$line_trimmed" == "#"* ]]; then
+              continue
+            fi
+
+            if [[ ! "$line_trimmed" =~ ^https?:// ]] && [[ ! "$line_trimmed" =~ ^- ]]; then
+              CURRENT_MERGE_GROUP="$line_trimmed"
+              > "tmp/$CURRENT_MERGE_GROUP.merged"
+              continue
+            fi
+
+            if [[ "$line_trimmed" =~ ^- ]]; then
+              url="${line_trimmed:1}"
+              url_clean=$(echo "$url" | xargs)
+              curl -sL -f "$url_clean" >> "tmp/$CURRENT_MERGE_GROUP.merged" && echo "" >> "tmp/$CURRENT_MERGE_GROUP.merged" || echo "下载失败: $url_clean"
+              continue
+            fi
+
+            filename=$(basename "$line_trimmed" .list)
+            curl -sL -f "$line_trimmed" -o "tmp/$filename.list" || echo "下载失败: $line_trimmed"
+          done <<< "$RULE_SOURCES"
+
+          for merged_file in tmp/*.merged; do
+            [ -e "$merged_file" ] || continue
+            base_name=$(basename "$merged_file" .merged)
+            sort -u "$merged_file" | grep -v '^$' > "tmp/$base_name.list"
           done
 
-          for key in "${!MERGE_RULES[@]}"; do
-            output_name="$key"
-            urls="${MERGE_RULES[$key]}"
-            echo "  [Merge] $output_name.yaml <- $urls"
-            temp_file="tmp/$output_name.merged"
-            > "$temp_file"
-            for url in $urls; do
-              curl -sL -f "$url" >> "$temp_file" && echo "" >> "$temp_file" || echo "    Download failed: $url"
-            done
-            sort -u "$temp_file" | grep -v '^$' > "tmp/$output_name.list"
-          done
-
-      - name: Convert to Egern Format
-        run: |
+          echo "开始转换规则..."
           for list_file in tmp/*.list; do
-            [ -e "$list_file" ] || { echo "No list files found."; break; }
-            
+            [ -e "$list_file" ] || break
             base_name=$(basename "$list_file" .list)
             output_file="Egern/Rule/$base_name.yaml"
-            echo "Converting: $base_name"
 
             grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-WILDCARD|IP-CIDR|IP-CIDR6|IP-ASN|URL-REGEX|DEST-PORT|GEOIP),' "$list_file" | sed 's/,no-resolve$//' > tmp/current_work.tmp
 
@@ -92,14 +101,13 @@ jobs:
 
             for rule_type in "${!RULE_MAP[@]}"; do
               egern_type="${RULE_MAP[$rule_type]}"
-              
               grep "^$rule_type," tmp/current_work.tmp | \
-              awk -F',' -v rule_type="$rule_type" '{ 
-                value=$2; 
+              awk -F',' -v rule_type="$rule_type" '{
+                value=$2;
                 if (rule_type == "URL-REGEX" || rule_type == "DOMAIN-WILDCARD") {
                   value="\"" value "\""
                 }
-                print value 
+                print value
               }' | sort -u > tmp/values.tmp
 
               if [ -s tmp/values.tmp ]; then
@@ -111,8 +119,6 @@ jobs:
 
             total_rules=$(grep -c '^  - ' "$output_file" 2>/dev/null || echo 0)
             sed -i "2s/# 规则统计: 0/# 规则统计: $total_rules/" "$output_file"
-            
-            echo "  Done, total rules: $total_rules"
           done
 
       - name: Commit Changes
@@ -121,9 +127,8 @@ jobs:
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add Egern/
           if git diff --cached --quiet; then
-            echo "No changes detected."
+            echo "无变更"
           else
-            git commit -m "Auto Update Egern Rules: $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M')"
+            git commit -m "Auto Update: $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M')"
             git push
-            echo "Rules updated and pushed."
           fi
