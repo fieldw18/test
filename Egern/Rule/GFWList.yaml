@@ -1,6 +1,6 @@
 # 规则名称: GFWList
-# 规则统计: 7413 条
-# 更新时间: 2026-01-21 10:34:27
+# 规则统计: 7414 条
+# 更新时间: 2026-01-29 11:09:03
 
 no_resolve: true
 
@@ -561,6 +561,7 @@ domain_suffix_set:
   - babylonbee.com
   - babynet.com.hk
   - backchina.com
+  - backend-v2.crixet.com
   - backpackers.com.tw
   - backtotiananmen.com
   - bad.news
