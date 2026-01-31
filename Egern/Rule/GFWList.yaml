@@ -1,6 +1,6 @@
 # 规则名称: GFWList
-# 规则统计: 7415 条
-# 更新时间: 2026-01-30 11:10:10
+# 规则统计: 7417 条
+# 更新时间: 2026-01-31 11:04:40
 
 no_resolve: true
 
@@ -5465,6 +5465,7 @@ domain_suffix_set:
   - silkbook.com
   - silvergatebank.com
   - simbolostwitter.com
+  - simianx.ai
   - simplecd.me
   - simplecd.org
   - simpleproductivityblog.com
@@ -7169,6 +7170,7 @@ domain_suffix_set:
   - yesasia.com.hk
   - yespornplease.com
   - yeyeclub.com
+  - yfsp.tv
   - ygto.com
   - yhcw.net
   - yibada.com
