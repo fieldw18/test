@@ -1,6 +1,6 @@
 # 规则名称: GFWList
-# 规则统计: 7417 条
-# 更新时间: 2026-01-31 11:04:40
+# 规则统计: 7420 条
+# 更新时间: 2026-02-01 11:35:56
 
 no_resolve: true
 
@@ -605,6 +605,7 @@ domain_suffix_set:
   - bbc.co.uk
   - bbc.com
   - bbc.in
+  - bbc.pdn.tritondigital.com
   - bbcchinese.com
   - bbchat.tv
   - bbci.co.uk
@@ -1554,6 +1555,7 @@ domain_suffix_set:
   - dbgjd.com
   - dcard.tw
   - dcmilitary.com
+  - dcs-spotify.megaphone.fm
   - ddc.com.tw
   - ddex.io
   - ddhw.info
@@ -2955,6 +2957,7 @@ domain_suffix_set:
   - helloss.pw
   - hellotxt.com
   - hellouk.org
+  - help.byspotify.com
   - helpeachpeople.com
   - helplinfen.com
   - helpster.de
