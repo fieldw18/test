@@ -1,6 +1,6 @@
 # 规则名称: GFWList
-# 规则统计: 7420 条
-# 更新时间: 2026-02-01 11:35:56
+# 规则统计: 7421 条
+# 更新时间: 2026-02-02 11:23:17
 
 no_resolve: true
 
@@ -5833,6 +5833,7 @@ domain_suffix_set:
   - tagwa.org.au
   - tagwalk.com
   - tahr.org.tw
+  - tails.net
   - taipei.gov.tw
   - taipeisociety.org
   - taipeitimes.com
