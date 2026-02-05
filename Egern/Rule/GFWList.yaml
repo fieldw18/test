@@ -1,6 +1,6 @@
 # 规则名称: GFWList
-# 规则统计: 7421 条
-# 更新时间: 2026-02-02 11:23:17
+# 规则统计: 7423 条
+# 更新时间: 2026-02-05 11:14:59
 
 no_resolve: true
 
@@ -5357,6 +5357,7 @@ domain_suffix_set:
   - seesmic.com
   - seevpn.com
   - seezone.net
+  - sef.org.tw
   - sehuatang.net
   - sehuatang.org
   - sejie.com
@@ -6989,6 +6990,7 @@ domain_suffix_set:
   - www.eastturkistan.net
   - www.gmiddle.com
   - www.gmiddle.net
+  - www.hoyolab.com
   - www.hustlercash.com
   - www.idlcoyote.com
   - www.imdb.com
