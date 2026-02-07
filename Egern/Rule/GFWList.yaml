@@ -1,6 +1,6 @@
 # 规则名称: GFWList
-# 规则统计: 7424 条
-# 更新时间: 2026-02-06 11:13:48
+# 规则统计: 7427 条
+# 更新时间: 2026-02-07 11:07:38
 
 no_resolve: true
 
@@ -735,6 +735,7 @@ domain_suffix_set:
   - bitshare.com
   - bitsnoop.com
   - bitterwinter.org
+  - bittorrent.com
   - bitvise.com
   - bitz.ai
   - bizhat.com
@@ -2963,6 +2964,7 @@ domain_suffix_set:
   - helplinfen.com
   - helpster.de
   - helpzhuling.org
+  - hembed.com
   - hentai.to
   - hentaitube.tv
   - hentaivideoworld.com
@@ -6569,6 +6571,7 @@ domain_suffix_set:
   - uymaarip.com
   - v.roucdn
   - v2.help
+  - v2.hysteria.network
   - v2ex.com
   - v2fly.org
   - v2mm.tech
