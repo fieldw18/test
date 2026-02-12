@@ -90,7 +90,7 @@ jobs:
               grep '^GEOIP,' "$f"          | awk -F, '{print "  - " $2}' | sort -u | sed '1i geoip_set:' | sed '1a '
               grep '^USER-AGENT,' "$f"     | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u | sed '1i user_agent_set:' | sed '1a '
               grep '^URL-REGEX,' "$f"      | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u | sed '1i url_regex_set:' | sed '1a '
-            } > "Egern/Rule/$name.yaml"
+            } > "Egern/Rules/$name.yaml"
           done
 
       - name: Commit Changes
