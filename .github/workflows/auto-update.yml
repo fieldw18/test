@@ -81,15 +81,33 @@ jobs:
               echo "# 规则名称: $name"
               echo "# 规则统计: $count"
               echo ""
-              grep '^DOMAIN,' "$f"         | awk -F, '{print "  - " $2}' | sort -u | sed '1i domain_set:' | sed '1a '
-              grep '^DOMAIN-SUFFIX,' "$f"  | awk -F, '{print "  - " $2}' | sort -u | sed '1i domain_suffix_set:' | sed '1a '
-              grep '^DOMAIN-KEYWORD,' "$f"| awk -F, '{print "  - " $2}' | sort -u | sed '1i domain_keyword_set:' | sed '1a '
-              grep '^DOMAIN-REGEX,' "$f"   | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u | sed '1i domain_regex_set:' | sed '1a '
-              grep '^IP-CIDR,' "$f"        | awk -F, '{print "  - " $2}' | sort -u | sed '1i ip_cidr_set:' | sed '1a '
-              grep '^IP-CIDR6,' "$f"       | awk -F, '{print "  - " $2}' | sort -u | sed '1i ip_cidr6_set:' | sed '1a '
-              grep '^GEOIP,' "$f"          | awk -F, '{print "  - " $2}' | sort -u | sed '1i geoip_set:' | sed '1a '
-              grep '^USER-AGENT,' "$f"     | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u | sed '1i user_agent_set:' | sed '1a '
-              grep '^URL-REGEX,' "$f"      | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u | sed '1i url_regex_set:' | sed '1a '
+              echo "domain_set:"
+              grep '^DOMAIN,' "$f"         | awk -F, '{print "  - " $2}' | sort -u
+              echo ""
+              echo "domain_suffix_set:"
+              grep '^DOMAIN-SUFFIX,' "$f"  | awk -F, '{print "  - " $2}' | sort -u
+              echo ""
+              echo "domain_keyword_set:"
+              grep '^DOMAIN-KEYWORD,' "$f"| awk -F, '{print "  - " $2}' | sort -u
+              echo ""
+              echo "domain_regex_set:"
+              grep '^DOMAIN-REGEX,' "$f"   | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u
+              echo ""
+              echo "ip_cidr_set:"
+              grep '^IP-CIDR,' "$f"        | awk -F, '{print "  - " $2}' | sort -u
+              echo ""
+              echo "ip_cidr6_set:"
+              grep '^IP-CIDR6,' "$f"       | awk -F, '{print "  - " $2}' | sort -u
+              echo ""
+              echo "geoip_set:"
+              grep '^GEOIP,' "$f"          | awk -F, '{print "  - " $2}' | sort -u
+              echo ""
+              echo "user_agent_set:"
+              grep '^USER-AGENT,' "$f"     | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u
+              echo ""
+              echo "url_regex_set:"
+              grep '^URL-REGEX,' "$f"      | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u
+              echo ""
             } > "Egern/Rules/$name.yaml"
           done
 
