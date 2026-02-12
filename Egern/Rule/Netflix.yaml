@@ -1,53 +1,6 @@
 # 规则名称: Netflix
-# 规则统计: 1156 条
-# 更新时间: 2026-01-20 16:54:30
+# 规则统计: 1156
 
-no_resolve: true
-
-domain_set:
-  - e13252.dscg.akamaiedge.net
-  - h-netflix.online-metrix.net
-  - netflix.com.edgesuite.net
-
-domain_keyword_set:
-  - apiproxy-device-prod-nlb-
-  - dualstack.apiproxy-
-  - dualstack.ichnaea-web-
-  - netflixdnstest
-
-domain_suffix_set:
-  - cookielaw.org
-  - fast.com
-  - flxvpn.net
-  - netflix.ca
-  - netflix.com
-  - netflix.com.au
-  - netflix.com.edgesuite.net
-  - netflix.net
-  - netflixdnstest0.com
-  - netflixdnstest1.com
-  - netflixdnstest10.com
-  - netflixdnstest2.com
-  - netflixdnstest3.com
-  - netflixdnstest4.com
-  - netflixdnstest5.com
-  - netflixdnstest6.com
-  - netflixdnstest7.com
-  - netflixdnstest8.com
-  - netflixdnstest9.com
-  - netflixinvestor.com
-  - netflixstudios.com
-  - netflixtechblog.com
-  - nflxext.com
-  - nflximg.com
-  - nflximg.net
-  - nflxsearch.net
-  - nflxso.net
-  - nflxvideo.net
-  - onetrust.com
-  - us-west-2.amazonaws.com
-
-ip_cidr_set:
   - 103.87.204.0/22
   - 107.23.255.0/26
   - 108.128.160.0/23
@@ -552,6 +505,10 @@ ip_cidr_set:
   - 23.23.189.144/28
   - 23.246.0.0/18
   - 23.78.0.0/16
+  - 2607:fb10::/32
+  - 2620:10c:7000::/44
+  - 2a00:86c0::/32
+  - 2a03:5640::/32
   - 3.0.5.224/27
   - 3.0.5.32/29
   - 3.10.127.32/27
@@ -1163,10 +1120,44 @@ ip_cidr_set:
   - 99.80.34.48/28
   - 99.80.34.64/26
   - 99.80.88.0/25
-
+  - apiproxy-device-prod-nlb-
+  - cookielaw.org
+  - dualstack.apiproxy-
+  - dualstack.ichnaea-web-
+  - e13252.dscg.akamaiedge.net
+  - fast.com
+  - flxvpn.net
+  - h-netflix.online-metrix.net
+  - netflix.ca
+  - netflix.com
+  - netflix.com.au
+  - netflix.com.edgesuite.net
+  - netflix.net
+  - netflixdnstest
+  - netflixdnstest0.com
+  - netflixdnstest1.com
+  - netflixdnstest10.com
+  - netflixdnstest2.com
+  - netflixdnstest3.com
+  - netflixdnstest4.com
+  - netflixdnstest5.com
+  - netflixdnstest6.com
+  - netflixdnstest7.com
+  - netflixdnstest8.com
+  - netflixdnstest9.com
+  - netflixinvestor.com
+  - netflixstudios.com
+  - netflixtechblog.com
+  - nflxext.com
+  - nflximg.com
+  - nflximg.net
+  - nflxsearch.net
+  - nflxso.net
+  - nflxvideo.net
+  - onetrust.com
+  - us-west-2.amazonaws.com
+domain_keyword_set:
+domain_set:
+domain_suffix_set:
 ip_cidr6_set:
-  - 2607:fb10::/32
-  - 2620:10c:7000::/44
-  - 2a00:86c0::/32
-  - 2a03:5640::/32
-
+ip_cidr_set:

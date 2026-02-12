@@ -1,10 +1,7 @@
 # 规则名称: ByteDance
-# 规则统计: 370 条
-# 更新时间: 2026-01-20 16:54:29
+# 规则统计: 370
 
-no_resolve: true
-
-domain_suffix_set:
+  - 114.246.10.65/32
   - 2333333333333.com
   - 365yg.com
   - activity-zhendingtech.com
@@ -374,7 +371,5 @@ domain_suffix_set:
   - zjurl.cn
   - zlinkurl.cn
   - zlinkurl.com
-
+domain_suffix_set:
 ip_cidr_set:
-  - 114.246.10.65/32
-
