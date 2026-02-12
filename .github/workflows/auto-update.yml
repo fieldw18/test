@@ -87,16 +87,18 @@ jobs:
               for type in DOMAIN DOMAIN-SUFFIX DOMAIN-KEYWORD DOMAIN-REGEX IP-CIDR IP-CIDR6 GEOIP USER-AGENT URL-REGEX; do
                 trules=$(echo "$rules" | grep "^$type,")
                 [[ -z "$trules" ]] && continue
-                if [[ $type == "DOMAIN" ]]; then set="domain_set"; quote=""; fi
-                if [[ $type == "DOMAIN-SUFFIX" ]]; then set="domain_suffix_set"; quote=""; fi
-                if [[ $type == "DOMAIN-KEYWORD" ]]; then set="domain_keyword_set"; quote=""; fi
-                if [[ $type == "DOMAIN-REGEX" ]]; then set="domain_regex_set"; quote="'"; fi
-                if [[ $type == "IP-CIDR" ]]; then set="ip_cidr_set"; quote=""; fi
-                if [[ $type == "IP-CIDR6" ]]; then set="ip_cidr6_set"; quote=""; fi
-                if [[ $type == "GEOIP" ]]; then set="geoip_set"; quote=""; fi
-                if [[ $type == "USER-AGENT" ]]; then set="user_agent_set"; quote="'"; fi
-                if [[ $type == "URL-REGEX" ]]; then set="url_regex_set"; quote="'"; fi
-                echo "$set:"
+
+                if [[ $type == "DOMAIN"          ]]; then etype="domain_set";       quote=""; fi
+                if [[ $type == "DOMAIN-SUFFIX"   ]]; then etype="domain_suffix_set"; quote=""; fi
+                if [[ $type == "DOMAIN-KEYWORD"  ]]; then etype="domain_keyword_set";quote=""; fi
+                if [[ $type == "DOMAIN-REGEX"    ]]; then etype="domain_regex_set";  quote="'"; fi
+                if [[ $type == "IP-CIDR"         ]]; then etype="ip_cidr_set";       quote=""; fi
+                if [[ $type == "IP-CIDR6"        ]]; then etype="ip_cidr6_set";      quote=""; fi
+                if [[ $type == "GEOIP"           ]]; then etype="geoip_set";         quote=""; fi
+                if [[ $type == "USER-AGENT"      ]]; then etype="user_agent_set";    quote="'"; fi
+                if [[ $type == "URL-REGEX"       ]]; then etype="url_regex_set";     quote="'"; fi
+
+                echo "$etype:"
                 echo "$trules" | awk -F, -v q="$quote" '{print "  - " q $2 q}' | sort -u
                 echo ""
               done
