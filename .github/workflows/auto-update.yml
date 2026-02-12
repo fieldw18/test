@@ -75,31 +75,40 @@ jobs:
           for f in raw/*.clean; do
             [[ -s "$f" ]] || continue
             name=$(basename "$f" .clean)
-            rules=$(grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-REGEX|IP-CIDR|IP-CIDR6|GEOIP|USER-AGENT|URL-REGEX),' "$f" | sed 's/,no-resolve$//')
-            count=$(echo "$rules" | wc -l | xargs)
+            count=$(grep -cE '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-REGEX|IP-CIDR|IP-CIDR6|GEOIP|USER-AGENT|URL-REGEX|IP-ASN),' "$f" || echo 0)
             [[ $count -eq 0 ]] && continue
-            no_resolve=$(grep -q ',no-resolve$' "$f" && echo "no_resolve: true" || true)
             {
               echo "# 规则名称: $name"
               echo "# 规则统计: $count"
               echo ""
+              declare -A RULE_MAP=(
+                [DOMAIN]=domain_set
+                [DOMAIN-SUFFIX]=domain_suffix_set
+                [DOMAIN-KEYWORD]=domain_keyword_set
+                [DOMAIN-REGEX]=domain_regex_set
+                [IP-CIDR]=ip_cidr_set
+                [IP-CIDR6]=ip_cidr6_set
+                [GEOIP]=geoip_set
+                [USER-AGENT]=user_agent_set
+                [URL-REGEX]=url_regex_set
+                [IP-ASN]=asn_set
+              )
+              ORDERED_RULE_TYPES=(DOMAIN DOMAIN-SUFFIX DOMAIN-KEYWORD DOMAIN-REGEX IP-CIDR IP-CIDR6 GEOIP USER-AGENT URL-REGEX IP-ASN)
+              rules=$(grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-REGEX|IP-CIDR|IP-CIDR6|GEOIP|USER-AGENT|URL-REGEX|IP-ASN),' "$f" | sed 's/,no-resolve$//')
+              no_resolve=$(grep -q ',no-resolve$' "$f" && echo "no_resolve: true" || true)
               [[ -n "$no_resolve" ]] && echo "$no_resolve" && echo ""
-              for type in DOMAIN DOMAIN-SUFFIX DOMAIN-KEYWORD DOMAIN-REGEX IP-CIDR IP-CIDR6 GEOIP USER-AGENT URL-REGEX; do
+              for type in "${ORDERED_RULE_TYPES[@]}"; do
+                etype=${RULE_MAP[$type]}
                 trules=$(echo "$rules" | grep "^$type,")
-                [[ -z "$trules" ]] && continue
-
-                if [[ $type == "DOMAIN"          ]]; then etype="domain_set";       quote=""; fi
-                if [[ $type == "DOMAIN-SUFFIX"   ]]; then etype="domain_suffix_set"; quote=""; fi
-                if [[ $type == "DOMAIN-KEYWORD"  ]]; then etype="domain_keyword_set";quote=""; fi
-                if [[ $type == "DOMAIN-REGEX"    ]]; then etype="domain_regex_set";  quote="'"; fi
-                if [[ $type == "IP-CIDR"         ]]; then etype="ip_cidr_set";       quote=""; fi
-                if [[ $type == "IP-CIDR6"        ]]; then etype="ip_cidr6_set";      quote=""; fi
-                if [[ $type == "GEOIP"           ]]; then etype="geoip_set";         quote=""; fi
-                if [[ $type == "USER-AGENT"      ]]; then etype="user_agent_set";    quote="'"; fi
-                if [[ $type == "URL-REGEX"       ]]; then etype="url_regex_set";     quote="'"; fi
-
+                [ -z "$trules" ] && continue
                 echo "$etype:"
-                echo "$trules" | awk -F, -v q="$quote" '{print "  - " q $2 q}' | sort -u
+                echo "$trules" | awk -F',' -v rt="$type" '{
+                  value = $2
+                  if (rt ~ /^(URL-REGEX|DOMAIN-REGEX|USER-AGENT|IP-ASN)$/) {
+                    value = "\047" value "\047"
+                  }
+                  print "  - " value
+                }' | sort -u
                 echo ""
               done
             } > "Egern/Rules/$name.yaml"
