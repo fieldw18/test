@@ -1,14 +1,6 @@
 # 规则名称: Tencent
 # 规则统计: 2518
 
-
-# AUTHOR: blackmatrix7
-# DOMAIN-SUFFIX: 2498
-# IP-CIDR: 20
-# NAME: Tencent
-# REPO: https://github.com/blackmatrix7/ios_rule_script
-# TOTAL: 2518
-# UPDATED: 2025-10-20 02:09:09
 DOMAIN-SUFFIX,001dl.cn
 DOMAIN-SUFFIX,002dl.cn
 DOMAIN-SUFFIX,003dl.cn

@@ -1,7 +1,6 @@
 # 规则名称: Proxy
 # 规则统计: 25060
 
-
 DOMAIN,1password.drift.click
 DOMAIN,3dns-1.adobe.com
 DOMAIN,3dns-2.adobe.com

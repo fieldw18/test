@@ -1,19 +1,6 @@
 # 规则名称: Telegram
 # 规则统计: 46
 
-
-# AUTHOR: blackmatrix7
-# DOMAIN-KEYWORD: 1
-# DOMAIN-SUFFIX: 22
-# DOMAIN: 2
-# IP-ASN: 5
-# IP-CIDR6: 4
-# IP-CIDR: 6
-# NAME: Telegram
-# PROCESS-NAME: 6
-# REPO: https://github.com/blackmatrix7/ios_rule_script
-# TOTAL: 46
-# UPDATED: 2025-09-10 02:08:26
 DOMAIN,api.imem.app
 DOMAIN,api.swiftgram.app
 DOMAIN-KEYWORD,nicegram

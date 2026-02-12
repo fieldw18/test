@@ -1,15 +1,6 @@
 # 规则名称: ByteDance
 # 规则统计: 371
 
-
-# AUTHOR: blackmatrix7
-# DOMAIN-SUFFIX: 369
-# IP-CIDR: 1
-# NAME: ByteDance
-# PROCESS-NAME: 1
-# REPO: https://github.com/blackmatrix7/ios_rule_script
-# TOTAL: 371
-# UPDATED: 2025-09-28 02:08:33
 DOMAIN-SUFFIX,2333333333333.com
 DOMAIN-SUFFIX,365yg.com
 DOMAIN-SUFFIX,activity-zhendingtech.com

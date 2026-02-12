@@ -1,7 +1,6 @@
 # 规则名称: AppleCN
 # 规则统计: 167
 
-
 DOMAIN-SUFFIX,a1.mzstatic.com
 DOMAIN-SUFFIX,a2.mzstatic.com
 DOMAIN-SUFFIX,a3.mzstatic.com

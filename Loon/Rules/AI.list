@@ -1,8 +1,6 @@
 # 规则名称: AI
-# 规则统计: 80
+# 规则统计: 79
 
-
-  
   - DOMAIN,ai.google.dev
   - DOMAIN,api.msn.com
   - DOMAIN,api.statsig.com
@@ -81,20 +79,4 @@
   - DOMAIN-SUFFIX,stripe.com
   - DOMAIN-SUFFIX,wp.com
   - DOMAIN-SUFFIX,x.ai
-# > Ai general rules
-# > Anthropic/Claude
-# > Cursor
-# > Dify AI
-# > Google AI (Gemini/Bard)
-# > JetBrains AI
-# > Meta
-# > Microsoft Copilot
-# > Midjourney
-# > OpenAI/ChatGPT
-# > Perplexity
-# > Poe
-# > xAI/Grok
-# AUTHOR: https://t.me/ddgksf2021
-# NAME: Ai Rules
-# UPDATED: 2025-11-26
 payload:

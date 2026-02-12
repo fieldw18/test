@@ -1,16 +1,6 @@
 # 规则名称: Alibaba
 # 规则统计: 1321
 
-
-# AUTHOR: blackmatrix7
-# DOMAIN-SUFFIX: 1266
-# IP-CIDR6: 1
-# IP-CIDR: 53
-# NAME: Alibaba
-# PROCESS-NAME: 1
-# REPO: https://github.com/blackmatrix7/ios_rule_script
-# TOTAL: 1321
-# UPDATED: 2025-08-12 02:08:43
 DOMAIN-SUFFIX,10029.com
 DOMAIN-SUFFIX,1688.com
 DOMAIN-SUFFIX,17lai.org
