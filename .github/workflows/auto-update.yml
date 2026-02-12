@@ -73,14 +73,17 @@ jobs:
         run: |
           mkdir -p Egern/Rules
           for f in raw/*.clean; do
-            [[ -s "$f" ]] || continue
+            [ -s "$f" ] || continue
             name=$(basename "$f" .clean)
-            count=$(grep -cE '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-REGEX|IP-CIDR|IP-CIDR6|GEOIP|USER-AGENT|URL-REGEX|IP-ASN),' "$f" || echo 0)
-            [[ $count -eq 0 ]] && continue
+            rules=$(grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-REGEX|IP-CIDR|IP-CIDR6|GEOIP|USER-AGENT|URL-REGEX|IP-ASN),' "$f" | sed 's/,no-resolve$//' || true)
+            count=$(echo "$rules" | grep -c '^' || echo 0)
+            [ "$count" -eq 0 ] && continue
+
             {
               echo "# 规则名称: $name"
               echo "# 规则统计: $count"
               echo ""
+
               declare -A RULE_MAP=(
                 [DOMAIN]=domain_set
                 [DOMAIN-SUFFIX]=domain_suffix_set
@@ -93,22 +96,25 @@ jobs:
                 [URL-REGEX]=url_regex_set
                 [IP-ASN]=asn_set
               )
+
               ORDERED_RULE_TYPES=(DOMAIN DOMAIN-SUFFIX DOMAIN-KEYWORD DOMAIN-REGEX IP-CIDR IP-CIDR6 GEOIP USER-AGENT URL-REGEX IP-ASN)
-              rules=$(grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-REGEX|IP-CIDR|IP-CIDR6|GEOIP|USER-AGENT|URL-REGEX|IP-ASN),' "$f" | sed 's/,no-resolve$//')
-              no_resolve=$(grep -q ',no-resolve$' "$f" && echo "no_resolve: true" || true)
-              [[ -n "$no_resolve" ]] && echo "$no_resolve" && echo ""
+
+              no_resolve=$(echo "$rules" | grep -q ',no-resolve' && echo "no_resolve: true" || true)
+              [ -n "$no_resolve" ] && echo "$no_resolve" && echo ""
+
               for type in "${ORDERED_RULE_TYPES[@]}"; do
-                etype=${RULE_MAP[$type]}
-                trules=$(echo "$rules" | grep "^$type,")
+                etype="${RULE_MAP[$type]}"
+                [ -z "$etype" ] && continue
+
+                trules=$(echo "$rules" | grep "^$type," || true)
                 [ -z "$trules" ] && continue
+
                 echo "$etype:"
-                echo "$trules" | awk -F',' -v rt="$type" '{
-                  value = $2
-                  if (rt ~ /^(URL-REGEX|DOMAIN-REGEX|USER-AGENT|IP-ASN)$/) {
-                    value = "\047" value "\047"
-                  }
-                  print "  - " value
-                }' | sort -u
+                if [[ $type =~ ^(DOMAIN-REGEX|USER-AGENT|URL-REGEX|IP-ASN)$ ]]; then
+                  echo "$trules" | awk -F, '{printf "  - '\''%s'\''\n", $2}' | sort -u
+                else
+                  echo "$trules" | awk -F, '{print "  - " $2}' | sort -u
+                fi
                 echo ""
               done
             } > "Egern/Rules/$name.yaml"
