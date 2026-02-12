@@ -38,7 +38,7 @@ jobs:
             "AppleCN https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/apple.txt"
             "Meta https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Facebook/Facebook.list https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Instagram/Instagram.list https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Threads/Threads.list https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Whatsapp/Whatsapp.list"
             "HttpDns https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/BlockHttpDNS/BlockHttpDNS.list"
-            "AI https://gist.githubusercontent.com/ddgksf2013/cb4121e8b5c5d865cc949cb8120320c4/raw/Ai.yaml"
+            "AI https://git.repcz.link/kelee.one/Tool/Loon/Lsr/AI.lsr"
           )
 
           for line in "${groups[@]}"; do
@@ -75,39 +75,31 @@ jobs:
           for f in raw/*.clean; do
             [[ -s "$f" ]] || continue
             name=$(basename "$f" .clean)
-            count=$(grep -cE '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-REGEX|IP-CIDR|IP-CIDR6|GEOIP|USER-AGENT|URL-REGEX),' "$f" || echo 0)
+            rules=$(grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-REGEX|IP-CIDR|IP-CIDR6|GEOIP|USER-AGENT|URL-REGEX),' "$f" | sed 's/,no-resolve$//')
+            count=$(echo "$rules" | wc -l | xargs)
             [[ $count -eq 0 ]] && continue
+            no_resolve=$(grep -q ',no-resolve$' "$f" && echo "no_resolve: true" || true)
             {
               echo "# 规则名称: $name"
               echo "# 规则统计: $count"
               echo ""
-              echo "domain_set:"
-              grep '^DOMAIN,' "$f"         | awk -F, '{print "  - " $2}' | sort -u
-              echo ""
-              echo "domain_suffix_set:"
-              grep '^DOMAIN-SUFFIX,' "$f"  | awk -F, '{print "  - " $2}' | sort -u
-              echo ""
-              echo "domain_keyword_set:"
-              grep '^DOMAIN-KEYWORD,' "$f"| awk -F, '{print "  - " $2}' | sort -u
-              echo ""
-              echo "domain_regex_set:"
-              grep '^DOMAIN-REGEX,' "$f"   | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u
-              echo ""
-              echo "ip_cidr_set:"
-              grep '^IP-CIDR,' "$f"        | awk -F, '{print "  - " $2}' | sort -u
-              echo ""
-              echo "ip_cidr6_set:"
-              grep '^IP-CIDR6,' "$f"       | awk -F, '{print "  - " $2}' | sort -u
-              echo ""
-              echo "geoip_set:"
-              grep '^GEOIP,' "$f"          | awk -F, '{print "  - " $2}' | sort -u
-              echo ""
-              echo "user_agent_set:"
-              grep '^USER-AGENT,' "$f"     | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u
-              echo ""
-              echo "url_regex_set:"
-              grep '^URL-REGEX,' "$f"      | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u
-              echo ""
+              [[ -n "$no_resolve" ]] && echo "$no_resolve" && echo ""
+              for type in DOMAIN DOMAIN-SUFFIX DOMAIN-KEYWORD DOMAIN-REGEX IP-CIDR IP-CIDR6 GEOIP USER-AGENT URL-REGEX; do
+                trules=$(echo "$rules" | grep "^$type,")
+                [[ -z "$trules" ]] && continue
+                if [[ $type == "DOMAIN" ]]; then set="domain_set"; quote=""; fi
+                if [[ $type == "DOMAIN-SUFFIX" ]]; then set="domain_suffix_set"; quote=""; fi
+                if [[ $type == "DOMAIN-KEYWORD" ]]; then set="domain_keyword_set"; quote=""; fi
+                if [[ $type == "DOMAIN-REGEX" ]]; then set="domain_regex_set"; quote="'"; fi
+                if [[ $type == "IP-CIDR" ]]; then set="ip_cidr_set"; quote=""; fi
+                if [[ $type == "IP-CIDR6" ]]; then set="ip_cidr6_set"; quote=""; fi
+                if [[ $type == "GEOIP" ]]; then set="geoip_set"; quote=""; fi
+                if [[ $type == "USER-AGENT" ]]; then set="user_agent_set"; quote="'"; fi
+                if [[ $type == "URL-REGEX" ]]; then set="url_regex_set"; quote="'"; fi
+                echo "$set:"
+                echo "$trules" | awk -F, -v q="$quote" '{print "  - " q $2 q}' | sort -u
+                echo ""
+              done
             } > "Egern/Rules/$name.yaml"
           done
 
@@ -115,7 +107,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Loon/Rules/*.list Egern/Rule/*.yaml 2>/dev/null || true
+          git add Loon/Rules/*.list Egern/Rules/*.yaml 2>/dev/null || true
           git diff --cached --quiet || {
             git commit -m "Auto update rules"
             git push
