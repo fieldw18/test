@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download Rules
+      - name: Download & Clean Rules
         run: |
           mkdir -p raw
           groups=(
@@ -43,12 +43,14 @@ jobs:
 
           for line in "${groups[@]}"; do
             read -r name urls <<< "$line"
-            > "raw/$name.txt"
+            tmp="raw/$name.tmp"
+            > "$tmp"
             for url in $urls; do
-              curl -sL --fail "$url" >> "raw/$name.txt" 2>/dev/null || true
-              echo "" >> "raw/$name.txt"
+              curl -sL --fail "$url" >> "$tmp" 2>/dev/null || true
+              echo "" >> "$tmp"
             done
-            sort -u "raw/$name.txt" > "raw/$name.clean" 2>/dev/null || true
+            grep -vE '^\s*(#|$)' "$tmp" | sort -u > "raw/$name.clean"
+            rm -f "$tmp"
           done
 
       - name: Generate Loon Rules
@@ -57,18 +59,19 @@ jobs:
           for f in raw/*.clean; do
             [[ -s "$f" ]] || continue
             name=$(basename "$f" .clean)
-            count=$(grep -cvE '^($|#)' "$f" | xargs || echo 0)
+            count=$(wc -l < "$f")
             {
               echo "# 规则名称: $name"
               echo "# 规则统计: $count"
               echo ""
-              grep -vE '^(PROCESS-NAME|SCRIPT)' "$f" | sed 's/,no-resolve$//'
+              grep -vE '^(PROCESS-NAME|SCRIPT|URL-REGEX.*no-resolve$)' "$f" | \
+                sed 's/,no-resolve$//'
             } > "Loon/Rules/$name.list"
           done
 
       - name: Generate Egern Rules
         run: |
-          mkdir -p Egern/Rule
+          mkdir -p Egern/Rules
           for f in raw/*.clean; do
             [[ -s "$f" ]] || continue
             name=$(basename "$f" .clean)
@@ -78,19 +81,15 @@ jobs:
               echo "# 规则名称: $name"
               echo "# 规则统计: $count"
               echo ""
-              grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-REGEX|IP-CIDR|IP-CIDR6|GEOIP|USER-AGENT|URL-REGEX),' "$f" | \
-                sed 's/,no-resolve$//' | \
-                awk -F',' '
-                  $1=="DOMAIN" {print "domain_set:\n  - "$2}
-                  $1=="DOMAIN-SUFFIX" {print "domain_suffix_set:\n  - "$2}
-                  $1=="DOMAIN-KEYWORD" {print "domain_keyword_set:\n  - "$2}
-                  $1=="DOMAIN-REGEX" {print "domain_regex_set:\n  - '\''"$2"'\''"}
-                  $1=="IP-CIDR" {print "ip_cidr_set:\n  - "$2}
-                  $1=="IP-CIDR6" {print "ip_cidr6_set:\n  - "$2}
-                  $1=="GEOIP" {print "geoip_set:\n  - "$2}
-                  $1=="USER-AGENT" {print "user_agent_set:\n  - '\''"$2"'\''"}
-                  $1=="URL-REGEX" {print "url_regex_set:\n  - '\''"$2"'\''"}
-                ' | sort -u
+              grep '^DOMAIN,' "$f"         | awk -F, '{print "  - " $2}' | sort -u | sed '1i domain_set:' | sed '1a '
+              grep '^DOMAIN-SUFFIX,' "$f"  | awk -F, '{print "  - " $2}' | sort -u | sed '1i domain_suffix_set:' | sed '1a '
+              grep '^DOMAIN-KEYWORD,' "$f"| awk -F, '{print "  - " $2}' | sort -u | sed '1i domain_keyword_set:' | sed '1a '
+              grep '^DOMAIN-REGEX,' "$f"   | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u | sed '1i domain_regex_set:' | sed '1a '
+              grep '^IP-CIDR,' "$f"        | awk -F, '{print "  - " $2}' | sort -u | sed '1i ip_cidr_set:' | sed '1a '
+              grep '^IP-CIDR6,' "$f"       | awk -F, '{print "  - " $2}' | sort -u | sed '1i ip_cidr6_set:' | sed '1a '
+              grep '^GEOIP,' "$f"          | awk -F, '{print "  - " $2}' | sort -u | sed '1i geoip_set:' | sed '1a '
+              grep '^USER-AGENT,' "$f"     | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u | sed '1i user_agent_set:' | sed '1a '
+              grep '^URL-REGEX,' "$f"      | awk -F, '{print "  - \x27"$2"\x27"}' | sort -u | sed '1i url_regex_set:' | sed '1a '
             } > "Egern/Rule/$name.yaml"
           done
 
