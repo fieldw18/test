@@ -1,5 +1,5 @@
 # 规则名称: Proxy
-# 规则统计: 25101
+# 规则统计: 25103
 
 domain_set:
   - 1password.drift.click
@@ -21585,6 +21585,7 @@ domain_suffix_set:
   - tomonews.net
   - tomp3.cc
   - tomsguide.com
+  - ton.org
   - tonec.com
   - tonicmovies.com
   - toolforge.org
@@ -23209,6 +23210,7 @@ domain_suffix_set:
   - wallmama.com
   - wallpapercasa.com
   - wallsttv.com
+  - wallzhihu.com
   - walmart
   - walmart-content.com
   - walmart.com

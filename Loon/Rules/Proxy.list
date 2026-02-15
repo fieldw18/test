@@ -1,5 +1,5 @@
 # 规则名称: Proxy
-# 规则统计: 25101
+# 规则统计: 25103
 
 DOMAIN,1password.drift.click
 DOMAIN,3dns-1.adobe.com
@@ -21582,6 +21582,7 @@ DOMAIN-SUFFIX,tomibank.co.jp
 DOMAIN-SUFFIX,tomonews.net
 DOMAIN-SUFFIX,tomp3.cc
 DOMAIN-SUFFIX,tomsguide.com
+DOMAIN-SUFFIX,ton.org
 DOMAIN-SUFFIX,tonec.com
 DOMAIN-SUFFIX,tonicmovies.com
 DOMAIN-SUFFIX,toolforge.org
@@ -23206,6 +23207,7 @@ DOMAIN-SUFFIX,wallhaven.cc
 DOMAIN-SUFFIX,wallmama.com
 DOMAIN-SUFFIX,wallpapercasa.com
 DOMAIN-SUFFIX,wallsttv.com
+DOMAIN-SUFFIX,wallzhihu.com
 DOMAIN-SUFFIX,walmart
 DOMAIN-SUFFIX,walmart-content.com
 DOMAIN-SUFFIX,walmart.com
