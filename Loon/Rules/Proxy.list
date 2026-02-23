@@ -1,5 +1,5 @@
 # 规则名称: Proxy
-# 规则统计: 25249
+# 规则统计: 25250
 
 DOMAIN,1password.drift.click
 DOMAIN,3dns-1.adobe.com
@@ -21756,6 +21756,7 @@ DOMAIN-SUFFIX,toptoonsites.com
 DOMAIN-SUFFIX,topvids.net
 DOMAIN-SUFFIX,topxxxpornvids.com
 DOMAIN-SUFFIX,topyoungporn.com
+DOMAIN-SUFFIX,tor.eff.org
 DOMAIN-SUFFIX,torcidadeouro.com
 DOMAIN-SUFFIX,torguard.net
 DOMAIN-SUFFIX,torlock.com

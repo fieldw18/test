@@ -1,5 +1,5 @@
 # 规则名称: Proxy
-# 规则统计: 25249
+# 规则统计: 25250
 
 domain_set:
   - 1password.drift.click
@@ -21759,6 +21759,7 @@ domain_suffix_set:
   - topvids.net
   - topxxxpornvids.com
   - topyoungporn.com
+  - tor.eff.org
   - torcidadeouro.com
   - torguard.net
   - torlock.com
