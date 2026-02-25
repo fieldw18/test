@@ -1,5 +1,5 @@
 # 规则名称: Proxy
-# 规则统计: 25250
+# 规则统计: 25254
 
 DOMAIN,1password.drift.click
 DOMAIN,3dns-1.adobe.com
@@ -9518,6 +9518,7 @@ DOMAIN-SUFFIX,freechatnow.com
 DOMAIN-SUFFIX,freechinaweibo.com
 DOMAIN-SUFFIX,freecodecamp.org
 DOMAIN-SUFFIX,freedirecttvspecial.com
+DOMAIN-SUFFIX,freedom.gov
 DOMAIN-SUFFIX,freedomhouse.org
 DOMAIN-SUFFIX,freedominfonetweb.wordpress.com
 DOMAIN-SUFFIX,freedomplatform.tv
@@ -15335,7 +15336,9 @@ DOMAIN-SUFFIX,mitpressjournals.org
 DOMAIN-SUFFIX,miuipolska.pl
 DOMAIN-SUFFIX,mixasiansex.com
 DOMAIN-SUFFIX,mixero.com
+DOMAIN-SUFFIX,mixi.co.jp
 DOMAIN-SUFFIX,mixi.jp
+DOMAIN-SUFFIX,mixi.net
 DOMAIN-SUFFIX,mixmaturesex.com
 DOMAIN-SUFFIX,mixvintagesex.com
 DOMAIN-SUFFIX,mixx.com
@@ -17247,6 +17250,7 @@ DOMAIN-SUFFIX,pa9pal.com
 DOMAIN-SUFFIX,paaypal.com
 DOMAIN-SUFFIX,pachosting.com
 DOMAIN-SUFFIX,pacifickitchenandhome.com
+DOMAIN-SUFFIX,packagecloud.io
 DOMAIN-SUFFIX,packaging-cadcam.com
 DOMAIN-SUFFIX,packagingcadcam.com
 DOMAIN-SUFFIX,packagist.org

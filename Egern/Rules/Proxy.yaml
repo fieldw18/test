@@ -1,5 +1,5 @@
 # 规则名称: Proxy
-# 规则统计: 25250
+# 规则统计: 25254
 
 domain_set:
   - 1password.drift.click
@@ -9521,6 +9521,7 @@ domain_suffix_set:
   - freechinaweibo.com
   - freecodecamp.org
   - freedirecttvspecial.com
+  - freedom.gov
   - freedomhouse.org
   - freedominfonetweb.wordpress.com
   - freedomplatform.tv
@@ -15338,7 +15339,9 @@ domain_suffix_set:
   - miuipolska.pl
   - mixasiansex.com
   - mixero.com
+  - mixi.co.jp
   - mixi.jp
+  - mixi.net
   - mixmaturesex.com
   - mixvintagesex.com
   - mixx.com
@@ -17250,6 +17253,7 @@ domain_suffix_set:
   - paaypal.com
   - pachosting.com
   - pacifickitchenandhome.com
+  - packagecloud.io
   - packaging-cadcam.com
   - packagingcadcam.com
   - packagist.org
