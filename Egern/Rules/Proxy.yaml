@@ -1,5 +1,5 @@
 # 规则名称: Proxy
-# 规则统计: 25301
+# 规则统计: 25302
 
 domain_set:
   - 1password.drift.click
@@ -6557,6 +6557,7 @@ domain_suffix_set:
   - cutout.pro
   - cutscenes.net
   - cutt.ly
+  - cve.org
   - cw.com.tw
   - cwcams.com
   - cxacg.com
