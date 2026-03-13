@@ -1,5 +1,5 @@
 # 规则名称: Proxy
-# 规则统计: 25303
+# 规则统计: 25307
 
 DOMAIN,1password.drift.click
 DOMAIN,3dns-1.adobe.com
@@ -6002,10 +6002,12 @@ DOMAIN-SUFFIX,clasporno.org
 DOMAIN-SUFFIX,classicalguitarblog.net
 DOMAIN-SUFFIX,classicnike.com
 DOMAIN-SUFFIX,classymomsex.com
+DOMAIN-SUFFIX,clau.de
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
 DOMAIN-SUFFIX,claudemcpclient.com
 DOMAIN-SUFFIX,claudeusercontent.com
+DOMAIN-SUFFIX,clawhub.ai
 DOMAIN-SUFFIX,clco.cc
 DOMAIN-SUFFIX,cldr.unicode.org
 DOMAIN-SUFFIX,clearasil.us
@@ -10773,6 +10775,7 @@ DOMAIN-SUFFIX,h-top.supertop-100.com
 DOMAIN-SUFFIX,h-webtoon.com
 DOMAIN-SUFFIX,h0930.com
 DOMAIN-SUFFIX,h18ani1.vip
+DOMAIN-SUFFIX,h2o.ai
 DOMAIN-SUFFIX,h2porn.com
 DOMAIN-SUFFIX,h528.com
 DOMAIN-SUFFIX,habr.com
@@ -17118,6 +17121,7 @@ DOMAIN-SUFFIX,openapiservice.com
 DOMAIN-SUFFIX,openart.ai
 DOMAIN-SUFFIX,openbook.org.tw
 DOMAIN-SUFFIX,opencas.io
+DOMAIN-SUFFIX,openclaw.ai
 DOMAIN-SUFFIX,opencollective.com
 DOMAIN-SUFFIX,opencreate.org
 DOMAIN-SUFFIX,opencritic.com
