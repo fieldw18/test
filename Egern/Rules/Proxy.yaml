@@ -1,5 +1,5 @@
 # 规则名称: Proxy
-# 规则统计: 25307
+# 规则统计: 25311
 
 domain_set:
   - 1password.drift.click
@@ -282,6 +282,7 @@ domain_set:
   - ntp6.ntp-servers.net
   - ntp7.ntp-servers.net
   - nurofensk-prod-env.eu-west-1.elasticbeanstalk.com
+  - nvidia.custhelp.com
   - nvidia.tt.omtrdc.net
   - ocsp.microsoft.com
   - officecdn-microsoft-com.akamaized.net
@@ -6544,6 +6545,7 @@ domain_suffix_set:
   - curvybbwwives.com
   - curvyerotic.com
   - cusp.hk
+  - custhelp.com
   - custom-iphonecase.com
   - custombeatsbydrebuy.com
   - custombeatsdeals.com
@@ -16602,6 +16604,7 @@ domain_suffix_set:
   - nnews.eu
   - nobel.se
   - nochubank.or.jp
+  - nodeget.com
   - nodeimage.com
   - nodejs.org
   - nodequality.com
@@ -20537,6 +20540,7 @@ domain_suffix_set:
   - spiceworks.com
   - spiceworksstatic.com
   - spicybigtits.com
+  - spicywriter.com
   - spideroak.com
   - spiderpool.com
   - spiedigitallibrary.org
