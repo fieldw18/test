@@ -1,0 +1,1126 @@
+{
+  "name": "Apps",
+  "description": "海外 App 与游戏 · 280 枚",
+  "icons": [
+    {
+      "name": "1password",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/1password.png"
+    },
+    {
+      "name": "AbemaTV",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/AbemaTV.png"
+    },
+    {
+      "name": "Adobe(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobe%281%29.png"
+    },
+    {
+      "name": "Adobe",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobe.png"
+    },
+    {
+      "name": "AdobeMediaEncoder",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/AdobeMediaEncoder.png"
+    },
+    {
+      "name": "AdobeXD",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/AdobeXD.png"
+    },
+    {
+      "name": "Adobeaftereffects",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobeaftereffects.png"
+    },
+    {
+      "name": "Adobeanimate",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobeanimate.png"
+    },
+    {
+      "name": "Adobeaudition",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobeaudition.png"
+    },
+    {
+      "name": "Adobecreativecloud",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobecreativecloud.png"
+    },
+    {
+      "name": "Adobeillustrator",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobeillustrator.png"
+    },
+    {
+      "name": "Adobeincopy",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobeincopy.png"
+    },
+    {
+      "name": "Adobeindesign",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobeindesign.png"
+    },
+    {
+      "name": "Adobelightroomclassic",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobelightroomclassic.png"
+    },
+    {
+      "name": "Adobephotoshop",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobephotoshop.png"
+    },
+    {
+      "name": "Adobepremiere",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Adobepremiere.png"
+    },
+    {
+      "name": "App_Store",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/App_Store.png"
+    },
+    {
+      "name": "Apple_Fitness",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Apple_Fitness.png"
+    },
+    {
+      "name": "Apple_News",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Apple_News.png"
+    },
+    {
+      "name": "Bitcoin",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Bitcoin.png"
+    },
+    {
+      "name": "BlueskySocial(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/BlueskySocial%281%29.png"
+    },
+    {
+      "name": "BlueskySocial",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/BlueskySocial.png"
+    },
+    {
+      "name": "CapitalOne",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/CapitalOne.png"
+    },
+    {
+      "name": "Clubhouse",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Clubhouse.png"
+    },
+    {
+      "name": "Clubhouse_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Clubhouse_1.png"
+    },
+    {
+      "name": "Clubhouse_2",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Clubhouse_2.png"
+    },
+    {
+      "name": "Copilot(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Copilot%281%29.png"
+    },
+    {
+      "name": "Copilot",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Copilot.png"
+    },
+    {
+      "name": "Cydia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Cydia.png"
+    },
+    {
+      "name": "DCard",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/DCard.png"
+    },
+    {
+      "name": "Debian",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Debian.png"
+    },
+    {
+      "name": "Discord",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Discord.png"
+    },
+    {
+      "name": "Drafts",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Drafts.png"
+    },
+    {
+      "name": "Emby",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Emby.png"
+    },
+    {
+      "name": "Equinix",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Equinix.png"
+    },
+    {
+      "name": "Facebook",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Facebook.png"
+    },
+    {
+      "name": "Figma",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Figma.png"
+    },
+    {
+      "name": "Find_My",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Find_My.png"
+    },
+    {
+      "name": "Firefox",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Firefox.png"
+    },
+    {
+      "name": "GitHub",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/GitHub.png"
+    },
+    {
+      "name": "GitHub_Letter",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/GitHub_Letter.png"
+    },
+    {
+      "name": "Gnosis",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Gnosis.png"
+    },
+    {
+      "name": "GoogleAdsense",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/GoogleAdsense.png"
+    },
+    {
+      "name": "GoogleCloud",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/GoogleCloud.png"
+    },
+    {
+      "name": "GoogleDrive",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/GoogleDrive.png"
+    },
+    {
+      "name": "GoogleEarth",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/GoogleEarth.png"
+    },
+    {
+      "name": "GoogleOne",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/GoogleOne.png"
+    },
+    {
+      "name": "GooglePay",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/GooglePay.png"
+    },
+    {
+      "name": "GooglePlay(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/GooglePlay%281%29.png"
+    },
+    {
+      "name": "GooglePlay",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/GooglePlay.png"
+    },
+    {
+      "name": "GoogleScholar",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/GoogleScholar.png"
+    },
+    {
+      "name": "Google_Drive",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Google_Drive.png"
+    },
+    {
+      "name": "Google_Opinion_Rewards",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Google_Opinion_Rewards.png"
+    },
+    {
+      "name": "Google_Search",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Google_Search.png"
+    },
+    {
+      "name": "Googlemap(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Googlemap%281%29.png"
+    },
+    {
+      "name": "Googlemap",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Googlemap.png"
+    },
+    {
+      "name": "Googlevoice(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Googlevoice%281%29.png"
+    },
+    {
+      "name": "Googlevoice(black1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Googlevoice%28black1%29.png"
+    },
+    {
+      "name": "Googlevoice",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Googlevoice.png"
+    },
+    {
+      "name": "HBO",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/HBO.png"
+    },
+    {
+      "name": "HBOmax(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/HBOmax%281%29.png"
+    },
+    {
+      "name": "HBOmax",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/HBOmax.png"
+    },
+    {
+      "name": "HSBC",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/HSBC.png"
+    },
+    {
+      "name": "Infuse",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Infuse.png"
+    },
+    {
+      "name": "Infuse_7",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Infuse_7.png"
+    },
+    {
+      "name": "Ingress",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Ingress.png"
+    },
+    {
+      "name": "Instagram",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Instagram.png"
+    },
+    {
+      "name": "Kraken",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Kraken.png"
+    },
+    {
+      "name": "LOL",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/LOL.png"
+    },
+    {
+      "name": "League_of_Legends",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/League_of_Legends.png"
+    },
+    {
+      "name": "Line",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Line.png"
+    },
+    {
+      "name": "N26",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/N26.png"
+    },
+    {
+      "name": "NBA",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/NBA.png"
+    },
+    {
+      "name": "Notion",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Notion.png"
+    },
+    {
+      "name": "Notion",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Notion_lige.png"
+    },
+    {
+      "name": "OneDrive",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/OneDrive.png"
+    },
+    {
+      "name": "OtterLife",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/OtterLife.png"
+    },
+    {
+      "name": "PayPal",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/PayPal.png"
+    },
+    {
+      "name": "Perplexity",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Perplexity.png"
+    },
+    {
+      "name": "Pinterest",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Pinterest.png"
+    },
+    {
+      "name": "PlayStation",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/PlayStation.png"
+    },
+    {
+      "name": "Polymarket",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Polymarket.png"
+    },
+    {
+      "name": "PostBox",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/PostBox.png"
+    },
+    {
+      "name": "PostBox_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/PostBox_1.png"
+    },
+    {
+      "name": "PrimeVideo",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/PrimeVideo.png"
+    },
+    {
+      "name": "ProtonMail",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/ProtonMail.png"
+    },
+    {
+      "name": "QQ",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/QQ.png"
+    },
+    {
+      "name": "Sharon",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Sharon.png"
+    },
+    {
+      "name": "Spark",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Spark.png"
+    },
+    {
+      "name": "Speedtest",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Speedtest.png"
+    },
+    {
+      "name": "Steam",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Steam.png"
+    },
+    {
+      "name": "Swiftgram(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%281%29.png"
+    },
+    {
+      "name": "Swiftgram(10)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%2810%29.png"
+    },
+    {
+      "name": "Swiftgram(11)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%2811%29.png"
+    },
+    {
+      "name": "Swiftgram(12)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%2812%29.png"
+    },
+    {
+      "name": "Swiftgram(13)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%2813%29.png"
+    },
+    {
+      "name": "Swiftgram(14)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%2814%29.png"
+    },
+    {
+      "name": "Swiftgram(15)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%2815%29.png"
+    },
+    {
+      "name": "Swiftgram(16)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%2816%29.png"
+    },
+    {
+      "name": "Swiftgram(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%282%29.png"
+    },
+    {
+      "name": "Swiftgram(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%283%29.png"
+    },
+    {
+      "name": "Swiftgram(4)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%284%29.png"
+    },
+    {
+      "name": "Swiftgram(5)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%285%29.png"
+    },
+    {
+      "name": "Swiftgram(6)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%286%29.png"
+    },
+    {
+      "name": "Swiftgram(7)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%287%29.png"
+    },
+    {
+      "name": "Swiftgram(8)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%288%29.png"
+    },
+    {
+      "name": "Swiftgram(9)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram%289%29.png"
+    },
+    {
+      "name": "Swiftgram",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Swiftgram.png"
+    },
+    {
+      "name": "Switch",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Switch.png"
+    },
+    {
+      "name": "TVBAnywhere",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/TVBAnywhere.png"
+    },
+    {
+      "name": "Taobao",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Taobao.png"
+    },
+    {
+      "name": "Telegram",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Telegram.png"
+    },
+    {
+      "name": "Telegram_X",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Telegram_X.png"
+    },
+    {
+      "name": "Telegrampremium(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Telegrampremium%281%29.png"
+    },
+    {
+      "name": "Telegrampremium",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Telegrampremium.png"
+    },
+    {
+      "name": "TestFlight",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/TestFlight.png"
+    },
+    {
+      "name": "TestFlight_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/TestFlight_1.png"
+    },
+    {
+      "name": "TestFlight_2",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/TestFlight_2.png"
+    },
+    {
+      "name": "Threads",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Threads.png"
+    },
+    {
+      "name": "TouchRetouch",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/TouchRetouch.png"
+    },
+    {
+      "name": "Truth-Social",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Truth-Social.png"
+    },
+    {
+      "name": "Turrit",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Turrit.png"
+    },
+    {
+      "name": "Twitter",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Twitter.png"
+    },
+    {
+      "name": "USDT",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/USDT.png"
+    },
+    {
+      "name": "Ubisoft",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Ubisoft.png"
+    },
+    {
+      "name": "V2ex",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/V2ex.png"
+    },
+    {
+      "name": "WeChat",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/WeChat.png"
+    },
+    {
+      "name": "Youtube",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/Youtube.png"
+    },
+    {
+      "name": "amazon(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/amazon%281%29.png"
+    },
+    {
+      "name": "amazon(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/amazon%282%29.png"
+    },
+    {
+      "name": "amazon",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/amazon.png"
+    },
+    {
+      "name": "arista",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/arista.png"
+    },
+    {
+      "name": "backpack",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/backpack.png"
+    },
+    {
+      "name": "bagel",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bagel.png"
+    },
+    {
+      "name": "bahamute",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bahamute.png"
+    },
+    {
+      "name": "banwagong",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/banwagong.png"
+    },
+    {
+      "name": "bbc(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bbc%281%29.png"
+    },
+    {
+      "name": "bbc(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bbc%283%29.png"
+    },
+    {
+      "name": "bbc",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bbc.png"
+    },
+    {
+      "name": "bian",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bian.png"
+    },
+    {
+      "name": "bing(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bing%281%29.png"
+    },
+    {
+      "name": "bing(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bing%282%29.png"
+    },
+    {
+      "name": "bing(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bing%283%29.png"
+    },
+    {
+      "name": "bing",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bing.png"
+    },
+    {
+      "name": "bitget",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bitget.png"
+    },
+    {
+      "name": "bitznet",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bitznet.png"
+    },
+    {
+      "name": "bybit",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/bybit.png"
+    },
+    {
+      "name": "chatGPT-green",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/chatGPT-green.png"
+    },
+    {
+      "name": "chatgpt(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/chatgpt%281%29.png"
+    },
+    {
+      "name": "chatgpt(balck)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/chatgpt%28balck%29.png"
+    },
+    {
+      "name": "chatgpt(white)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/chatgpt%28white%29.png"
+    },
+    {
+      "name": "chatgpt(white1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/chatgpt%28white1%29.png"
+    },
+    {
+      "name": "chatgpt4",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/chatgpt4.0.png"
+    },
+    {
+      "name": "chrom(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/chrom%281%29.png"
+    },
+    {
+      "name": "chrom",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/chrom.png"
+    },
+    {
+      "name": "cisco",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/cisco.png"
+    },
+    {
+      "name": "claude(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/claude%281%29.png"
+    },
+    {
+      "name": "claude",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/claude.png"
+    },
+    {
+      "name": "cloudflare",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/cloudflare.png"
+    },
+    {
+      "name": "coinbase",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/coinbase.png"
+    },
+    {
+      "name": "cursor",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/cursor.png"
+    },
+    {
+      "name": "discord(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/discord%281%29.png"
+    },
+    {
+      "name": "discord(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/discord%282%29.png"
+    },
+    {
+      "name": "discord(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/discord%283%29.png"
+    },
+    {
+      "name": "discord",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/discord.png"
+    },
+    {
+      "name": "disney(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/disney%281%29.png"
+    },
+    {
+      "name": "disney(black)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/disney%28black%29.png"
+    },
+    {
+      "name": "disney(blue)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/disney%28blue%29.png"
+    },
+    {
+      "name": "disney",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/disney.png"
+    },
+    {
+      "name": "docker",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/docker.png"
+    },
+    {
+      "name": "dropbox(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/dropbox%281%29.png"
+    },
+    {
+      "name": "dropbox",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/dropbox.png"
+    },
+    {
+      "name": "emby(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/emby%281%29.png"
+    },
+    {
+      "name": "emby",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/emby.png"
+    },
+    {
+      "name": "epic(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/epic%281%29.png"
+    },
+    {
+      "name": "epic",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/epic.png"
+    },
+    {
+      "name": "ether",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/ether.png"
+    },
+    {
+      "name": "exhentai",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/exhentai.png"
+    },
+    {
+      "name": "f1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/f1.png"
+    },
+    {
+      "name": "facebook(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/facebook%281%29.png"
+    },
+    {
+      "name": "facebook(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/facebook%282%29.png"
+    },
+    {
+      "name": "facebook(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/facebook%283%29.png"
+    },
+    {
+      "name": "facebook",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/facebook.png"
+    },
+    {
+      "name": "fan",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/fan.png"
+    },
+    {
+      "name": "gateio",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/gateio.png"
+    },
+    {
+      "name": "gemini(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/gemini%281%29.png"
+    },
+    {
+      "name": "gemini",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/gemini.png"
+    },
+    {
+      "name": "github(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/github%281%29.png"
+    },
+    {
+      "name": "github",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/github.png"
+    },
+    {
+      "name": "gmail(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/gmail%281%29.png"
+    },
+    {
+      "name": "gmail(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/gmail%282%29.png"
+    },
+    {
+      "name": "gmail",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/gmail.png"
+    },
+    {
+      "name": "google(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/google%281%29.png"
+    },
+    {
+      "name": "google(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/google%282%29.png"
+    },
+    {
+      "name": "google",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/google.png"
+    },
+    {
+      "name": "grok",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/grok.png"
+    },
+    {
+      "name": "himalaya",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/himalaya.png"
+    },
+    {
+      "name": "huobi",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/huobi.png"
+    },
+    {
+      "name": "instagram(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/instagram%281%29.png"
+    },
+    {
+      "name": "instagram(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/instagram%282%29.png"
+    },
+    {
+      "name": "instagram(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/instagram%283%29.png"
+    },
+    {
+      "name": "instagram",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/instagram.png"
+    },
+    {
+      "name": "kakaotalk(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/kakaotalk%281%29.png"
+    },
+    {
+      "name": "kakaotalk",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/kakaotalk.png"
+    },
+    {
+      "name": "linkedin",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/linkedin.png"
+    },
+    {
+      "name": "linuxdo",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/linuxdo.png"
+    },
+    {
+      "name": "max(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/max%281%29.png"
+    },
+    {
+      "name": "max(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/max%282%29.png"
+    },
+    {
+      "name": "max",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/max.png"
+    },
+    {
+      "name": "mega",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/mega.png"
+    },
+    {
+      "name": "meta",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/meta.png"
+    },
+    {
+      "name": "mexc",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/mexc.png"
+    },
+    {
+      "name": "msx",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/msx.png"
+    },
+    {
+      "name": "netflix(old)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/netflix%28old%29.png"
+    },
+    {
+      "name": "netflix(red)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/netflix%28red%29.png"
+    },
+    {
+      "name": "netflix",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/netflix.png"
+    },
+    {
+      "name": "nowplayer",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/nowplayer.png"
+    },
+    {
+      "name": "okx(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/okx%281%29.png"
+    },
+    {
+      "name": "okx",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/okx.png"
+    },
+    {
+      "name": "omofun",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/omofun.png"
+    },
+    {
+      "name": "paga",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/paga.png"
+    },
+    {
+      "name": "paypal(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/paypal%281%29.png"
+    },
+    {
+      "name": "paypal(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/paypal%282%29.png"
+    },
+    {
+      "name": "paypal",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/paypal.png"
+    },
+    {
+      "name": "pear",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/pear.png"
+    },
+    {
+      "name": "pigsec",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/pigsec.png"
+    },
+    {
+      "name": "pixiv(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/pixiv%281%29.png"
+    },
+    {
+      "name": "pixiv(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/pixiv%282%29.png"
+    },
+    {
+      "name": "pixiv",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/pixiv.png"
+    },
+    {
+      "name": "plex",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/plex.png"
+    },
+    {
+      "name": "proxmox",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/proxmox.png"
+    },
+    {
+      "name": "racknerd",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/racknerd.png"
+    },
+    {
+      "name": "reddit(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/reddit%281%29.png"
+    },
+    {
+      "name": "reddit(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/reddit%282%29.png"
+    },
+    {
+      "name": "reddit",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/reddit.png"
+    },
+    {
+      "name": "redotpay",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/redotpay.png"
+    },
+    {
+      "name": "roblox",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/roblox.png"
+    },
+    {
+      "name": "shop",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/shop.png"
+    },
+    {
+      "name": "slack",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/slack.png"
+    },
+    {
+      "name": "smoothrase",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/smoothrase.png"
+    },
+    {
+      "name": "spotify(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/spotify%281%29.png"
+    },
+    {
+      "name": "spotify(green)(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/spotify%28green%29%281%29.png"
+    },
+    {
+      "name": "spotify(green)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/spotify%28green%29.png"
+    },
+    {
+      "name": "spotify",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/spotify.png"
+    },
+    {
+      "name": "stripe",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/stripe.png"
+    },
+    {
+      "name": "sub(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/sub%281%29.png"
+    },
+    {
+      "name": "sub",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/sub.png"
+    },
+    {
+      "name": "suno",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/suno.png"
+    },
+    {
+      "name": "tailscale",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/tailscale.png"
+    },
+    {
+      "name": "talkatone",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/talkatone.png"
+    },
+    {
+      "name": "telegram(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/telegram%281%29.png"
+    },
+    {
+      "name": "telegram(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/telegram%282%29.png"
+    },
+    {
+      "name": "telegram(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/telegram%283%29.png"
+    },
+    {
+      "name": "telegram(4)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/telegram%284%29.png"
+    },
+    {
+      "name": "telegram(blue1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/telegram%28blue1%29.png"
+    },
+    {
+      "name": "telegram",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/telegram.png"
+    },
+    {
+      "name": "tiktok((2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/tiktok%28%282%29.png"
+    },
+    {
+      "name": "tiktok(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/tiktok%281%29.png"
+    },
+    {
+      "name": "tiktok",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/tiktok.png"
+    },
+    {
+      "name": "tmobile",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/tmobile.png"
+    },
+    {
+      "name": "twitch(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/twitch%281%29.png"
+    },
+    {
+      "name": "twitch",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/twitch.png"
+    },
+    {
+      "name": "twitter(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/twitter%281%29.png"
+    },
+    {
+      "name": "twitter(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/twitter%282%29.png"
+    },
+    {
+      "name": "twitter(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/twitter%283%29.png"
+    },
+    {
+      "name": "twitter",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/twitter.png"
+    },
+    {
+      "name": "ubuntu",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/ubuntu.png"
+    },
+    {
+      "name": "vsco",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/vsco.png"
+    },
+    {
+      "name": "whatsapp(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/whatsapp%281%29.png"
+    },
+    {
+      "name": "whatsapp(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/whatsapp%282%29.png"
+    },
+    {
+      "name": "whatsapp",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/whatsapp.png"
+    },
+    {
+      "name": "wikipedia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/wikipedia.png"
+    },
+    {
+      "name": "wise",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/wise.png"
+    },
+    {
+      "name": "xTerm256",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/xTerm256.png"
+    },
+    {
+      "name": "xbox",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/xbox.png"
+    },
+    {
+      "name": "youtube(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/youtube%281%29.png"
+    },
+    {
+      "name": "youtube(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/youtube%282%29.png"
+    },
+    {
+      "name": "youtube(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/youtube%283%29.png"
+    },
+    {
+      "name": "youtube(4)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/youtube%284%29.png"
+    },
+    {
+      "name": "zoomearth",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps/zoomearth.png"
+    }
+  ]
+}

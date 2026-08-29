@@ -1,0 +1,42 @@
+{
+  "name": "Server",
+  "description": "服务器与线路（BGP / GIA / IEPL / IPLC ...） · 9 枚",
+  "icons": [
+    {
+      "name": "AGA",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Server/AGA.png"
+    },
+    {
+      "name": "AIA",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Server/AIA.png"
+    },
+    {
+      "name": "Azure",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Server/Azure.png"
+    },
+    {
+      "name": "BGP",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Server/BGP.png"
+    },
+    {
+      "name": "CC",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Server/CC.png"
+    },
+    {
+      "name": "GIA",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Server/GIA.png"
+    },
+    {
+      "name": "HC",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Server/HC.png"
+    },
+    {
+      "name": "IEPL",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Server/IEPL.png"
+    },
+    {
+      "name": "IPLC",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Server/IPLC.png"
+    }
+  ]
+}

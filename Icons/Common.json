@@ -1,0 +1,54 @@
+{
+  "name": "Common",
+  "description": "常用策略（自动 / 兜底 / 国内外分流 ...） · 12 枚",
+  "icons": [
+    {
+      "name": "Auto",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/Auto.png"
+    },
+    {
+      "name": "Back",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/Back.png"
+    },
+    {
+      "name": "Domestic",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/Domestic.png"
+    },
+    {
+      "name": "DomesticMedia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/DomesticMedia.png"
+    },
+    {
+      "name": "Final",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/Final.png"
+    },
+    {
+      "name": "Final_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/Final_1.png"
+    },
+    {
+      "name": "ForeignMedia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/ForeignMedia.png"
+    },
+    {
+      "name": "Global",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/Global.png"
+    },
+    {
+      "name": "HKMTMedia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/HKMTMedia.png"
+    },
+    {
+      "name": "Streaming",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/Streaming.png"
+    },
+    {
+      "name": "StreamingCN",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/StreamingCN.png"
+    },
+    {
+      "name": "StreamingSE",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common/StreamingSE.png"
+    }
+  ]
+}

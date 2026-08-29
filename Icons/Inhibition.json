@@ -1,0 +1,22 @@
+{
+  "name": "Inhibition",
+  "description": "拦截类（广告 / 劫持） · 4 枚",
+  "icons": [
+    {
+      "name": "AdBlack",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Inhibition/AdBlack.png"
+    },
+    {
+      "name": "AdWhite",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Inhibition/AdWhite.png"
+    },
+    {
+      "name": "Advertising",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Inhibition/Advertising.png"
+    },
+    {
+      "name": "Hijacking",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Inhibition/Hijacking.png"
+    }
+  ]
+}

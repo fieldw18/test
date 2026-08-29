@@ -1,0 +1,302 @@
+{
+  "name": "Other",
+  "description": "其它 / 装饰图标 · 74 枚",
+  "icons": [
+    {
+      "name": "Airport",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Airport.png"
+    },
+    {
+      "name": "AmyTelecom",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/AmyTelecom.png"
+    },
+    {
+      "name": "Area",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Area.png"
+    },
+    {
+      "name": "Available",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Available.png"
+    },
+    {
+      "name": "Available_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Available_1.png"
+    },
+    {
+      "name": "Bamboo",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Bamboo.png"
+    },
+    {
+      "name": "Blackhole",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Blackhole.png"
+    },
+    {
+      "name": "Blinkload",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Blinkload.png"
+    },
+    {
+      "name": "Blinkload_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Blinkload_1.png"
+    },
+    {
+      "name": "Bookpedia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Bookpedia.png"
+    },
+    {
+      "name": "BosLife",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/BosLife.png"
+    },
+    {
+      "name": "BosLife_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/BosLife_1.png"
+    },
+    {
+      "name": "Bot",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Bot.png"
+    },
+    {
+      "name": "Bypass",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Bypass.png"
+    },
+    {
+      "name": "Cat",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Cat.png"
+    },
+    {
+      "name": "Catnet",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Catnet.png"
+    },
+    {
+      "name": "Cellular",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Cellular.png"
+    },
+    {
+      "name": "Cryptocurrency",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Cryptocurrency.png"
+    },
+    {
+      "name": "Cryptocurrency_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Cryptocurrency_1.png"
+    },
+    {
+      "name": "Cryptocurrency_2",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Cryptocurrency_2.png"
+    },
+    {
+      "name": "Cryptocurrency_3",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Cryptocurrency_3.png"
+    },
+    {
+      "name": "Daily",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Daily.png"
+    },
+    {
+      "name": "Dinosaur",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Dinosaur.png"
+    },
+    {
+      "name": "Direct",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Direct.png"
+    },
+    {
+      "name": "Download",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Download.png"
+    },
+    {
+      "name": "Drill",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Drill.png"
+    },
+    {
+      "name": "Filter",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Filter.png"
+    },
+    {
+      "name": "Flamingo",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Flamingo.png"
+    },
+    {
+      "name": "Frog",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Frog.png"
+    },
+    {
+      "name": "Game",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Game.png"
+    },
+    {
+      "name": "Heart",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Heart.png"
+    },
+    {
+      "name": "Lab",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Lab.png"
+    },
+    {
+      "name": "Lambda",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Lambda.png"
+    },
+    {
+      "name": "Lock",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Lock.png"
+    },
+    {
+      "name": "Loop",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Loop.png"
+    },
+    {
+      "name": "Luffy",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Luffy.png"
+    },
+    {
+      "name": "Magic",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Magic.png"
+    },
+    {
+      "name": "Mail",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Mail.png"
+    },
+    {
+      "name": "Media",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Media.png"
+    },
+    {
+      "name": "Mickey",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Mickey.png"
+    },
+    {
+      "name": "Mouse",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Mouse.png"
+    },
+    {
+      "name": "Music_Enhance",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Music_Enhance.png"
+    },
+    {
+      "name": "Nfcloud",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Nfcloud.png"
+    },
+    {
+      "name": "Ox",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Ox.png"
+    },
+    {
+      "name": "Panda",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Panda.png"
+    },
+    {
+      "name": "Pig",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Pig.png"
+    },
+    {
+      "name": "Proxy",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Proxy.png"
+    },
+    {
+      "name": "Puzzle",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Puzzle.png"
+    },
+    {
+      "name": "Quantumult_X",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Quantumult_X.png"
+    },
+    {
+      "name": "Qure",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Qure.png"
+    },
+    {
+      "name": "Reject",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Reject.png"
+    },
+    {
+      "name": "Rocket",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Rocket.png"
+    },
+    {
+      "name": "Round_Robin",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Round_Robin.png"
+    },
+    {
+      "name": "Round_Robin_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Round_Robin_1.png"
+    },
+    {
+      "name": "SSID",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/SSID.png"
+    },
+    {
+      "name": "SSID_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/SSID_1.png"
+    },
+    {
+      "name": "SSL",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/SSL.png"
+    },
+    {
+      "name": "STARZ",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/STARZ.png"
+    },
+    {
+      "name": "Scholar",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Scholar.png"
+    },
+    {
+      "name": "Server",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Server.png"
+    },
+    {
+      "name": "Stack",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Stack.png"
+    },
+    {
+      "name": "Star",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Star.png"
+    },
+    {
+      "name": "Static",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Static.png"
+    },
+    {
+      "name": "Static_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Static_1.png"
+    },
+    {
+      "name": "TAG",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/TAG.png"
+    },
+    {
+      "name": "Taiwan",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Taiwan.png"
+    },
+    {
+      "name": "ULB",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/ULB.png"
+    },
+    {
+      "name": "ULB_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/ULB_1.png"
+    },
+    {
+      "name": "Unlock",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Unlock.png"
+    },
+    {
+      "name": "VIP",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/VIP.png"
+    },
+    {
+      "name": "Want_Want",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Want_Want.png"
+    },
+    {
+      "name": "Want_Want_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/Want_Want_1.png"
+    },
+    {
+      "name": "WiFi",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/WiFi.png"
+    },
+    {
+      "name": "lige",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other/lige.png"
+    }
+  ]
+}

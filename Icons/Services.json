@@ -1,0 +1,70 @@
+{
+  "name": "Services",
+  "description": "厂商与云服务（Apple / Google / Microsoft ...） · 16 枚",
+  "icons": [
+    {
+      "name": "Alibaba",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Alibaba.png"
+    },
+    {
+      "name": "Amazon",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Amazon.png"
+    },
+    {
+      "name": "Amazon_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Amazon_1.png"
+    },
+    {
+      "name": "Apple",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Apple.png"
+    },
+    {
+      "name": "Apple_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Apple_1.png"
+    },
+    {
+      "name": "Apple_2",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Apple_2.png"
+    },
+    {
+      "name": "Apple_Update",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Apple_Update.png"
+    },
+    {
+      "name": "Cloudflare",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Cloudflare.png"
+    },
+    {
+      "name": "Google",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Google.png"
+    },
+    {
+      "name": "Microsoft",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Microsoft.png"
+    },
+    {
+      "name": "Siri",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Siri.png"
+    },
+    {
+      "name": "Windows",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Windows.png"
+    },
+    {
+      "name": "Windows_11",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Windows_11.png"
+    },
+    {
+      "name": "Yahoo",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Yahoo.png"
+    },
+    {
+      "name": "Yahoo_1",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/Yahoo_1.png"
+    },
+    {
+      "name": "iCloud",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services/iCloud.png"
+    }
+  ]
+}

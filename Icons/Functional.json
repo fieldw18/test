@@ -1,0 +1,286 @@
+{
+  "name": "Functional",
+  "description": "功能类（直连 / 拒绝 / 邮件 / NAS ...） · 70 枚",
+  "icons": [
+    {
+      "name": "NAS(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/NAS%281%29.png"
+    },
+    {
+      "name": "NAS(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/NAS%282%29.png"
+    },
+    {
+      "name": "NAS",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/NAS.png"
+    },
+    {
+      "name": "ad(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/ad%282%29.png"
+    },
+    {
+      "name": "ad(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/ad%283%29.png"
+    },
+    {
+      "name": "ad(4)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/ad%284%29.png"
+    },
+    {
+      "name": "ad(5)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/ad%285%29.png"
+    },
+    {
+      "name": "ad(6)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/ad%286%29.png"
+    },
+    {
+      "name": "ad(7)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/ad%287%29.png"
+    },
+    {
+      "name": "ad",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/ad.png"
+    },
+    {
+      "name": "blacklist(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/blacklist%281%29.png"
+    },
+    {
+      "name": "blacklist",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/blacklist.png"
+    },
+    {
+      "name": "chaxun(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/chaxun%282%29.png"
+    },
+    {
+      "name": "chaxun(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/chaxun%283%29.png"
+    },
+    {
+      "name": "chaxun",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/chaxun.png"
+    },
+    {
+      "name": "direct(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/direct%281%29.png"
+    },
+    {
+      "name": "direct(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/direct%282%29.png"
+    },
+    {
+      "name": "direct",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/direct.png"
+    },
+    {
+      "name": "game(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/game%281%29.png"
+    },
+    {
+      "name": "game(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/game%282%29.png"
+    },
+    {
+      "name": "game(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/game%283%29.png"
+    },
+    {
+      "name": "game",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/game.png"
+    },
+    {
+      "name": "home(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/home%281%29.png"
+    },
+    {
+      "name": "home(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/home%282%29.png"
+    },
+    {
+      "name": "home(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/home%283%29.png"
+    },
+    {
+      "name": "home",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/home.png"
+    },
+    {
+      "name": "ip",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/ip.png"
+    },
+    {
+      "name": "jichang",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/jichang.png"
+    },
+    {
+      "name": "lightning(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/lightning%281%29.png"
+    },
+    {
+      "name": "lightning(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/lightning%282%29.png"
+    },
+    {
+      "name": "lightning(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/lightning%283%29.png"
+    },
+    {
+      "name": "lightning(4)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/lightning%284%29.png"
+    },
+    {
+      "name": "lightning(5)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/lightning%285%29.png"
+    },
+    {
+      "name": "lightning(6)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/lightning%286%29.png"
+    },
+    {
+      "name": "lightning",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/lightning.png"
+    },
+    {
+      "name": "liuliang(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/liuliang%281%29.png"
+    },
+    {
+      "name": "liuliang(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/liuliang%282%29.png"
+    },
+    {
+      "name": "liuliang(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/liuliang%283%29.png"
+    },
+    {
+      "name": "liuliang(4)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/liuliang%284%29.png"
+    },
+    {
+      "name": "liuliang(5)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/liuliang%285%29.png"
+    },
+    {
+      "name": "liuliang(6)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/liuliang%286%29.png"
+    },
+    {
+      "name": "liuliang",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/liuliang.png"
+    },
+    {
+      "name": "mail(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/mail%281%29.png"
+    },
+    {
+      "name": "mail(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/mail%282%29.png"
+    },
+    {
+      "name": "mail(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/mail%283%29.png"
+    },
+    {
+      "name": "mail",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/mail.png"
+    },
+    {
+      "name": "play(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/play%281%29.png"
+    },
+    {
+      "name": "play(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/play%282%29.png"
+    },
+    {
+      "name": "play",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/play.png"
+    },
+    {
+      "name": "quanqiu(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/quanqiu%281%29.png"
+    },
+    {
+      "name": "quanqiu(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/quanqiu%282%29.png"
+    },
+    {
+      "name": "quanqiu(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/quanqiu%283%29.png"
+    },
+    {
+      "name": "quanqiu(4)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/quanqiu%284%29.png"
+    },
+    {
+      "name": "quanqiu",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/quanqiu.png"
+    },
+    {
+      "name": "qunhuiguanjia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/qunhuiguanjia.png"
+    },
+    {
+      "name": "rocket(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/rocket%281%29.png"
+    },
+    {
+      "name": "rocket(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/rocket%282%29.png"
+    },
+    {
+      "name": "rocket(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/rocket%283%29.png"
+    },
+    {
+      "name": "rocket(4)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/rocket%284%29.png"
+    },
+    {
+      "name": "rocket(5)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/rocket%285%29.png"
+    },
+    {
+      "name": "rocket(6)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/rocket%286%29.png"
+    },
+    {
+      "name": "rocket",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/rocket.png"
+    },
+    {
+      "name": "yu(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/yu%281%29.png"
+    },
+    {
+      "name": "yu(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/yu%282%29.png"
+    },
+    {
+      "name": "yu",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/yu.png"
+    },
+    {
+      "name": "zhuanyi(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/zhuanyi%281%29.png"
+    },
+    {
+      "name": "zhuanyi(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/zhuanyi%282%29.png"
+    },
+    {
+      "name": "zhuanyi(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/zhuanyi%283%29.png"
+    },
+    {
+      "name": "zhuanyi(4)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/zhuanyi%284%29.png"
+    },
+    {
+      "name": "zhuanyi",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional/zhuanyi.png"
+    }
+  ]
+}

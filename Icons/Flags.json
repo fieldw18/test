@@ -1,0 +1,530 @@
+{
+  "name": "Flags",
+  "description": "国旗 / 地区 / 地图 · 131 枚",
+  "icons": [
+    {
+      "name": "AU",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/AU.png"
+    },
+    {
+      "name": "Africa_Map",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Africa_Map.png"
+    },
+    {
+      "name": "America_Map",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/America_Map.png"
+    },
+    {
+      "name": "Argentina(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Argentina%281%29.png"
+    },
+    {
+      "name": "Argentina(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Argentina%282%29.png"
+    },
+    {
+      "name": "Argentina",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Argentina.png"
+    },
+    {
+      "name": "Asia_Map",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Asia_Map.png"
+    },
+    {
+      "name": "Australia(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Australia%281%29.png"
+    },
+    {
+      "name": "Australia(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Australia%282%29.png"
+    },
+    {
+      "name": "Australia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Australia.png"
+    },
+    {
+      "name": "Australia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Australia_lige.png"
+    },
+    {
+      "name": "BR",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/BR.png"
+    },
+    {
+      "name": "Brasil(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Brasil%281%29.png"
+    },
+    {
+      "name": "Brasil(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Brasil%282%29.png"
+    },
+    {
+      "name": "Brasil",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Brasil.png"
+    },
+    {
+      "name": "Brazil",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Brazil.png"
+    },
+    {
+      "name": "CA",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/CA.png"
+    },
+    {
+      "name": "CN",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/CN.png"
+    },
+    {
+      "name": "Canada",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Canada.png"
+    },
+    {
+      "name": "China",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/China.png"
+    },
+    {
+      "name": "China_Map",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/China_Map.png"
+    },
+    {
+      "name": "DE",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/DE.png"
+    },
+    {
+      "name": "EG",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/EG.png"
+    },
+    {
+      "name": "EU",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/EU.png"
+    },
+    {
+      "name": "Egypt",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Egypt.png"
+    },
+    {
+      "name": "Europe_Map",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Europe_Map.png"
+    },
+    {
+      "name": "EuropeanUnion(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/EuropeanUnion%281%29.png"
+    },
+    {
+      "name": "EuropeanUnion(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/EuropeanUnion%282%29.png"
+    },
+    {
+      "name": "EuropeanUnion",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/EuropeanUnion.png"
+    },
+    {
+      "name": "European_Union",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/European_Union.png"
+    },
+    {
+      "name": "FI",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/FI.png"
+    },
+    {
+      "name": "FR",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/FR.png"
+    },
+    {
+      "name": "FederalRepublicofNigeria(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/FederalRepublicofNigeria%281%29.png"
+    },
+    {
+      "name": "FederalRepublicofNigeria(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/FederalRepublicofNigeria%282%29.png"
+    },
+    {
+      "name": "FederalRepublicofNigeria",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/FederalRepublicofNigeria.png"
+    },
+    {
+      "name": "Finland",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Finland.png"
+    },
+    {
+      "name": "France",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/France.png"
+    },
+    {
+      "name": "Germany(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Germany%281%29.png"
+    },
+    {
+      "name": "Germany(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Germany%282%29.png"
+    },
+    {
+      "name": "Germany",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Germany.png"
+    },
+    {
+      "name": "Germany",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Germany_lige.png"
+    },
+    {
+      "name": "HK",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/HK.png"
+    },
+    {
+      "name": "Hong_Kong",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Hong_Kong.png"
+    },
+    {
+      "name": "Hongkong(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Hongkong%281%29.png"
+    },
+    {
+      "name": "Hongkong(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Hongkong%282%29.png"
+    },
+    {
+      "name": "Hongkong(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Hongkong%283%29.png"
+    },
+    {
+      "name": "Hongkong",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Hongkong.png"
+    },
+    {
+      "name": "IN",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/IN.png"
+    },
+    {
+      "name": "India(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/India%281%29.png"
+    },
+    {
+      "name": "India(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/India%282%29.png"
+    },
+    {
+      "name": "India",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/India.png"
+    },
+    {
+      "name": "India",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/India_lige.png"
+    },
+    {
+      "name": "JP",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/JP.png"
+    },
+    {
+      "name": "Japan(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Japan%281%29.png"
+    },
+    {
+      "name": "Japan(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Japan%282%29.png"
+    },
+    {
+      "name": "Japan(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Japan%283%29.png"
+    },
+    {
+      "name": "Japan",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Japan.png"
+    },
+    {
+      "name": "KR",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/KR.png"
+    },
+    {
+      "name": "Korea(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Korea%281%29.png"
+    },
+    {
+      "name": "Korea(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Korea%282%29.png"
+    },
+    {
+      "name": "Korea",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Korea.png"
+    },
+    {
+      "name": "Korea",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Korea_lige.png"
+    },
+    {
+      "name": "MO",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/MO.png"
+    },
+    {
+      "name": "MY",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/MY.png"
+    },
+    {
+      "name": "Macao(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Macao%281%29.png"
+    },
+    {
+      "name": "Macao(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Macao%282%29.png"
+    },
+    {
+      "name": "Macao",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Macao.png"
+    },
+    {
+      "name": "Macao",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Macao_lige.png"
+    },
+    {
+      "name": "Malaysia(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Malaysia%281%29.png"
+    },
+    {
+      "name": "Malaysia(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Malaysia%282%29.png"
+    },
+    {
+      "name": "Malaysia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Malaysia.png"
+    },
+    {
+      "name": "Malaysia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Malaysia_lige.png"
+    },
+    {
+      "name": "Netherlands(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Netherlands%281%29.png"
+    },
+    {
+      "name": "Netherlands(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Netherlands%282%29.png"
+    },
+    {
+      "name": "Netherlands",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Netherlands.png"
+    },
+    {
+      "name": "NorthKorea(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/NorthKorea%281%29.png"
+    },
+    {
+      "name": "NorthKorea(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/NorthKorea%282%29.png"
+    },
+    {
+      "name": "NorthKorea",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/NorthKorea.png"
+    },
+    {
+      "name": "Null_Nation",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Null_Nation.png"
+    },
+    {
+      "name": "Oceania_Map",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Oceania_Map.png"
+    },
+    {
+      "name": "PH",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/PH.png"
+    },
+    {
+      "name": "Philippines",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Philippines.png"
+    },
+    {
+      "name": "Poland(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Poland%282%29.png"
+    },
+    {
+      "name": "Poland(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Poland%283%29.png"
+    },
+    {
+      "name": "Poland",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Poland.png"
+    },
+    {
+      "name": "RU",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/RU.png"
+    },
+    {
+      "name": "RepublicofthePhilippines(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/RepublicofthePhilippines%281%29.png"
+    },
+    {
+      "name": "RepublicofthePhilippines(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/RepublicofthePhilippines%282%29.png"
+    },
+    {
+      "name": "RepublicofthePhilippines",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/RepublicofthePhilippines.png"
+    },
+    {
+      "name": "Russia(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Russia%281%29.png"
+    },
+    {
+      "name": "Russia(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Russia%282%29.png"
+    },
+    {
+      "name": "Russia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Russia.png"
+    },
+    {
+      "name": "Russia",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Russia_lige.png"
+    },
+    {
+      "name": "SG",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/SG.png"
+    },
+    {
+      "name": "Singapore",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Singapore.png"
+    },
+    {
+      "name": "Spain(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Spain%282%29.png"
+    },
+    {
+      "name": "Spain",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Spain.png"
+    },
+    {
+      "name": "TH",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/TH.png"
+    },
+    {
+      "name": "TR",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/TR.png"
+    },
+    {
+      "name": "TW",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/TW.png"
+    },
+    {
+      "name": "Thailand(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Thailand%281%29.png"
+    },
+    {
+      "name": "Thailand(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Thailand%282%29.png"
+    },
+    {
+      "name": "Thailand",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Thailand.png"
+    },
+    {
+      "name": "Thailand",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Thailand_lige.png"
+    },
+    {
+      "name": "Turkey(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Turkey%281%29.png"
+    },
+    {
+      "name": "Turkey(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Turkey%282%29.png"
+    },
+    {
+      "name": "Turkey",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Turkey.png"
+    },
+    {
+      "name": "Turkey",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/Turkey_lige.png"
+    },
+    {
+      "name": "UK",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/UK.png"
+    },
+    {
+      "name": "UN",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/UN.png"
+    },
+    {
+      "name": "US(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/US%281%29.png"
+    },
+    {
+      "name": "US(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/US%282%29.png"
+    },
+    {
+      "name": "US",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/US.png"
+    },
+    {
+      "name": "US",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/US_lige.png"
+    },
+    {
+      "name": "UnitedKingdom(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/UnitedKingdom%281%29.png"
+    },
+    {
+      "name": "UnitedKingdom(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/UnitedKingdom%282%29.png"
+    },
+    {
+      "name": "UnitedKingdom",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/UnitedKingdom.png"
+    },
+    {
+      "name": "United_Kingdom",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/United_Kingdom.png"
+    },
+    {
+      "name": "United_Nations",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/United_Nations.png"
+    },
+    {
+      "name": "United_States",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/United_States.png"
+    },
+    {
+      "name": "United_States_Map",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/United_States_Map.png"
+    },
+    {
+      "name": "World_Map",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/World_Map.png"
+    },
+    {
+      "name": "chinese",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/chinese.png"
+    },
+    {
+      "name": "singapore(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/singapore%281%29.png"
+    },
+    {
+      "name": "singapore(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/singapore%282%29.png"
+    },
+    {
+      "name": "singapore",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/singapore.png"
+    },
+    {
+      "name": "taiwan(1)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/taiwan%281%29.png"
+    },
+    {
+      "name": "taiwan(2)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/taiwan%282%29.png"
+    },
+    {
+      "name": "taiwan(3)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/taiwan%283%29.png"
+    },
+    {
+      "name": "taiwan(4)",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/taiwan%284%29.png"
+    },
+    {
+      "name": "taiwan",
+      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags/taiwan.png"
+    }
+  ]
+}
