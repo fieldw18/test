@@ -1,5 +1,8 @@
 # 规则名称: Alibaba
 # 规则统计: 1320
+# 更新时间：2025-08-12 02:08:43
+
+no_resolve: true
 
 domain_suffix_set:
   - 10029.com
@@ -1326,4 +1329,3 @@ ip_cidr_set:
 
 ip_cidr6_set:
   - 2400:b200::/32
-

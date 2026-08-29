@@ -1,5 +1,8 @@
 # 规则名称: Twitter
 # 规则统计: 33
+# 更新时间：2025-09-28 02:08:26
+
+no_resolve: true
 
 domain_suffix_set:
   - ads-twitter.com
@@ -39,4 +42,3 @@ ip_cidr_set:
   - 202.160.128.0/22
   - 209.237.192.0/19
   - 69.195.160.0/19
-

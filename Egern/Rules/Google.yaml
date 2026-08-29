@@ -1,5 +1,8 @@
 # 规则名称: Google
-# 规则统计: 702
+# 规则统计: 698
+# 更新时间：2026-05-12 02:38:11
+
+no_resolve: true
 
 domain_set:
   - voice.telephony.goog
@@ -202,7 +205,6 @@ domain_suffix_set:
   - doubleclick-cn.net
   - doubleclick.com
   - doubleclick.net
-  - download.qatp1.net
   - episodic.com
   - fastlane.ci
   - fastlane.tools
@@ -551,7 +553,6 @@ domain_suffix_set:
   - meet.new
   - mfg-inspector.com
   - mobileview.page
-  - monitoring.qpdp1.net
   - moodstocks.com
   - near.by
   - nest.com
@@ -595,12 +596,8 @@ domain_suffix_set:
   - projectara.com
   - projectbaseline.com
   - publishproxy.com
-  - qagpublic.qatp1.net
-  - qgadmin.qcpp1.net
   - qiao-cn.com
   - qpx.googleflights.net
-  - qualysapi.qatp1.net
-  - qualysguard.qpdp1.net
   - questvisual.com
   - quickoffice.com
   - quiksee.com
@@ -617,7 +614,6 @@ domain_suffix_set:
   - run.app
   - savethedate.foo
   - saynow.com
-  - scanservice1.qcpp1.net
   - schema.org
   - schemer.com
   - screenwisetrends.com
@@ -713,3 +709,7 @@ ip_cidr_set:
 ip_cidr6_set:
   - 2620:120:e000::/40
 
+user_agent_set:
+  - '%E4%BA%91%E7%AB%AF%E7%A1%AC%E7%9B%98*'
+  - '*com.google.Drive*'
+  - 'Google.Drive*'

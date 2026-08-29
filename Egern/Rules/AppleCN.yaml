@@ -1,5 +1,9 @@
 # 规则名称: AppleCN
-# 规则统计: 167
+# 规则统计: 218
+# 更新时间：2026-08-29 23:23:35
+
+domain_set:
+  - www-cdn.icloud.com.akadns.net
 
 domain_suffix_set:
   - a1.mzstatic.com
@@ -14,7 +18,10 @@ domain_suffix_set:
   - app-site-association.cdn-apple.com
   - appldnld.apple.com
   - appldnld.g.aaplimg.com
+  - apple-icloud.cn
+  - appleicloud.cn
   - appleid.cdn-apple.com
+  - applemx-icloud.com
   - apps.apple.com
   - apps.mzstatic.com
   - bag-cdn.itunes-apple.com.akadns.net
@@ -36,6 +43,7 @@ domain_suffix_set:
   - cl1.apple.com
   - cl2-cn.apple.com
   - cl2.apple.com
+  - cl2.apple.com.edgekey.net.globalredir.akadns.net
   - cl3-cdn.origin-apple.com.akadns.net
   - cl3.apple.com
   - cl4-cdn.origin-apple.com.akadns.net
@@ -60,12 +68,14 @@ domain_suffix_set:
   - gs-loc-cn.apple.com
   - gs-loc.apple.com
   - gsp10-ssl-cn.ls.apple.com
+  - gsp11-cn.ls.apple.com
   - gsp12-cn.ls.apple.com
   - gsp13-cn.ls.apple.com
   - gsp4-cn.ls.apple.com
   - gsp4-cn.ls.apple.com.edgekey.net.globalredir.akadns.net
   - gsp5-cn.ls.apple.com
   - gsp85-cn-ssl.ls.apple.com
+  - gspe11-2-cn-ssl.ls.apple.com
   - gspe19-2-cn-ssl.ls-apple.com.akadns.net
   - gspe19-2-cn-ssl.ls.apple.com
   - gspe19-cn-ssl.ls.apple.com
@@ -78,8 +88,50 @@ domain_suffix_set:
   - guzzoni.apple.com
   - guzzoni.smoot.apple.com
   - iadsdk.apple.com
-  - icloud-cdn.icloud.com.akadns.net
-  - icloud.cdn-apple.com
+  - icloud-apple.cn
+  - icloud-content.com
+  - icloud-content.com.cn
+  - icloud-isupport.com
+  - icloud-sandbox.com
+  - icloud.ch
+  - icloud.cn
+  - icloud.com
+  - icloud.com.cn
+  - icloud.de
+  - icloud.ee
+  - icloud.fi
+  - icloud.fr
+  - icloud.hu
+  - icloud.ie
+  - icloud.is
+  - icloud.jp
+  - icloud.lv
+  - icloud.net.cn
+  - icloud.om
+  - icloud.org
+  - icloud.pt
+  - icloud.ro
+  - icloud.se
+  - icloud.si
+  - icloud.sk
+  - icloud.vn
+  - icloudads.net
+  - icloudapple.cn
+  - icloudbox.net
+  - icloudbrowser.net
+  - icloude.com
+  - icloudhome.com
+  - icloudmail.net
+  - icloudmusic.net
+  - icloudnet.net
+  - icloudo.com
+  - icloudo.de
+  - icloudo.net
+  - icloudos.de
+  - icloudos.net
+  - icloudpay.net
+  - icloudsecure.net
+  - icloudsetup.com
   - images.apple.com.edgekey.net.globalredir.akadns.net
   - init-kt.apple.com
   - init-p01md-lb.push-apple.com.akadns.net
@@ -89,6 +141,7 @@ domain_suffix_set:
   - init-s01st-lb.push-apple.com.akadns.net
   - init-s01st.push.apple.com
   - init.ess.apple.com
+  - ios-icloud.com
   - iosapps.itunes.g.aaplimg.com
   - ipcdn.apple.com
   - iphone-ld.apple.com
@@ -107,25 +160,25 @@ domain_suffix_set:
   - itunes-apple.com.akadns.net
   - itunes.apple.com
   - itunesconnect.apple.com
+  - me.com
+  - mensura.cdn-apple.com
   - mesu-cdn.apple.com.akadns.net
   - mesu-china.apple.com.akadns.net
   - mesu.apple.com
   - ml.cdn-apple.com
   - music.apple.com
-  - ocsp-lb.apple.com.akadns.net
+  - myicloud.net
+  - mylcloud.net
   - ocsp.apple.com
-  - ocsp2-lb.apple.com.akadns.net
   - ocsp2.apple.com
   - oscdn.apple.com
   - oscdn.origin-apple.com.akadns.net
   - osxapps.itunes.g.aaplimg.com
   - pancake.apple.com
-  - pancake.cdn-apple.com.akadns.net
   - pba0.apple.com
   - probe.siri.apple.com
   - prod-support.apple-support.akadns.net
   - publicassets.cdn-apple.com
-  - reserve-prime.apple.com
   - s.mzstatic.com
   - seed-sequoia.siri.apple.com
   - seed-swallow.siri.apple.com
@@ -168,5 +221,5 @@ domain_suffix_set:
   - weatherkit.apple.com
   - www.apple.com
   - www.apple.com.edgekey.net.globalredir.akadns.net
+  - wwwicloud.com
   - xp.apple.com
-

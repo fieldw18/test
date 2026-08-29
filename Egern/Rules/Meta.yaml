@@ -1,5 +1,8 @@
 # 规则名称: Meta
 # 规则统计: 586
+# 更新时间：2025-06-06 09:16:56
+
+no_resolve: true
 
 domain_set:
   - graph.facebook.com
@@ -596,4 +599,3 @@ ip_cidr_set:
 
 asn_set:
   - '32934'
-

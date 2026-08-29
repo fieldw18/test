@@ -1,5 +1,6 @@
 # 规则名称: TikTok
-# 规则统计: 31
+# 规则统计: 32
+# 更新时间：2025-08-10 02:08:00
 
 domain_set:
   - lf16-effectcdn.byteeffecttos-g.com
@@ -38,3 +39,5 @@ domain_keyword_set:
   - musical.ly
   - tiktok
 
+user_agent_set:
+  - 'TikTok*'

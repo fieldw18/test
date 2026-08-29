@@ -1,5 +1,8 @@
 # 规则名称: Netflix
-# 规则统计: 1156
+# 规则统计: 1157
+# 更新时间：2025-06-06 09:16:54
+
+no_resolve: true
 
 domain_set:
   - e13252.dscg.akamaiedge.net
@@ -1167,3 +1170,5 @@ ip_cidr6_set:
   - 2a00:86c0::/32
   - 2a03:5640::/32
 
+user_agent_set:
+  - 'Argo*'

@@ -1,5 +1,8 @@
 # 规则名称: Tencent
-# 规则统计: 2518
+# 规则统计: 2523
+# 更新时间：2025-10-20 02:09:09
+
+no_resolve: true
 
 domain_suffix_set:
   - 001dl.cn
@@ -2523,3 +2526,9 @@ ip_cidr_set:
   - 27.159.95.0/32
   - 58.58.81.129/32
 
+user_agent_set:
+  - 'MOO%E9%9F%B3%E4%B9%90*'
+  - 'QQ%E9%9F%B3%E4%B9%90'
+  - 'TencentMidasConnect*'
+  - 'live4iphone*'
+  - 'qqlive4iphone*'

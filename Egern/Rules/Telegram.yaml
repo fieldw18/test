@@ -1,5 +1,8 @@
 # 规则名称: Telegram
 # 规则统计: 40
+# 更新时间：2025-09-10 02:08:26
+
+no_resolve: true
 
 domain_set:
   - api.imem.app
@@ -52,4 +55,3 @@ asn_set:
   - '59930'
   - '62014'
   - '62041'
-
