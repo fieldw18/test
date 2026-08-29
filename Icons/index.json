@@ -1,0 +1,71 @@
+{
+  "total": 1768,
+  "mirrored": true,
+  "categories": [
+    {
+      "category": "Flags",
+      "count": 131,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Flags.json"
+    },
+    {
+      "category": "Media",
+      "count": 99,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media.json"
+    },
+    {
+      "category": "Apps",
+      "count": 280,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Apps.json"
+    },
+    {
+      "category": "CNApps",
+      "count": 229,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/CNApps.json"
+    },
+    {
+      "category": "Services",
+      "count": 16,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Services.json"
+    },
+    {
+      "category": "Server",
+      "count": 9,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Server.json"
+    },
+    {
+      "category": "Common",
+      "count": 12,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Common.json"
+    },
+    {
+      "category": "Inhibition",
+      "count": 4,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Inhibition.json"
+    },
+    {
+      "category": "Functional",
+      "count": 70,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Functional.json"
+    },
+    {
+      "category": "ProxyTools",
+      "count": 30,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/ProxyTools.json"
+    },
+    {
+      "category": "Airport",
+      "count": 301,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Airport.json"
+    },
+    {
+      "category": "Emby",
+      "count": 513,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Emby.json"
+    },
+    {
+      "category": "Other",
+      "count": 74,
+      "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Other.json"
+    }
+  ]
+}
