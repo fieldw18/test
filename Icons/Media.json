@@ -4,399 +4,399 @@
   "icons": [
     {
       "name": "5iTV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/5iTV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/5iTV.png"
     },
     {
       "name": "AbemaTV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/AbemaTV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/AbemaTV.png"
     },
     {
       "name": "AfreecaTV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/AfreecaTV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/AfreecaTV.png"
     },
     {
       "name": "All4",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/All4.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/All4.png"
     },
     {
       "name": "Apple_Fitness+",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Apple_Fitness%2B.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_Fitness+.png"
     },
     {
       "name": "Apple_Fitness+_Letter",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Apple_Fitness%2B_Letter.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_Fitness+_Letter.png"
     },
     {
       "name": "Apple_Music",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Apple_Music.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_Music.png"
     },
     {
       "name": "Apple_TV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Apple_TV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_TV.png"
     },
     {
       "name": "Apple_TV_Plus",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Apple_TV_Plus.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_TV_Plus.png"
     },
     {
       "name": "BBC_iPlayer",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/BBC_iPlayer.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/BBC_iPlayer.png"
     },
     {
       "name": "BBC_iPlayer_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/BBC_iPlayer_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/BBC_iPlayer_1.png"
     },
     {
       "name": "BBC_iPlayer_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/BBC_iPlayer_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/BBC_iPlayer_2.png"
     },
     {
       "name": "Bahamut",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Bahamut.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Bahamut.png"
     },
     {
       "name": "DAZN",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/DAZN.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/DAZN.png"
     },
     {
       "name": "DAZN_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/DAZN_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/DAZN_1.png"
     },
     {
       "name": "DAZN_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/DAZN_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/DAZN_2.png"
     },
     {
       "name": "Disney+",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Disney%2B.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney+.png"
     },
     {
       "name": "Disney+_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Disney%2B_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney+_1.png"
     },
     {
       "name": "Disney+_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Disney%2B_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney+_2.png"
     },
     {
       "name": "Disney",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Disney.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney.png"
     },
     {
       "name": "ESPN+",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/ESPN%2B.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ESPN+.png"
     },
     {
       "name": "ESPN+_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/ESPN%2B_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ESPN+_1.png"
     },
     {
       "name": "ESPN+_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/ESPN%2B_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ESPN+_2.png"
     },
     {
       "name": "FOX",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/FOX.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/FOX.png"
     },
     {
       "name": "HBO",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/HBO.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HBO.png"
     },
     {
       "name": "HBO_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/HBO_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HBO_1.png"
     },
     {
       "name": "HBO_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/HBO_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HBO_2.png"
     },
     {
       "name": "HBO_GO",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/HBO_GO.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HBO_GO.png"
     },
     {
       "name": "HBO_GO_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/HBO_GO_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HBO_GO_1.png"
     },
     {
       "name": "HBO_GO_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/HBO_GO_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HBO_GO_2.png"
     },
     {
       "name": "HBO_Max",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/HBO_Max.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HBO_Max.png"
     },
     {
       "name": "Hulu",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Hulu.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hulu.png"
     },
     {
       "name": "Hulu_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Hulu_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hulu_1.png"
     },
     {
       "name": "ITV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/ITV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ITV.png"
     },
     {
       "name": "ITV_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/ITV_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ITV_1.png"
     },
     {
       "name": "ITV_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/ITV_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ITV_2.png"
     },
     {
       "name": "JOOX",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/JOOX.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/JOOX.png"
     },
     {
       "name": "KKBOX",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/KKBOX.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/KKBOX.png"
     },
     {
       "name": "KKTV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/KKTV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/KKTV.png"
     },
     {
       "name": "LiTV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/LiTV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/LiTV.png"
     },
     {
       "name": "LineTV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/LineTV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/LineTV.png"
     },
     {
       "name": "My5",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/My5.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/My5.png"
     },
     {
       "name": "NBC",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/NBC.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/NBC.png"
     },
     {
       "name": "Netease_Music",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Netease_Music.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netease_Music.png"
     },
     {
       "name": "Netease_Music_Unlock",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Netease_Music_Unlock.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netease_Music_Unlock.png"
     },
     {
       "name": "Netflix",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Netflix.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png"
     },
     {
       "name": "Netflix_Letter",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Netflix_Letter.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix_Letter.png"
     },
     {
       "name": "PBS",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/PBS.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/PBS.png"
     },
     {
       "name": "Pandora",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Pandora.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Pandora.png"
     },
     {
       "name": "Paramount",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Paramount.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Paramount.png"
     },
     {
       "name": "Peacock",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Peacock.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Peacock.png"
     },
     {
       "name": "Peacock_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Peacock_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Peacock_1.png"
     },
     {
       "name": "Peacock_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Peacock_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Peacock_2.png"
     },
     {
       "name": "Pornhub",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Pornhub.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Pornhub.png"
     },
     {
       "name": "Pornhub_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Pornhub_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Pornhub_1.png"
     },
     {
       "name": "Pornhub_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Pornhub_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Pornhub_2.png"
     },
     {
       "name": "Prime_Video",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Prime_Video.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Prime_Video.png"
     },
     {
       "name": "Prime_Video_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Prime_Video_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Prime_Video_1.png"
     },
     {
       "name": "Prime_Video_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Prime_Video_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Prime_Video_2.png"
     },
     {
       "name": "Sling_TV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Sling_TV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Sling_TV.png"
     },
     {
       "name": "Spotify",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Spotify.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png"
     },
     {
       "name": "Star+",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Star%2B.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Star+.png"
     },
     {
       "name": "Star_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Star_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Star_1.png"
     },
     {
       "name": "TIDAL",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/TIDAL.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TIDAL.png"
     },
     {
       "name": "TIDAL_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/TIDAL_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TIDAL_1.png"
     },
     {
       "name": "TIDAL_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/TIDAL_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TIDAL_2.png"
     },
     {
       "name": "TVB",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/TVB.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TVB.png"
     },
     {
       "name": "TikTok",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/TikTok.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png"
     },
     {
       "name": "TikTok_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/TikTok_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok_1.png"
     },
     {
       "name": "TikTok_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/TikTok_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok_2.png"
     },
     {
       "name": "Tubi",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Tubi.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Tubi.png"
     },
     {
       "name": "Twitch",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Twitch.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Twitch.png"
     },
     {
       "name": "Vimeo",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Vimeo.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Vimeo.png"
     },
     {
       "name": "Viu",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/Viu.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Viu.png"
     },
     {
       "name": "ViuTV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/ViuTV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ViuTV.png"
     },
     {
       "name": "WeTV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/WeTV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/WeTV.png"
     },
     {
       "name": "WeTV_Letter",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/WeTV_Letter.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/WeTV_Letter.png"
     },
     {
       "name": "YouTube",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/YouTube.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png"
     },
     {
       "name": "YouTube_Letter",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/YouTube_Letter.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube_Letter.png"
     },
     {
       "name": "YouTube_Music",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/YouTube_Music.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube_Music.png"
     },
     {
       "name": "bilibili",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/bilibili.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png"
     },
     {
       "name": "bilibili_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/bilibili_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili_1.png"
     },
     {
       "name": "bilibili_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/bilibili_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili_2.png"
     },
     {
       "name": "bilibili_3",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/bilibili_3.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili_3.png"
     },
     {
       "name": "bilibili_4",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/bilibili_4.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili_4.png"
     },
     {
       "name": "deezer",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/deezer.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/deezer.png"
     },
     {
       "name": "deezer_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/deezer_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/deezer_1.png"
     },
     {
       "name": "deezer_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/deezer_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/deezer_2.png"
     },
     {
       "name": "discovery+",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/discovery%2B.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/discovery+.png"
     },
     {
       "name": "encoreTVB",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/encoreTVB.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/encoreTVB.png"
     },
     {
       "name": "friDay",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/friDay.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/friDay.png"
     },
     {
       "name": "fuboTV",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/fuboTV.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/fuboTV.png"
     },
     {
       "name": "iQIYI",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/iQIYI.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/iQIYI.png"
     },
     {
       "name": "iQIYI&bilibili",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/iQIYI_bilibili.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/iQIYI&bilibili.png"
     },
     {
       "name": "myTV_SUPER",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/myTV_SUPER.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/myTV_SUPER.png"
     },
     {
       "name": "niconico",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/niconico.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/niconico.png"
     },
     {
       "name": "niconico_1",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/niconico_1.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/niconico_1.png"
     },
     {
       "name": "niconico_2",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/niconico_2.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/niconico_2.png"
     },
     {
       "name": "nowe",
-      "url": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Media/nowe.png"
+      "url": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/nowe.png"
     }
   ]
 }
