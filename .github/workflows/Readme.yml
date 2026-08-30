@@ -1,0 +1,329 @@
+name: Readme
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
+  push:
+    paths:
+      - 'Loon/Rules/**'
+      - 'Egern/Rules/**'
+      - 'Icons/*.json'
+      - '.github/workflows/Readme.yml'
+
+concurrency:
+  group: readme-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+env:
+  TZ: Asia/Shanghai
+  README_BRANCH: main
+
+jobs:
+  readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: main
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Generate README
+        shell: bash
+        run: |
+          python3 - <<'PYEOF'
+          """扫描仓库产物生成 README.md（独立运行，不依赖 Build.yml）。"""
+
+          import json
+          import os
+          import pathlib
+          import re
+          import urllib.parse
+
+          REPO = os.environ.get("GITHUB_REPOSITORY", "8wfield/Personal")
+          BRANCH = os.environ.get("README_BRANCH", "main")
+          BASE = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}"
+
+          ICON_FALLBACK = {
+              "Egern": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/02ProxySoftLogo/Egern.png",
+              "Loon": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/02ProxySoftLogo/Loon.png",
+          }
+
+          def client_icon(app):
+              """优先用本仓库 Icons/ProxyTools 里的图标，其次读清单里的 URL，最后回退上游。"""
+              local = pathlib.Path(f"Icons/ProxyTools/{app}.png")
+              if local.exists():
+                  return f"{BASE}/Icons/ProxyTools/{app}.png"
+              manifest = pathlib.Path("Icons/ProxyTools.json")
+              if manifest.exists():
+                  try:
+                      data = json.loads(manifest.read_text(encoding="utf-8"))
+                      for entry in data.get("icons", []):
+                          if entry.get("name", "").strip().lower() == app.lower():
+                              return entry["url"]
+                  except (OSError, json.JSONDecodeError, KeyError):
+                      pass
+              return ICON_FALLBACK[app]
+
+          ICON_EGERN = client_icon("Egern")
+          ICON_LOON = client_icon("Loon")
+
+          CN = {
+              "Flags": "国旗地区",
+              "Media": "流媒体",
+              "Apps": "海外应用",
+              "CNApps": "国内应用",
+              "Services": "厂商服务",
+              "Server": "服务器线路",
+              "Common": "常用策略",
+              "Inhibition": "广告拦截",
+              "Functional": "功能图标",
+              "ProxyTools": "代理客户端",
+              "Airport": "机场",
+              "Emby": "Emby",
+              "Other": "其它",
+          }
+          ICON_ORDER = list(CN.keys())
+          SKIP_MANIFEST = {"Icons-all", "index"}
+
+          def read_header(path):
+              """从规则文件头部取 (规则统计, 更新时间)。"""
+              try:
+                  head = "\n".join(path.read_text(encoding="utf-8", errors="replace").split("\n")[:4])
+              except OSError:
+                  return "-", "-"
+              count = re.search(r"规则统计: (\d+)", head)
+              stamp = re.search(r"更新时间：(.+)", head)
+              return (count.group(1) if count else "-",
+                      stamp.group(1).strip() if stamp else "-")
+
+          def egern_link(name):
+              """Egern: match 参数直接跟原始 URL（不做 percent-encoding）。"""
+              return (f"https://egernapp.com/rules/new?type=rule_set"
+                      f"&match={BASE}/Egern/Rules/{name}.yaml&policy=DIRECT")
+
+          def loon_rule_link(name):
+              url = urllib.parse.quote(f"{BASE}/Loon/Rules/{name}.list", safe="")
+              return f"https://www.nsloon.com/openloon/import?rules={url}"
+
+          def loon_icon_link(cat):
+              url = urllib.parse.quote(f"{BASE}/Icons/{cat}.json", safe="")
+              return f"https://www.nsloon.com/openloon/import?iconset={url}"
+
+          def btn(icon, text, url):
+              return f'[<img src="{icon}" width="16" align="absmiddle"> {text}]({url})'
+
+          def collect_rules():
+              egern = {p.stem for p in pathlib.Path("Egern/Rules").glob("*.yaml")} \
+                  if pathlib.Path("Egern/Rules").is_dir() else set()
+              loon = {p.stem for p in pathlib.Path("Loon/Rules").glob("*.list")} \
+                  if pathlib.Path("Loon/Rules").is_dir() else set()
+              rows = []
+              for name in sorted(egern | loon):
+                  count, stamp = read_header(pathlib.Path(f"Loon/Rules/{name}.list"))
+                  if count == "-":
+                      count, stamp = read_header(pathlib.Path(f"Egern/Rules/{name}.yaml"))
+                  cells = [f"`{name}`", count, stamp]
+                  cells.append(btn(ICON_EGERN, "导入", egern_link(name)) if name in egern else "—")
+                  cells.append(btn(ICON_LOON, "导入", loon_rule_link(name)) if name in loon else "—")
+                  rows.append("| " + " | ".join(cells) + " |")
+              return rows, len(egern | loon)
+
+          def collect_icons():
+              root = pathlib.Path("Icons")
+              if not root.is_dir():
+                  return [], 0, 0
+              found = {}
+              for path in root.glob("*.json"):
+                  if path.stem in SKIP_MANIFEST:
+                      continue
+                  try:
+                      data = json.loads(path.read_text(encoding="utf-8"))
+                      found[path.stem] = len(data.get("icons", []))
+                  except (OSError, json.JSONDecodeError):
+                      continue
+              ordered = [c for c in ICON_ORDER if c in found]
+              ordered += sorted(c for c in found if c not in ICON_ORDER)
+              rows = []
+              for cat in ordered:
+                  rows.append("| " + " | ".join([
+                      f"**{CN.get(cat, cat)}**",
+                      f"`{cat}`",
+                      str(found[cat]),
+                      btn(ICON_LOON, "导入", loon_icon_link(cat)),
+                  ]) + " |")
+              return rows, len(ordered), sum(found.values())
+
+          def main():
+              rule_rows, rule_count = collect_rules()
+              icon_rows, icon_cats, icon_total = collect_icons()
+
+              md = f"""<div align="center">
+
+          # 🛰️ Personal Rules
+
+          **Loon · Egern 规则与图标集 · 自动同步上游**
+
+          ![rules](https://img.shields.io/badge/规则-{rule_count}%20组-1f6feb?style=flat-square)
+          ![icons](https://img.shields.io/badge/图标-{icon_total}%20枚%20%2F%20{icon_cats}%20类-8957e5?style=flat-square)
+          ![update](https://img.shields.io/badge/更新-每%208%20小时-2da44e?style=flat-square)
+          ![usage](https://img.shields.io/badge/用途-学习自用-orange?style=flat-square)
+
+          <sub>规则与图标均搜集整理自网络开源项目，仅供个人学习交流</sub>
+
+          </div>
+
+          ---
+
+          ## 📱 客户端支持
+
+          <table>
+          <tr>
+          <td align="center" width="150">
+          <img src="{ICON_EGERN}" width="64"><br>
+          <b>Egern</b><br>
+          <sub>规则</sub>
+          </td>
+          <td>
+
+          导入前缀（`match` 直接跟原始链接）：
+
+          ```
+          https://egernapp.com/rules/new?type=rule_set&match={{URL}}&policy=DIRECT
+          ```
+
+          导入后可在 Egern 内按需调整 `policy`，默认 `DIRECT`。
+
+          </td>
+          </tr>
+          <tr>
+          <td align="center" width="150">
+          <img src="{ICON_LOON}" width="64"><br>
+          <b>Loon</b><br>
+          <sub>规则 + 图标集</sub>
+          </td>
+          <td>
+
+          导入前缀（链接需 URL 编码）：
+
+          ```
+          规则   https://www.nsloon.com/openloon/import?rules=encode(URL)
+          图标集 https://www.nsloon.com/openloon/import?iconset=encode(URL)
+          ```
+
+          </td>
+          </tr>
+          </table>
+
+          ---
+
+          ## 📜 规则订阅
+
+          > 共 **{rule_count}** 组，点击按钮一键导入；「更新时间」跟随上游发布时间
+
+          | 规则组 | 条数 | 上游更新时间 | Egern | Loon |
+          | :--- | ---: | :--- | :---: | :---: |
+          {chr(10).join(rule_rows) if rule_rows else "| — | — | — | — | — |"}
+
+          ---
+
+          ## 🎨 图标集
+
+          > 共 **{icon_total}** 枚 / **{icon_cats}** 类，清单指向上游 CDN，不占用仓库体积
+
+          | 分类 | 标识 | 数量 | Loon |
+          | :--- | :--- | ---: | :---: |
+          {chr(10).join(icon_rows) if icon_rows else "| — | — | — | — |"}
+
+          <div align="center">
+          <sub>全量合并清单 <code>Icons/Icons-all.json</code> · 分类索引 <code>Icons/index.json</code></sub>
+          </div>
+
+          ---
+
+          ## 🙏 上游致谢
+
+          本仓库仅做聚合与格式转换，核心内容来自以下开源项目，感谢长期维护：
+
+          <table>
+          <tr>
+          <td align="center" width="88"><a href="https://github.com/blackmatrix7"><img src="https://github.com/blackmatrix7.png" width="52"><br><sub>blackmatrix7</sub></a></td>
+          <td align="center" width="88"><a href="https://github.com/Loyalsoldier"><img src="https://github.com/Loyalsoldier.png" width="52"><br><sub>Loyalsoldier</sub></a></td>
+          <td align="center" width="88"><a href="https://github.com/217heidai"><img src="https://github.com/217heidai.png" width="52"><br><sub>217heidai</sub></a></td>
+          <td align="center" width="88"><a href="https://github.com/TG-Twilight"><img src="https://github.com/TG-Twilight.png" width="52"><br><sub>TG-Twilight</sub></a></td>
+          <td align="center" width="88"><a href="https://github.com/Repcz"><img src="https://github.com/Repcz.png" width="52"><br><sub>Repcz</sub></a></td>
+          <td align="center" width="88"><a href="https://github.com/Koolson"><img src="https://github.com/Koolson.png" width="52"><br><sub>Koolson</sub></a></td>
+          <td align="center" width="88"><a href="https://github.com/lige47"><img src="https://github.com/lige47.png" width="52"><br><sub>lige47</sub></a></td>
+          </tr>
+          </table>
+
+          | 项目 | 用途 |
+          | :--- | :--- |
+          | [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | 主要规则来源 |
+          | [Loyalsoldier/surge-rules](https://github.com/Loyalsoldier/surge-rules) | Global / GFW / Apple 规则 |
+          | [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) | 去广告合并规则 |
+          | [TG-Twilight/AWAvenue-Ads-Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule) | 秋风广告规则 |
+          | [privacy-protection-tools/anti-AD](https://github.com/privacy-protection-tools/anti-AD) | anti-AD 拦截列表 |
+          | [Repcz/Tool](https://github.com/Repcz/Tool) | 局域网 / 自定义规则 |
+          | [kelee.one](https://git.repcz.link/kelee.one/Tool) | AI / Speedtest 规则 |
+          | [Koolson/Qure](https://github.com/Koolson/Qure) | Qure 彩色图标集 |
+          | [lige47/QuanX-icon-rule](https://github.com/lige47/QuanX-icon-rule) | 应用 / 机场图标集 |
+          | [TFEL-Emby](https://emby-icon.vercel.app/) | Emby 图标集 |
+
+          ---
+
+          ## ⚠️ 声明
+
+          - 本仓库所有规则与图标 **均搜集整理自互联网开源项目**，仅用于个人学习与技术交流。
+          - 不对规则准确性、时效性作任何保证，**请勿用于商业或非法用途**。
+          - 内容版权归各原作者所有；如认为侵犯了您的权益，请提 Issue 联系删除。
+
+          ---
+
+          <div align="center">
+          <sub>由 GitHub Actions 自动构建 · 上游无更新时不产生提交</sub>
+          </div>
+          """
+
+              path = pathlib.Path("README.md")
+              if path.exists() and path.read_text(encoding="utf-8") == md:
+                  print("README.md 无变化")
+                  return
+              path.write_text(md, encoding="utf-8")
+              print(f"README.md 已更新：{rule_count} 组规则 / {icon_total} 枚图标 / {icon_cats} 类")
+
+          if __name__ == "__main__":
+              main()
+          PYEOF
+
+      - name: Commit README
+        shell: bash
+        run: |
+          set -uo pipefail
+
+          if [ -z "$(git status --porcelain README.md)" ]; then
+            echo 'README 无变化，跳过提交'
+            exit 0
+          fi
+
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add README.md
+          git commit -q -m "docs: 更新 README · $(date '+%Y-%m-%d %H:%M')"
+
+          for _ in 1 2 3 4 5; do
+            git push -q origin "HEAD:${GITHUB_REF_NAME:-main}" && exit 0
+            git pull --rebase --autostash -q origin "${GITHUB_REF_NAME:-main}" || true
+          done
+          echo '::error::push 失败'
+          exit 1
