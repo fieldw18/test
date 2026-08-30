@@ -1,6 +1,6 @@
 {
   "name": "Apps",
-  "description": "海外 App 与游戏 · 280 枚",
+  "description": "海外 App 与游戏 · 281 枚",
   "icons": [
     {
       "name": "1password",
@@ -825,6 +825,10 @@
     {
       "name": "linuxdo",
       "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/linuxdo.png"
+    },
+    {
+      "name": "longbridge",
+      "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/longbridge.png"
     },
     {
       "name": "max(1)",

@@ -1,6 +1,6 @@
 {
   "name": "CNApps",
-  "description": "国内 App · 229 枚",
+  "description": "国内 App · 231 枚",
   "icons": [
     {
       "name": "115(1)",
@@ -669,6 +669,14 @@
     {
       "name": "shunfeng",
       "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/03CNSoft/shunfeng.png"
+    },
+    {
+      "name": "siri(1)",
+      "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/03CNSoft/siri(1).png"
+    },
+    {
+      "name": "siri",
+      "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/03CNSoft/siri.png"
     },
     {
       "name": "soul",

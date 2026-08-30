@@ -1,6 +1,6 @@
 {
   "name": "ProxyTools",
-  "description": "代理客户端 Logo（Surge / Loon / QuanX / Egern ...） · 30 枚",
+  "description": "代理客户端 Logo（Surge / Loon / QuanX / Egern ...） · 31 枚",
   "icons": [
     {
       "name": "Egern",
@@ -101,6 +101,10 @@
     {
       "name": "Surge(9)",
       "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/02ProxySoftLogo/Surge(9).png"
+    },
+    {
+      "name": "loonsurgeEgern",
+      "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/02ProxySoftLogo/loonsurgeEgern.png"
     },
     {
       "name": "mihomo",
