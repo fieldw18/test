@@ -1,5 +1,5 @@
 {
-  "total": 1774,
+  "total": 1775,
   "mirrored": false,
   "categories": [
     {
@@ -54,7 +54,7 @@
     },
     {
       "category": "Airport",
-      "count": 302,
+      "count": 303,
       "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Airport.json"
     },
     {

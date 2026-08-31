@@ -1,6 +1,6 @@
 {
   "name": "Airport",
-  "description": "机场（订阅服务商）Logo · 302 枚",
+  "description": "机场（订阅服务商）Logo · 303 枚",
   "icons": [
     {
       "name": "69yun(1)",
@@ -1177,6 +1177,10 @@
     {
       "name": "youf",
       "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/06jichang/youf.png"
+    },
+    {
+      "name": "youtu",
+      "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/06jichang/youtu.png"
     },
     {
       "name": "ytoo",
