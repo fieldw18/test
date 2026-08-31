@@ -1,6 +1,6 @@
 # 规则名称: Global
-# 规则统计: 30036
-# 更新时间：2026-08-26 02:34:17
+# 规则统计: 30037
+# 更新时间：2026-08-30 04:17:26
 
 no_resolve: true
 
@@ -11479,6 +11479,7 @@ domain_suffix_set:
   - getlantern.org
   - getmalus.com
   - getmdl.io
+  - getmonero.org
   - getnews.jp
   - getoutline.org
   - getpaint.net
