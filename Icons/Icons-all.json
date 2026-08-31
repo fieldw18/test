@@ -1,6 +1,6 @@
 {
   "name": "Icons-all",
-  "description": "全部分类合并 · 1773 枚",
+  "description": "全部分类合并 · 1774 枚",
   "icons": [
     {
       "name": "105°",
@@ -4869,6 +4869,10 @@
     {
       "name": "RepublicofthePhilippines(2)",
       "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/01Country/RepublicofthePhilippines(2).png"
+    },
+    {
+      "name": "REX",
+      "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/03CNSoft/REX.png"
     },
     {
       "name": "riolu_notice",

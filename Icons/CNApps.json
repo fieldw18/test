@@ -1,6 +1,6 @@
 {
   "name": "CNApps",
-  "description": "国内 App · 231 枚",
+  "description": "国内 App · 232 枚",
   "icons": [
     {
       "name": "115(1)",
@@ -121,6 +121,10 @@
     {
       "name": "OpenList",
       "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/03CNSoft/OpenList.png"
+    },
+    {
+      "name": "REX",
+      "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/03CNSoft/REX.png"
     },
     {
       "name": "TMDB",

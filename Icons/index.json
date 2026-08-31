@@ -1,5 +1,5 @@
 {
-  "total": 1773,
+  "total": 1774,
   "mirrored": false,
   "categories": [
     {
@@ -19,7 +19,7 @@
     },
     {
       "category": "CNApps",
-      "count": 231,
+      "count": 232,
       "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/CNApps.json"
     },
     {
