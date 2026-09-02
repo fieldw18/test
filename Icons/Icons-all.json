@@ -1,6 +1,6 @@
 {
   "name": "Icons-all",
-  "description": "全部分类合并 · 1776 枚",
+  "description": "全部分类合并 · 1777 枚",
   "icons": [
     {
       "name": "105°",
@@ -6925,6 +6925,10 @@
     {
       "name": "yu(2)",
       "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/05icon/yu(2).png"
+    },
+    {
+      "name": "YuChu",
+      "url": "https://emby-icon.vercel.app/icons/YuChu.png"
     },
     {
       "name": "Yuebing",

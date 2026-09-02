@@ -1,6 +1,6 @@
 {
   "name": "Emby",
-  "description": "Emby 服务器图标 · 514 枚",
+  "description": "Emby 服务器图标 · 515 枚",
   "icons": [
     {
       "name": "105°",
@@ -1969,6 +1969,10 @@
     {
       "name": "Youno_Plus",
       "url": "https://emby-icon.vercel.app/icons/YounoPlus.PNG"
+    },
+    {
+      "name": "YuChu",
+      "url": "https://emby-icon.vercel.app/icons/YuChu.png"
     },
     {
       "name": "YuSen",

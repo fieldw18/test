@@ -1,5 +1,5 @@
 {
-  "total": 1776,
+  "total": 1777,
   "mirrored": false,
   "categories": [
     {
@@ -59,7 +59,7 @@
     },
     {
       "category": "Emby",
-      "count": 514,
+      "count": 515,
       "manifest": "https://cdn.jsdelivr.net/gh/fieldw18/test@main/Icons/Emby.json"
     },
     {
