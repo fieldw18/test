@@ -1,6 +1,6 @@
 {
   "name": "Emby",
-  "description": "Emby 服务器图标 · 513 枚",
+  "description": "Emby 服务器图标 · 514 枚",
   "icons": [
     {
       "name": "105°",
@@ -569,6 +569,10 @@
     {
       "name": "Feiyue_1",
       "url": "https://emby-icon.vercel.app/icons/Feiyue1.PNG"
+    },
+    {
+      "name": "FengHuoLun",
+      "url": "https://emby-icon.vercel.app/icons/FengHuoLun.png"
     },
     {
       "name": "Fenglinwan",

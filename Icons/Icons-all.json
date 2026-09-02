@@ -1,6 +1,6 @@
 {
   "name": "Icons-all",
-  "description": "全部分类合并 · 1775 枚",
+  "description": "全部分类合并 · 1776 枚",
   "icons": [
     {
       "name": "105°",
@@ -1957,6 +1957,10 @@
     {
       "name": "Feiyue_1",
       "url": "https://emby-icon.vercel.app/icons/Feiyue1.PNG"
+    },
+    {
+      "name": "FengHuoLun",
+      "url": "https://emby-icon.vercel.app/icons/FengHuoLun.png"
     },
     {
       "name": "fengling",
