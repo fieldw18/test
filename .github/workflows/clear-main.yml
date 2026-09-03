@@ -49,11 +49,14 @@ jobs:
 
       - name: Build rules
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 - <<'PYEOF'
           import concurrent.futures as futures
           import datetime as dt
           import email.utils
+          import json
           import os
           import re
           import sys
@@ -243,6 +246,39 @@ jobs:
               except Exception:
                   return None
 
+          _REPO_TIME_CACHE = {}
+
+          def github_repo_time(url):
+              m = re.match(r"https://raw\.githubusercontent\.com/([^/]+)/([^/]+)/([^/]+)/", url)
+              if not m:
+                  return None
+              key = f"{m.group(1)}/{m.group(2)}/{m.group(3)}"
+              if key not in _REPO_TIME_CACHE:
+                  stamp = None
+                  try:
+                      api = (f"https://api.github.com/repos/{m.group(1)}/{m.group(2)}"
+                             f"/commits?sha={m.group(3)}&per_page=1")
+                      headers = dict(UA)
+                      token = os.environ.get("GITHUB_TOKEN")
+                      if token:
+                          headers["Authorization"] = f"Bearer {token}"
+                      req = urllib.request.Request(api, headers=headers)
+                      with urllib.request.urlopen(req, timeout=30) as resp:
+                          data = json.loads(resp.read().decode("utf-8", "replace"))
+                      if isinstance(data, list) and data and "commit" in data[0]:
+                          stamp = data[0]["commit"]["committer"]["date"]
+                  except Exception:
+                      stamp = None
+                  if stamp:
+                      try:
+                          _REPO_TIME_CACHE[key] = dt.datetime.fromisoformat(
+                              stamp.replace("Z", "+00:00")).astimezone(TZ).replace(tzinfo=None)
+                      except Exception:
+                          _REPO_TIME_CACHE[key] = None
+                  else:
+                      _REPO_TIME_CACHE[key] = None
+              return _REPO_TIME_CACHE.get(key)
+
           def fetch(url, retries=3, timeout=45):
               last = None
               for attempt in range(retries):
@@ -305,7 +341,9 @@ jobs:
                   text, headers = fetch(url)
                   if text is None:
                       continue
-                  stamp = parse_upstream_time(text) or http_time(headers)
+                  stamp = (parse_upstream_time(text)
+                           or http_time(headers)
+                           or github_repo_time(url))
                   if stamp and (newest is None or stamp > newest):
                       newest = stamp
                   for raw in text.splitlines():
