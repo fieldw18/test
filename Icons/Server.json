@@ -1,0 +1,42 @@
+{
+  "name": "Server",
+  "description": "9 图标",
+  "icons": [
+    {
+      "name": "AGA.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/AGA.png"
+    },
+    {
+      "name": "HC.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/HC.png"
+    },
+    {
+      "name": "AIA.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/AIA.png"
+    },
+    {
+      "name": "Azure.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/Azure.png"
+    },
+    {
+      "name": "BGP.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/BGP.png"
+    },
+    {
+      "name": "CC.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/CC.png"
+    },
+    {
+      "name": "GIA.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/GIA.png"
+    },
+    {
+      "name": "IEPL.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/IEPL.png"
+    },
+    {
+      "name": "IPLC.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/IPLC.png"
+    }
+  ]
+}

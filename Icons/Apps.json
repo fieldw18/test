@@ -1,0 +1,170 @@
+{
+  "name": "Apps",
+  "description": "41 图标",
+  "icons": [
+    {
+      "name": "Apple_Fitness.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Apple_Fitness.png"
+    },
+    {
+      "name": "Apple_News.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Apple_News.png"
+    },
+    {
+      "name": "App_Store.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/App_Store.png"
+    },
+    {
+      "name": "Clubhouse.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Clubhouse.png"
+    },
+    {
+      "name": "Clubhouse_1.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Clubhouse_1.png"
+    },
+    {
+      "name": "Clubhouse_2.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Clubhouse_2.png"
+    },
+    {
+      "name": "Cydia.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Cydia.png"
+    },
+    {
+      "name": "Discord.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Discord.png"
+    },
+    {
+      "name": "Emby.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Emby.png"
+    },
+    {
+      "name": "Facebook.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Facebook.png"
+    },
+    {
+      "name": "Find_My.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Find_My.png"
+    },
+    {
+      "name": "GitHub.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/GitHub.png"
+    },
+    {
+      "name": "GitHub_Letter.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/GitHub_Letter.png"
+    },
+    {
+      "name": "Google_Drive.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Google_Drive.png"
+    },
+    {
+      "name": "Google_Opinion_Rewards.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Google_Opinion_Rewards.png"
+    },
+    {
+      "name": "Google_Search.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Google_Search.png"
+    },
+    {
+      "name": "Infuse.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Infuse.png"
+    },
+    {
+      "name": "Infuse_7.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Infuse_7.png"
+    },
+    {
+      "name": "Ingress.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Ingress.png"
+    },
+    {
+      "name": "Instagram.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Instagram.png"
+    },
+    {
+      "name": "League_of_Legends.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/League_of_Legends.png"
+    },
+    {
+      "name": "Line.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Line.png"
+    },
+    {
+      "name": "LOL.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/LOL.png"
+    },
+    {
+      "name": "NBA.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/NBA.png"
+    },
+    {
+      "name": "Notion.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Notion.png"
+    },
+    {
+      "name": "OneDrive.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/OneDrive.png"
+    },
+    {
+      "name": "PayPal.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/PayPal.png"
+    },
+    {
+      "name": "PostBox.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/PostBox.png"
+    },
+    {
+      "name": "PostBox_1.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/PostBox_1.png"
+    },
+    {
+      "name": "QQ.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/QQ.png"
+    },
+    {
+      "name": "Spark.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Spark.png"
+    },
+    {
+      "name": "Speedtest.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Speedtest.png"
+    },
+    {
+      "name": "Steam.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Steam.png"
+    },
+    {
+      "name": "Taobao.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Taobao.png"
+    },
+    {
+      "name": "Telegram.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Telegram.png"
+    },
+    {
+      "name": "Telegram_X.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Telegram_X.png"
+    },
+    {
+      "name": "TestFlight.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/TestFlight.png"
+    },
+    {
+      "name": "TestFlight_1.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/TestFlight_1.png"
+    },
+    {
+      "name": "TestFlight_2.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/TestFlight_2.png"
+    },
+    {
+      "name": "Twitter.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/Twitter.png"
+    },
+    {
+      "name": "WeChat.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Apps/WeChat.png"
+    }
+  ]
+}

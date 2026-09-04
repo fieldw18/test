@@ -1,0 +1,230 @@
+{
+  "name": "Flags",
+  "description": "56 图标",
+  "icons": [
+    {
+      "name": "Africa_Map.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Africa_Map.png"
+    },
+    {
+      "name": "America_Map.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/America_Map.png"
+    },
+    {
+      "name": "Asia_Map.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Asia_Map.png"
+    },
+    {
+      "name": "AU.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/AU.png"
+    },
+    {
+      "name": "Australia.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Australia.png"
+    },
+    {
+      "name": "BR.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/BR.png"
+    },
+    {
+      "name": "Brazil.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Brazil.png"
+    },
+    {
+      "name": "CA.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/CA.png"
+    },
+    {
+      "name": "Canada.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Canada.png"
+    },
+    {
+      "name": "China.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/China.png"
+    },
+    {
+      "name": "China_Map.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/China_Map.png"
+    },
+    {
+      "name": "CN.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/CN.png"
+    },
+    {
+      "name": "DE.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/DE.png"
+    },
+    {
+      "name": "EG.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/EG.png"
+    },
+    {
+      "name": "Egypt.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Egypt.png"
+    },
+    {
+      "name": "EU.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/EU.png"
+    },
+    {
+      "name": "European_Union.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/European_Union.png"
+    },
+    {
+      "name": "Europe_Map.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Europe_Map.png"
+    },
+    {
+      "name": "FI.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/FI.png"
+    },
+    {
+      "name": "Finland.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Finland.png"
+    },
+    {
+      "name": "FR.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/FR.png"
+    },
+    {
+      "name": "France.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/France.png"
+    },
+    {
+      "name": "Germany.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Germany.png"
+    },
+    {
+      "name": "HK.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/HK.png"
+    },
+    {
+      "name": "Hong_Kong.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Hong_Kong.png"
+    },
+    {
+      "name": "IN.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/IN.png"
+    },
+    {
+      "name": "India.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/India.png"
+    },
+    {
+      "name": "Japan.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Japan.png"
+    },
+    {
+      "name": "JP.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/JP.png"
+    },
+    {
+      "name": "Korea.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Korea.png"
+    },
+    {
+      "name": "KR.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/KR.png"
+    },
+    {
+      "name": "Macao.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Macao.png"
+    },
+    {
+      "name": "Malaysia.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Malaysia.png"
+    },
+    {
+      "name": "MO.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/MO.png"
+    },
+    {
+      "name": "MY.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/MY.png"
+    },
+    {
+      "name": "Null_Nation.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Null_Nation.png"
+    },
+    {
+      "name": "Oceania_Map.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Oceania_Map.png"
+    },
+    {
+      "name": "PH.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/PH.png"
+    },
+    {
+      "name": "Philippines.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Philippines.png"
+    },
+    {
+      "name": "RU.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/RU.png"
+    },
+    {
+      "name": "Russia.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Russia.png"
+    },
+    {
+      "name": "SG.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/SG.png"
+    },
+    {
+      "name": "Singapore.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Singapore.png"
+    },
+    {
+      "name": "TH.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/TH.png"
+    },
+    {
+      "name": "Thailand.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Thailand.png"
+    },
+    {
+      "name": "TR.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/TR.png"
+    },
+    {
+      "name": "Turkey.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/Turkey.png"
+    },
+    {
+      "name": "TW.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/TW.png"
+    },
+    {
+      "name": "UK.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/UK.png"
+    },
+    {
+      "name": "UN.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/UN.png"
+    },
+    {
+      "name": "United_Kingdom.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/United_Kingdom.png"
+    },
+    {
+      "name": "United_Nations.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/United_Nations.png"
+    },
+    {
+      "name": "United_States.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/United_States.png"
+    },
+    {
+      "name": "United_States_Map.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/United_States_Map.png"
+    },
+    {
+      "name": "US.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/US.png"
+    },
+    {
+      "name": "World_Map.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Flags/World_Map.png"
+    }
+  ]
+}

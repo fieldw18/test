@@ -1,0 +1,54 @@
+{
+  "name": "Common",
+  "description": "12 图标",
+  "icons": [
+    {
+      "name": "Auto.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Auto.png"
+    },
+    {
+      "name": "Back.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Back.png"
+    },
+    {
+      "name": "Domestic.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Domestic.png"
+    },
+    {
+      "name": "DomesticMedia.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/DomesticMedia.png"
+    },
+    {
+      "name": "Final.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Final.png"
+    },
+    {
+      "name": "Final_1.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Final_1.png"
+    },
+    {
+      "name": "ForeignMedia.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/ForeignMedia.png"
+    },
+    {
+      "name": "Global.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Global.png"
+    },
+    {
+      "name": "HKMTMedia.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/HKMTMedia.png"
+    },
+    {
+      "name": "Streaming.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Streaming.png"
+    },
+    {
+      "name": "StreamingCN.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/StreamingCN.png"
+    },
+    {
+      "name": "StreamingSE.png",
+      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/StreamingSE.png"
+    }
+  ]
+}
