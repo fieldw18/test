@@ -4,51 +4,51 @@
   "icons": [
     {
       "name": "Auto.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Auto.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png"
     },
     {
       "name": "Back.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Back.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Back.png"
     },
     {
       "name": "Domestic.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Domestic.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Domestic.png"
     },
     {
       "name": "DomesticMedia.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/DomesticMedia.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/DomesticMedia.png"
     },
     {
       "name": "Final.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Final.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Final.png"
     },
     {
       "name": "Final_1.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Final_1.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Final_1.png"
     },
     {
       "name": "ForeignMedia.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/ForeignMedia.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/ForeignMedia.png"
     },
     {
       "name": "Global.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Global.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Global.png"
     },
     {
       "name": "HKMTMedia.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/HKMTMedia.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/HKMTMedia.png"
     },
     {
       "name": "Streaming.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/Streaming.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Streaming.png"
     },
     {
       "name": "StreamingCN.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/StreamingCN.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/StreamingCN.png"
     },
     {
       "name": "StreamingSE.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Common/StreamingSE.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/StreamingSE.png"
     }
   ]
 }

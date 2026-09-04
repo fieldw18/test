@@ -4,39 +4,39 @@
   "icons": [
     {
       "name": "AGA.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/AGA.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AGA.png"
     },
     {
       "name": "HC.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/HC.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/HC.png"
     },
     {
       "name": "AIA.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/AIA.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AIA.png"
     },
     {
       "name": "Azure.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/Azure.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Azure.png"
     },
     {
       "name": "BGP.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/BGP.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/BGP.png"
     },
     {
       "name": "CC.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/CC.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/CC.png"
     },
     {
       "name": "GIA.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/GIA.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/GIA.png"
     },
     {
       "name": "IEPL.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/IEPL.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/IEPL.png"
     },
     {
       "name": "IPLC.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Server/IPLC.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/IPLC.png"
     }
   ]
 }

@@ -4,19 +4,19 @@
   "icons": [
     {
       "name": "AdBlack.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Inhibition/AdBlack.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdBlack.png"
     },
     {
       "name": "Advertising.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Inhibition/Advertising.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Advertising.png"
     },
     {
       "name": "AdWhite.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Inhibition/AdWhite.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/AdWhite.png"
     },
     {
       "name": "Hijacking.png",
-      "url": "https://raw.githubusercontent.com/fieldw18/test/main/Icons/Inhibition/Hijacking.png"
+      "url": "https://cdn.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hijacking.png"
     }
   ]
 }
