@@ -81,7 +81,6 @@ jobs:
             "SpeedtestInternational https://git.repcz.link/kelee.one/Tool/Loon/Lsr/SpeedtestInternational.lsr"
             "PikPak https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/PikPak/PikPak.list"
           )
-
           extract_time() {
             local f="$1" t=""
             t=$(grep -m1 -oE '# *UPDATED: *[0-9]{4}-[0-9]{2}-[0-9]{2}[ T]*[0-9]{2}:[0-9]{2}(:[0-9]{2})?' "$f" 2>/dev/null | sed 's/^# *UPDATED: *//')
@@ -94,9 +93,8 @@ jobs:
             [ -n "$t" ] && { echo "$t"; return; }
             t=$(head -1 "$f" 2>/dev/null | grep -oE '^# [0-9]{4}-[0-9]{2}-[0-9]{2}[ T]*[0-9]{2}:[0-9]{2}(:[0-9]{2})?')
             [ -n "$t" ] && { echo "${t#\# }"; return; }
-            echo "unknown"
+            date -u +%Y-%m-%d
           }
-
           should_skip() {
             [ -z "$GROUPS_FILTER" ] && return 1
             local IFS=','
@@ -105,30 +103,29 @@ jobs:
             done
             return 1
           }
-
           for line in "${groups[@]}"; do
             read -r name urls <<< "$line"
             should_skip "$name" && { echo "Skip: $name"; continue; }
             tmp="raw/$name.tmp"
-            > "$tmp"
+            : > "$tmp"
             for url in $urls; do
               if ! curl -sL --fail --retry 3 --max-time 30 --connect-timeout 10 "$url" >> "$tmp" 2>/dev/null; then
                 echo "::warning::Failed to fetch $url for $name"
               fi
               echo "" >> "$tmp"
             done
-            update_time=$(extract_time "$tmp")
-            echo "$update_time" > "raw/$name.meta"
+            echo "$(extract_time "$tmp")" > "raw/$name.meta"
             sed -E 's/,[[:space:]]*no-resolve[[:space:]]*$//' "$tmp" | \
               grep -vE '^\s*(#|$)' | \
-              sed -E 's/^([A-Z-]+),[[:space:]]*/\1,/' | \
+              sed -E 's/^([A-Z0-9-]+),[[:space:]]*/\1,/' | \
               sort -u > "raw/$name.clean"
             rm -f "$tmp"
-            echo "[$name] $(wc -l < "raw/$name.clean") rules, updated: $update_time"
+            echo "[$name] $(wc -l < "raw/$name.clean") rules"
           done
 
       - name: Build Loon Rules
         run: |
+          set -e
           mkdir -p Loon/Rules
           for f in raw/*.clean; do
             [ -s "$f" ] || continue
@@ -139,7 +136,7 @@ jobs:
             else
               processed=$(sed -E '/^(IP-CIDR|IP-CIDR6|IP-ASN),/ s/$/,no-resolve/' "$f")
             fi
-            count=$(printf '%s' "$processed" | grep -cE '^[A-Z-]+,' || echo 0)
+            count=$(printf '%s\n' "$processed" | grep -cE '^[A-Z0-9-]+,' || echo 0)
             {
               echo "# 规则名称: $name"
               echo "# 规则统计: $count"
@@ -148,114 +145,66 @@ jobs:
               printf '%s\n' "$processed"
             } > "Loon/Rules/$name.list"
           done
+          echo "Loon: $(ls -1 Loon/Rules/*.list | wc -l) files"
 
       - name: Build Egern Rules
         run: |
+          set -e
           mkdir -p Egern/Rules
-          RULE_MAP=(
-            "DOMAIN:domain_set:0"
-            "DOMAIN-SUFFIX:domain_suffix_set:0"
-            "DOMAIN-KEYWORD:domain_keyword_set:0"
-            "DOMAIN-REGEX:domain_regex_set:1"
-            "DOMAIN-WILDCARD:domain_wildcard_set:0"
-            "IP-CIDR:ip_cidr_set:0"
-            "IP-CIDR6:ip_cidr6_set:0"
-            "GEOIP:geoip_set:0"
-            "USER-AGENT:user_agent_set:1"
-            "URL-REGEX:url_regex_set:1"
-            "IP-ASN:asn_set:1"
-            "DEST-PORT:dest_port_set:1"
-          )
-          ORDERED_TYPES=(DOMAIN DOMAIN-SUFFIX DOMAIN-KEYWORD DOMAIN-REGEX DOMAIN-WILDCARD IP-CIDR IP-CIDR6 GEOIP USER-AGENT URL-REGEX IP-ASN DEST-PORT)
-          UNSUPPORTED_RE='^(PROCESS-NAME|SCRIPT|AND|OR|NOT|PROTOCOL),'
-          NO_RESOLVE_EXCLUDE=(GeoipCN Lan)
-
-          is_excluded() {
-            local name="$1"
-            for ex in "${NO_RESOLVE_EXCLUDE[@]}"; do
-              [ "$name" = "$ex" ] && return 0
-            done
-            return 1
-          }
-
+          SQ="'"
+          QUOTED='^(DOMAIN-REGEX|USER-AGENT|URL-REGEX|IP-ASN|DEST-PORT)$'
           for f in raw/*.clean; do
             [ -s "$f" ] || continue
             name=$(basename "$f" .clean)
             update_time=$(cat "raw/$name.meta" 2>/dev/null || echo "unknown")
-
-            declare -A BY_TYPE
-            unsupported=0
-            total=0
-
-            while IFS= read -r line; do
-              [ -z "$line" ] && continue
-              if [[ "$line" =~ $UNSUPPORTED_RE ]]; then
-                unsupported=$((unsupported + 1))
-                continue
-              fi
-              rtype="${line%%,*}"
-              val="${line#*,}"
-              val=$(echo "$val" | sed -E 's/,[[:space:]]*no-resolve[[:space:]]*$//' | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')
-              found=0
-              for mapping in "${RULE_MAP[@]}"; do
-                key="${mapping%%:*}"
-                if [ "$rtype" = "$key" ]; then
-                  BY_TYPE["$key"]+="$val"$'\n'
-                  total=$((total + 1))
-                  found=1
-                  break
-                fi
-              done
-              [ "$found" -eq 0 ] && unsupported=$((unsupported + 1))
-            done < "$f"
-
-            [ "$total" -eq 0 ] && continue
-
-            has_ip=0
-            for t in IP-CIDR IP-CIDR6 IP-ASN; do
-              [ -n "${BY_TYPE[$t]}" ] && has_ip=1 && break
-            done
-
+            supported=$(grep -E '^(DOMAIN|DOMAIN-SUFFIX|DOMAIN-KEYWORD|DOMAIN-REGEX|DOMAIN-WILDCARD|IP-CIDR|IP-CIDR6|GEOIP|USER-AGENT|URL-REGEX|IP-ASN|DEST-PORT),' "$f" || true)
+            [ -z "$supported" ] && continue
+            total=$(printf '%s\n' "$supported" | grep -cE '^[A-Z0-9-]+,')
+            has_ip=$(printf '%s\n' "$supported" | grep -cE '^(IP-CIDR|IP-CIDR6|IP-ASN),' || true)
             {
               echo "# 规则名称: $name"
               echo "# 规则统计: $total"
               echo "# 上游更新: $update_time"
-              [ "$unsupported" -gt 0 ] && echo "# Egern 不支持规则数: $unsupported"
               echo ""
-              if [ "$has_ip" -eq 1 ] && ! is_excluded "$name"; then
+              if [[ "$name" != "GeoipCN" && "$name" != "Lan" ]] && [ "$has_ip" -gt 0 ]; then
                 echo "no_resolve: true"
                 echo ""
               fi
-              for rtype in "${ORDERED_TYPES[@]}"; do
-                [ -z "${BY_TYPE[$rtype]}" ] && continue
-                mapping=""
-                for m in "${RULE_MAP[@]}"; do
-                  [ "${m%%:*}" = "$rtype" ] && mapping="$m" && break
-                done
-                ykey="${mapping#*:}"
-                ykey="${ykey%%:*}"
-                need_quote="${mapping##*:}"
+              for type in DOMAIN DOMAIN-SUFFIX DOMAIN-KEYWORD DOMAIN-REGEX DOMAIN-WILDCARD IP-CIDR IP-CIDR6 GEOIP USER-AGENT URL-REGEX IP-ASN DEST-PORT; do
+                trules=$(printf '%s\n' "$supported" | grep "^$type," || true)
+                [ -z "$trules" ] && continue
+                case "$type" in
+                  DOMAIN) ykey="domain_set" ;;
+                  DOMAIN-SUFFIX) ykey="domain_suffix_set" ;;
+                  DOMAIN-KEYWORD) ykey="domain_keyword_set" ;;
+                  DOMAIN-REGEX) ykey="domain_regex_set" ;;
+                  DOMAIN-WILDCARD) ykey="domain_wildcard_set" ;;
+                  IP-CIDR) ykey="ip_cidr_set" ;;
+                  IP-CIDR6) ykey="ip_cidr6_set" ;;
+                  GEOIP) ykey="geoip_set" ;;
+                  USER-AGENT) ykey="user_agent_set" ;;
+                  URL-REGEX) ykey="url_regex_set" ;;
+                  IP-ASN) ykey="asn_set" ;;
+                  DEST-PORT) ykey="dest_port_set" ;;
+                esac
                 echo "$ykey:"
-                echo "${BY_TYPE[$rtype]}" | sed '/^$/d' | sort -u | while IFS= read -r val; do
-                  [ -z "$val" ] && continue
-                  if [ "$need_quote" = "1" ]; then
-                    escaped="${val//\'/\'\'}"
-                    printf "  - '%s'\n" "$escaped"
-                  else
-                    printf "  - %s\n" "$val"
-                  fi
-                done
-                echo ""
+                if [[ "$type" =~ $QUOTED ]]; then
+                  printf '%s\n' "$trules" | sed -E 's/^[A-Z0-9-]+,[[:space:]]*//; s/,[[:space:]]*no-resolve[[:space:]]*$//' | sort -u | \
+                    awk -v q="$SQ" '{ gsub(q, q q); printf "  - %s%s%s\n", q, $0, q }'
+                else
+                  printf '%s\n' "$trules" | sed -E 's/^[A-Z0-9-]+,[[:space:]]*//; s/,[[:space:]]*no-resolve[[:space:]]*$//' | sort -u | \
+                    awk '{ printf "  - %s\n", $0 }'
+                fi
               done
             } > "Egern/Rules/$name.yaml"
-            echo "[$name] $total rules, $unsupported unsupported"
-            unset BY_TYPE
           done
+          echo "Egern: $(ls -1 Egern/Rules/*.yaml | wc -l) files"
 
       - name: Build Icons
         run: |
+          set -e
           mkdir -p Icons
-          SOURCES=(
+          sources=(
             "Flags https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Area.json"
             "Media https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Media.json"
             "Apps https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-AppGame.json"
@@ -266,78 +215,62 @@ jobs:
             "Other https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Other.json"
             "Emby https://emby-icon.vercel.app/TFEL-Emby.json"
           )
-
-          for line in "${SOURCES[@]}"; do
-            read -r category url <<< "$line"
-            echo "Fetching $category..."
-            curl -sL --fail --max-time 30 "$url" -o /tmp/icon_src.json || { echo "Failed: $category"; continue; }
-
-            jq -r 'if type == "object" and has("icons") then .icons else if type == "array" then . else [] end end' /tmp/icon_src.json > /tmp/icon_list.json
-
+          for entry in "${sources[@]}"; do
+            read -r category url <<< "$entry"
+            if ! curl -sL --fail --max-time 30 --retry 3 "$url" -o /tmp/src.json 2>/dev/null; then
+              echo "::warning::Failed to fetch $category"
+              continue
+            fi
+            jq -c 'if type == "object" and has("icons") then .icons[] else if type == "array" then .[] else empty end end' /tmp/src.json > /tmp/list.jsonl
+            count=$(grep -c . /tmp/list.jsonl || echo 0)
+            echo "[$category] $count icons"
             if [ "$MIRROR_ICONS" = "true" ]; then
               mkdir -p "Icons/$category"
               touch "Icons/$category/updated.flag"
-              jq -r '.[].url // empty' /tmp/icon_list.json | while IFS= read -r icon_url; do
+              jq -r '.url // empty' /tmp/list.jsonl | while read -r icon_url; do
                 [ -z "$icon_url" ] && continue
                 filename=$(basename "$icon_url")
                 target="Icons/$category/$filename"
-                if [ ! -f "$target" ]; then
-                  curl -sL --fail --max-time 60 --retry 3 "$icon_url" -o "$target" || true
-                fi
-                jq --arg repo "$REPO" --arg branch "$BRANCH" --arg cat "$category" --arg file "$filename" '
-                  if .url == '"$icon_url"' then
-                    .url = "https://raw.githubusercontent.com/\($repo)/\($branch)/Icons/\($cat)/" + (\($file) | gsub("/[^\w.-]/"; "%E") | gsub("%([0-9A-Fa-f]{2})"; "\(explode|map(if . > 127 then ord - 128 else ord end)|map(if . >= 10 then . else 48 + . end)|map(if . >= 65 then . else 97 + . - 32 end)|map(. | if . == 32 then 37 else . end)|join(""))))
-                  else .
-                  end
-                ' /tmp/icon_list.json > /tmp/icon_tmp.json && mv /tmp/icon_tmp.json /tmp/icon_list.json
+                [ -f "$target" ] || curl -sL --fail --max-time 60 --retry 3 "$icon_url" -o "$target" 2>/dev/null || true
               done
+              jq -s --arg repo "$REPO" --arg branch "$BRANCH" --arg cat "$category" '
+                map(if .url? then .url = "https://raw.githubusercontent.com/\($repo)/\($branch)/Icons/\($cat)/" + (.url | split("/")[-1] | @uri) else . end)
+                | {name: $cat, description: (length | tostring + " 图标"), icons: .}
+              ' /tmp/list.jsonl > "Icons/$category.json"
             else
-              jq --arg repo "$REPO" --arg branch "$BRANCH" --arg cat "$category" '
-                map(
-                  if .url? and (.url | startswith("https://raw.githubusercontent.com/")) then
-                    .url = (.url | sub("https://raw.githubusercontent.com/"; "https://cdn.jsdelivr.net/gh/") | sub("/refs/heads/master/"; "@master/") | sub("/refs/heads/main/"; "@main/") | sub("/master/"; "@master/") | sub("/main/"; "@main/"))
-                  else .
-                  end
-                )
-              ' /tmp/icon_list.json > /tmp/icon_list2.json && mv /tmp/icon_list2.json /tmp/icon_list.json
+              jq -s --arg cat "$category" '
+                map(if .url? and (.url | startswith("https://raw.githubusercontent.com/")) then
+                    .url = (.url
+                      | sub("^https://raw.githubusercontent.com/"; "")
+                      | split("/")
+                      | .[0] as $o | .[1] as $r
+                      | (if .[2] == "refs" then .[4] else .[2] end) as $b
+                      | (if .[2] == "refs" then .[5:] else .[3:] end) as $p
+                      | "https://cdn.jsdelivr.net/gh/\($o)/\($r)@\($b)/\($p | join("/"))")
+                  else . end)
+                | {name: $cat, description: (length | tostring + " 图标"), icons: .}
+              ' /tmp/list.jsonl > "Icons/$category.json"
             fi
-
-            jq -s --arg category "$category" '
-              {
-                name: $category,
-                description: (.[0] | length | tostring + " 图标"),
-                icons: .[0]
-              }
-            ' /tmp/icon_list.json > "Icons/$category.json"
-            jq . "Icons/$category.json" > /tmp/tmp.json && mv /tmp/tmp.json "Icons/$category.json"
-            echo "  → Icons/$category.json ($(jq '.icons | length' "Icons/$category.json") icons)"
+            jq . "Icons/$category.json" > /tmp/fmt.json && mv /tmp/fmt.json "Icons/$category.json"
+            rm -f /tmp/src.json /tmp/list.jsonl
           done
-          rm -f /tmp/icon_src.json /tmp/icon_list.json /tmp/icon_list2.json /tmp/tmp.json /tmp/icon_tmp.json
+          echo "Icons: $(ls -1 Icons/*.json | wc -l) files"
 
-      - name: Validate YAML
+      - name: Validate
         run: |
-          python3 -c "
-          import yaml, glob, sys
-          bad = []
-          for f in glob.glob('Egern/Rules/*.yaml'):
-              try:
-                  yaml.safe_load(open(f))
-                  for line in open(f):
-                      if line.startswith('  -  '):
-                          bad.append(f'{f}: leading space')
-                          break
-              except Exception as e:
-                  bad.append(f'{f}: {e}')
-          if bad:
-              print('YAML validation failed:')
-              for b in bad:
-                  print(' ', b)
-              sys.exit(1)
-          print(f'YAML OK ({len(glob.glob(\"Egern/Rules/*.yaml\"))} files)')
-          "
+          bad=0
+          for y in Egern/Rules/*.yaml; do
+            [ -f "$y" ] || continue
+            if grep -qE '^  -  ' "$y"; then
+              echo "::error::Leading space in $y"
+              bad=1
+            fi
+          done
+          [ "$bad" -eq 0 ] && echo "Validate OK" || { echo "Validate FAILED"; exit 1; }
 
       - name: Commit Changes
         run: |
+          set -e
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A Loon/Rules/ 2>/dev/null || true
