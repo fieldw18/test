@@ -8,7 +8,7 @@ on:
         default: ''
         type: string
       mirror_icons:
-        description: '镜像图标到仓库(默认走 CDN 指向)'
+        description: '镜像图标到仓库(默认走 CDN)'
         default: false
         type: boolean
       allow_empty:
@@ -40,11 +40,7 @@ jobs:
         with:
           fetch-depth: 1
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Cache Icons Images
+      - name: Cache Icons
         if: ${{ inputs.mirror_icons == true }}
         uses: actions/cache@v4
         with:
@@ -88,11 +84,11 @@ jobs:
 
           extract_time() {
             local f="$1" t=""
-            t=$(grep -m1 -oE '# *UPDATED: *[0-9]{4}-[0-9]{2}-[0-9]{2}[ T]*[0-9]{2}:[0-9]{2}(:[0-9]{2})?' "$f" 2>/dev/null | sed 's/.*: *//')
+            t=$(grep -m1 -oE '# *UPDATED: *[0-9]{4}-[0-9]{2}-[0-9]{2}[ T]*[0-9]{2}:[0-9]{2}(:[0-9]{2})?' "$f" 2>/dev/null | sed 's/^# *UPDATED: *//')
             [ -n "$t" ] && { echo "$t"; return; }
             t=$(grep -m1 -oE '#!date=[0-9]{4}/[0-9]{2}/[0-9]{2}[ T]*[0-9]{2}:[0-9]{2}(:[0-9]{2})?' "$f" 2>/dev/null | sed 's/.*=//' | tr '/' '-')
             [ -n "$t" ] && { echo "$t"; return; }
-            t=$(grep -m1 -oE '# *Update time: *[0-9]{4}-[0-9]{2}-[0-9]{2}[ T]*[0-9]{2}:[0-9]{2}(:[0-9]{2})?' "$f" 2>/dev/null | sed 's/.*: *//')
+            t=$(grep -m1 -oE '# *Update time: *[0-9]{4}-[0-9]{2}-[0-9]{2}[ T]*[0-9]{2}:[0-9]{2}(:[0-9]{2})?' "$f" 2>/dev/null | sed 's/^# *Update time: *//')
             [ -n "$t" ] && { echo "$t"; return; }
             t=$(grep -m1 -oE '#VER=[0-9]{14}' "$f" 2>/dev/null | sed 's/#VER=//' | sed -E 's/([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/\1-\2-\3 \4:\5:\6/')
             [ -n "$t" ] && { echo "$t"; return; }
@@ -154,10 +150,169 @@ jobs:
           done
 
       - name: Build Egern Rules
-        run: python3 scripts/build_egern.py
+        run: |
+          mkdir -p Egern/Rules
+          RULE_MAP=(
+            "DOMAIN:domain_set:0"
+            "DOMAIN-SUFFIX:domain_suffix_set:0"
+            "DOMAIN-KEYWORD:domain_keyword_set:0"
+            "DOMAIN-REGEX:domain_regex_set:1"
+            "DOMAIN-WILDCARD:domain_wildcard_set:0"
+            "IP-CIDR:ip_cidr_set:0"
+            "IP-CIDR6:ip_cidr6_set:0"
+            "GEOIP:geoip_set:0"
+            "USER-AGENT:user_agent_set:1"
+            "URL-REGEX:url_regex_set:1"
+            "IP-ASN:asn_set:1"
+            "DEST-PORT:dest_port_set:1"
+          )
+          ORDERED_TYPES=(DOMAIN DOMAIN-SUFFIX DOMAIN-KEYWORD DOMAIN-REGEX DOMAIN-WILDCARD IP-CIDR IP-CIDR6 GEOIP USER-AGENT URL-REGEX IP-ASN DEST-PORT)
+          UNSUPPORTED_RE='^(PROCESS-NAME|SCRIPT|AND|OR|NOT|PROTOCOL),'
+          NO_RESOLVE_EXCLUDE=(GeoipCN Lan)
+
+          is_excluded() {
+            local name="$1"
+            for ex in "${NO_RESOLVE_EXCLUDE[@]}"; do
+              [ "$name" = "$ex" ] && return 0
+            done
+            return 1
+          }
+
+          for f in raw/*.clean; do
+            [ -s "$f" ] || continue
+            name=$(basename "$f" .clean)
+            update_time=$(cat "raw/$name.meta" 2>/dev/null || echo "unknown")
+
+            declare -A BY_TYPE
+            unsupported=0
+            total=0
+
+            while IFS= read -r line; do
+              [ -z "$line" ] && continue
+              if [[ "$line" =~ $UNSUPPORTED_RE ]]; then
+                unsupported=$((unsupported + 1))
+                continue
+              fi
+              rtype="${line%%,*}"
+              val="${line#*,}"
+              val=$(echo "$val" | sed -E 's/,[[:space:]]*no-resolve[[:space:]]*$//' | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')
+              found=0
+              for mapping in "${RULE_MAP[@]}"; do
+                key="${mapping%%:*}"
+                if [ "$rtype" = "$key" ]; then
+                  BY_TYPE["$key"]+="$val"$'\n'
+                  total=$((total + 1))
+                  found=1
+                  break
+                fi
+              done
+              [ "$found" -eq 0 ] && unsupported=$((unsupported + 1))
+            done < "$f"
+
+            [ "$total" -eq 0 ] && continue
+
+            has_ip=0
+            for t in IP-CIDR IP-CIDR6 IP-ASN; do
+              [ -n "${BY_TYPE[$t]}" ] && has_ip=1 && break
+            done
+
+            {
+              echo "# 规则名称: $name"
+              echo "# 规则统计: $total"
+              echo "# 上游更新: $update_time"
+              [ "$unsupported" -gt 0 ] && echo "# Egern 不支持规则数: $unsupported"
+              echo ""
+              if [ "$has_ip" -eq 1 ] && ! is_excluded "$name"; then
+                echo "no_resolve: true"
+                echo ""
+              fi
+              for rtype in "${ORDERED_TYPES[@]}"; do
+                [ -z "${BY_TYPE[$rtype]}" ] && continue
+                mapping=""
+                for m in "${RULE_MAP[@]}"; do
+                  [ "${m%%:*}" = "$rtype" ] && mapping="$m" && break
+                done
+                ykey="${mapping#*:}"
+                ykey="${ykey%%:*}"
+                need_quote="${mapping##*:}"
+                echo "$ykey:"
+                echo "${BY_TYPE[$rtype]}" | sed '/^$/d' | sort -u | while IFS= read -r val; do
+                  [ -z "$val" ] && continue
+                  if [ "$need_quote" = "1" ]; then
+                    escaped="${val//\'/\'\'}"
+                    printf "  - '%s'\n" "$escaped"
+                  else
+                    printf "  - %s\n" "$val"
+                  fi
+                done
+                echo ""
+              done
+            } > "Egern/Rules/$name.yaml"
+            echo "[$name] $total rules, $unsupported unsupported"
+            unset BY_TYPE
+          done
 
       - name: Build Icons
-        run: python3 scripts/build_icons.py
+        run: |
+          mkdir -p Icons
+          SOURCES=(
+            "Flags https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Area.json"
+            "Media https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Media.json"
+            "Apps https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-AppGame.json"
+            "Services https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Service.json"
+            "Server https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Server.json"
+            "Common https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Common.json"
+            "Inhibition https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Inhibition.json"
+            "Other https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Other.json"
+            "Emby https://emby-icon.vercel.app/TFEL-Emby.json"
+          )
+
+          for line in "${SOURCES[@]}"; do
+            read -r category url <<< "$line"
+            echo "Fetching $category..."
+            curl -sL --fail --max-time 30 "$url" -o /tmp/icon_src.json || { echo "Failed: $category"; continue; }
+
+            jq -r 'if type == "object" and has("icons") then .icons else if type == "array" then . else [] end end' /tmp/icon_src.json > /tmp/icon_list.json
+
+            if [ "$MIRROR_ICONS" = "true" ]; then
+              mkdir -p "Icons/$category"
+              touch "Icons/$category/updated.flag"
+              jq -r '.[].url // empty' /tmp/icon_list.json | while IFS= read -r icon_url; do
+                [ -z "$icon_url" ] && continue
+                filename=$(basename "$icon_url")
+                target="Icons/$category/$filename"
+                if [ ! -f "$target" ]; then
+                  curl -sL --fail --max-time 60 --retry 3 "$icon_url" -o "$target" || true
+                fi
+                jq --arg repo "$REPO" --arg branch "$BRANCH" --arg cat "$category" --arg file "$filename" '
+                  if .url == '"$icon_url"' then
+                    .url = "https://raw.githubusercontent.com/\($repo)/\($branch)/Icons/\($cat)/" + (\($file) | gsub("/[^\w.-]/"; "%E") | gsub("%([0-9A-Fa-f]{2})"; "\(explode|map(if . > 127 then ord - 128 else ord end)|map(if . >= 10 then . else 48 + . end)|map(if . >= 65 then . else 97 + . - 32 end)|map(. | if . == 32 then 37 else . end)|join(""))))
+                  else .
+                  end
+                ' /tmp/icon_list.json > /tmp/icon_tmp.json && mv /tmp/icon_tmp.json /tmp/icon_list.json
+              done
+            else
+              jq --arg repo "$REPO" --arg branch "$BRANCH" --arg cat "$category" '
+                map(
+                  if .url? and (.url | startswith("https://raw.githubusercontent.com/")) then
+                    .url = (.url | sub("https://raw.githubusercontent.com/"; "https://cdn.jsdelivr.net/gh/") | sub("/refs/heads/master/"; "@master/") | sub("/refs/heads/main/"; "@main/") | sub("/master/"; "@master/") | sub("/main/"; "@main/"))
+                  else .
+                  end
+                )
+              ' /tmp/icon_list.json > /tmp/icon_list2.json && mv /tmp/icon_list2.json /tmp/icon_list.json
+            fi
+
+            jq -s --arg category "$category" '
+              {
+                name: $category,
+                description: (.[0] | length | tostring + " 图标"),
+                icons: .[0]
+              }
+            ' /tmp/icon_list.json > "Icons/$category.json"
+            jq . "Icons/$category.json" > /tmp/tmp.json && mv /tmp/tmp.json "Icons/$category.json"
+            echo "  → Icons/$category.json ($(jq '.icons | length' "Icons/$category.json") icons)"
+          done
+          rm -f /tmp/icon_src.json /tmp/icon_list.json /tmp/icon_list2.json /tmp/tmp.json /tmp/icon_tmp.json
 
       - name: Validate YAML
         run: |
