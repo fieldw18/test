@@ -1,7 +1,0 @@
-# 规则名称: TestFlight
-# 规则统计: 3
-# 更新时间：2025-06-06 09:15:11
-
-DOMAIN,beta.apple.com
-DOMAIN,testflight.apple.com
-DOMAIN-KEYWORD,testflight
