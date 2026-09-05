@@ -1,5 +1,5 @@
 # 规则名称: Global
-# 规则统计: 30044
+# 规则统计: 30045
 # 上游更新: 2026-09-01 06:20:03
 
 DOMAIN,1password.drift.click
@@ -16240,6 +16240,7 @@ DOMAIN-SUFFIX,linseysworld.com
 DOMAIN-SUFFIX,linux.do
 DOMAIN-SUFFIX,linux.org
 DOMAIN-SUFFIX,linux.org.hk
+DOMAIN-SUFFIX,linux.sb
 DOMAIN-SUFFIX,linuxfoundation.org
 DOMAIN-SUFFIX,linuxfromscratch.org
 DOMAIN-SUFFIX,linuxmint.com

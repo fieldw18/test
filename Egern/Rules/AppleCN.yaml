@@ -1,6 +1,6 @@
 # 规则名称: AppleCN
 # 规则统计: 165
-# 上游更新: 2026-09-04
+# 上游更新: 2026-09-05
 
 domain_suffix_set:
   - a1.mzstatic.com
