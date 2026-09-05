@@ -1,8 +1,0 @@
-# 规则名称: GeoipCN
-# 规则统计: 1
-
-# 仅影响 IP/ASN 规则，符合 Egern 官方规则集语义
-no_resolve: true
-
-geoip_set:
-  - "CN"
