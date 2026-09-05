@@ -1,6 +1,6 @@
 {
   "name": "Icons-all",
-  "description": "1262 图标",
+  "description": "1263 图标",
   "icons": [
     {
       "name": "Frog.png",
@@ -3929,6 +3929,10 @@
     {
       "name": "bluetile",
       "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/06jichang/bluetile.png"
+    },
+    {
+      "name": "btwcn",
+      "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/06jichang/btwcn.png"
     },
     {
       "name": "budingmao",
