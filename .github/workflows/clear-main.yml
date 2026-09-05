@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       mirror_icons:
-        description: "Mirror icon images into this repository (slow and increases repository size)"
+        description: "Mirror icon images into this repository"
         required: false
         default: false
         type: boolean
       allow_empty:
-        description: "Create a commit even when generated files do not change"
+        description: "Create a commit when generated files do not change"
         required: false
         default: false
         type: boolean
@@ -20,16 +20,13 @@ permissions:
   contents: write
 
 concurrency:
-  group: build-generated-files
+  group: personal-generated-files
   cancel-in-progress: false
-
-env:
-  PYTHONIOENCODING: utf-8
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     steps:
       - name: Checkout
@@ -37,145 +34,294 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download rules
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install YAML parser
+        run: python -m pip install --disable-pip-version-check --no-warn-script-location "PyYAML==6.0.2"
+
+      - name: Get date
+        id: date
+        run: echo "date=$(date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache rule sources
+        uses: actions/cache@v4
+        with:
+          path: .cache/sources
+          key: personal-rules-${{ runner.os }}-${{ steps.date.outputs.date }}
+
+      - name: Download rule sources
         shell: bash
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
         run: |
           set -Eeuo pipefail
           rm -rf raw
-          mkdir -p raw
-          groups=(
-            "Telegram https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Telegram/Telegram.list"
-            "Alibaba https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Alibaba/Alibaba_All_No_Resolve.list"
-            "ByteDance https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ByteDance/ByteDance.list"
-            "Tencent https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Tencent/Tencent_All_No_Resolve.list"
-            "YouTube https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/YouTube/YouTube.list"
-            "Twitter https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Twitter/Twitter.list"
-            "DouYin https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/DouYin/DouYin.list"
-            "TikTok https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/TikTok/TikTok.list"
-            "Github https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GitHub/GitHub.list"
-            "Google https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Google/Google.list"
-            "Spotify https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Spotify/Spotify.list"
-            "Netflix https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Netflix/Netflix.list"
-            "ChinaIPs https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaIPs/ChinaIPs.list"
-            "BanAD https://anti-ad.net/surge.txt https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockloon.list"
-            "China https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax_All_No_Resolve.list https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/China/China_All_No_Resolve.list"
-            "Apple https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple_All_No_Resolve.list"
-            "AppleCN https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/apple.txt https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/icloud.txt"
-            "Meta https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Facebook/Facebook.list https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Instagram/Instagram.list https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Threads/Threads.list https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Whatsapp/Whatsapp.list"
-            "HttpDns https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/BlockHttpDNS/BlockHttpDNS.list"
-            "AI https://git.repcz.link/kelee.one/Tool/Loon/Lsr/AI.lsr"
-            "Talkatone https://raw.githubusercontent.com/Repcz/Tool/refs/heads/X/Surge/Rules/Talkatone.list"
-            "Global https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/proxy.txt https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/gfw.txt https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Proxy/Proxy_All_No_Resolve.list"
-            "Lan https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Custom/Lan.list"
-            "GeoipCN https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Custom/FILTER_REGION.list"
-            "SpeedtestChina https://git.repcz.link/kelee.one/Tool/Loon/Lsr/SpeedtestChina.lsr"
-            "SpeedtestInternational https://git.repcz.link/kelee.one/Tool/Loon/Lsr/SpeedtestInternational.lsr"
-            "PikPak https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/PikPak/PikPak.list"
-          )
-          for entry in "${groups[@]}"; do
-            read -r name urls <<< "$entry"
-            input="raw/$name.input"
-            : > "$input"
-            for url in $urls; do
-              echo "Downloading $url"
-              curl --fail --silent --show-error --location --retry 3 \
-                --retry-all-errors --connect-timeout 15 --max-time 180 "$url" >> "$input"
-              printf '\n' >> "$input"
-            done
-            awk 'BEGIN { OFS="" } { sub(/^[[:space:]]+/, ""); sub(/[[:space:]]+$/, ""); if ($0 != "" && $0 !~ /^#/) print }' "$input" \
-              | awk '!seen[$0]++' > "raw/$name.clean"
-            rm -f "$input"
-            test -s "raw/$name.clean"
-          done
+          mkdir -p raw .cache/sources
+          python3 <<'PY'
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+          import hashlib
+          import os
+          from pathlib import Path
+          from urllib.request import Request, urlopen
 
-      - name: Build Loon and Egern files
+          GROUPS = [
+              ("Telegram", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Telegram/Telegram.list"]),
+              ("Alibaba", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Alibaba/Alibaba_All_No_Resolve.list"]),
+              ("ByteDance", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ByteDance/ByteDance.list"]),
+              ("Tencent", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Tencent/Tencent_All_No_Resolve.list"]),
+              ("YouTube", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/YouTube/YouTube.list"]),
+              ("Twitter", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Twitter/Twitter.list"]),
+              ("DouYin", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/DouYin/DouYin.list"]),
+              ("TikTok", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/TikTok/TikTok.list"]),
+              ("Github", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GitHub/GitHub.list"]),
+              ("Google", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Google/Google.list"]),
+              ("Spotify", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Spotify/Spotify.list"]),
+              ("Netflix", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Netflix/Netflix.list"]),
+              ("ChinaIPs", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaIPs/ChinaIPs.list"]),
+              ("BanAD", ["https://anti-ad.net/surge.txt", "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list", "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockloon.list"]),
+              ("China", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax_All_No_Resolve.list", "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/China/China_All_No_Resolve.list"]),
+              ("Apple", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple_All_No_Resolve.list"]),
+              ("AppleCN", ["https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/apple.txt", "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/icloud.txt"]),
+              ("Meta", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Facebook/Facebook.list", "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Instagram/Instagram.list", "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Threads/Threads.list", "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Whatsapp/Whatsapp.list"]),
+              ("HttpDns", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/BlockHttpDNS/BlockHttpDNS.list"]),
+              ("AI", ["https://git.repcz.link/kelee.one/Tool/Loon/Lsr/AI.lsr"]),
+              ("Talkatone", ["https://raw.githubusercontent.com/Repcz/Tool/refs/heads/X/Surge/Rules/Talkatone.list"]),
+              ("Global", ["https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/proxy.txt", "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/gfw.txt", "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Proxy/Proxy_All_No_Resolve.list"]),
+              ("Lan", ["https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Custom/Lan.list"]),
+              ("GeoipCN", ["https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Custom/FILTER_REGION.list"]),
+              ("SpeedtestChina", ["https://git.repcz.link/kelee.one/Tool/Loon/Lsr/SpeedtestChina.lsr"]),
+              ("SpeedtestInternational", ["https://git.repcz.link/kelee.one/Tool/Loon/Lsr/SpeedtestInternational.lsr"]),
+              ("PikPak", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/PikPak/PikPak.list"]),
+          ]
+          CACHE_DIR = Path(".cache/sources")
+          USE_CACHE = os.environ.get("GITHUB_EVENT_NAME") != "workflow_dispatch"
+
+          def cache_files(url):
+              key = hashlib.sha256(url.encode()).hexdigest()
+              return CACHE_DIR / f"{key}.txt", CACHE_DIR / f"{key}.json"
+
+          def fetch(url):
+              content_file, meta_file = cache_files(url)
+              if USE_CACHE and content_file.is_file() and content_file.stat().st_size:
+                  return content_file.read_text(encoding="utf-8", errors="replace"), meta_file.read_text(encoding="utf-8") if meta_file.exists() else ""
+              request = Request(url, headers={"User-Agent": "Personal-Rule-Builder/2.0", "Accept-Encoding": "identity"})
+              with urlopen(request, timeout=45) as response:
+                  body = response.read().decode("utf-8-sig", errors="replace")
+                  last_modified = response.headers.get("Last-Modified", "")
+              CACHE_DIR.mkdir(parents=True, exist_ok=True)
+              content_file.write_text(body, encoding="utf-8")
+              meta_file.write_text(last_modified, encoding="utf-8")
+              return body, last_modified
+
+          urls = [url for _, urls in GROUPS for url in urls]
+          contents = {}
+          with ThreadPoolExecutor(max_workers=16) as pool:
+              futures = {pool.submit(fetch, url): url for url in urls}
+              for future in as_completed(futures):
+                  url = futures[future]
+                  contents[url] = future.result()
+                  print(f"Downloaded: {url}")
+
+          for name, source_urls in GROUPS:
+              pieces = []
+              for url in source_urls:
+                  content, _ = contents[url]
+                  pieces.append(content)
+              Path("raw", f"{name}.source").write_text("\n".join(pieces) + "\n", encoding="utf-8")
+              print(f"{name}: {sum(len(x.splitlines()) for x in pieces):,} source lines")
+          PY
+
+      - name: Build Loon and Egern rules
         shell: bash
         run: |
           set -Eeuo pipefail
           rm -rf Loon/Rules Egern/Rules
           mkdir -p Loon/Rules Egern/Rules
-          python3 - <<'PY'
-          import json
+          python3 <<'PY'
+          from __future__ import annotations
+
           import re
           from pathlib import Path
 
+          import yaml
+
           RULE_TYPES = (
               "DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD", "DOMAIN-REGEX",
-              "DOMAIN-WILDCARD", "IP-CIDR", "IP-CIDR6", "GEOIP", "USER-AGENT",
-              "URL-REGEX", "IP-ASN", "DEST-PORT", "PROTOCOL",
+              "DOMAIN-WILDCARD", "IP-CIDR", "IP-CIDR6", "IP6-CIDR", "GEOIP",
+              "USER-AGENT", "URL-REGEX", "IP-ASN", "DEST-PORT", "DST-PORT",
+              "PROTOCOL", "SSID", "BSSID", "CELLULAR", "AND", "OR", "NOT",
           )
-          EG_TYPES = {
+          PREFIX_GROUP = {
               "DOMAIN": "domain_set", "DOMAIN-SUFFIX": "domain_suffix_set",
               "DOMAIN-KEYWORD": "domain_keyword_set", "DOMAIN-REGEX": "domain_regex_set",
               "DOMAIN-WILDCARD": "domain_wildcard_set", "IP-CIDR": "ip_cidr_set",
-              "IP-CIDR6": "ip_cidr6_set", "GEOIP": "geoip_set", "USER-AGENT": "user_agent_set",
-              "URL-REGEX": "url_regex_set", "IP-ASN": "asn_set", "DEST-PORT": "dest_port_set",
-              "PROTOCOL": "protocol_set",
+              "IP-CIDR6": "ip_cidr6_set", "IP6-CIDR": "ip_cidr6_set",
+              "GEOIP": "geoip_set", "URL-REGEX": "url_regex_set", "USER-AGENT": "user_agent_set",
+              "IP-ASN": "asn_set", "DEST-PORT": "dest_port_set", "DST-PORT": "dest_port_set",
+              "PROTOCOL": "protocol_set", "SSID": "ssid_set", "BSSID": "bssid_set",
+              "CELLULAR": "cellular_set",
           }
-          IP_TYPES = {"IP-CIDR", "IP-CIDR6", "GEOIP", "IP-ASN"}
-          logical_re = re.compile(r"^(AND|OR|NOT),", re.I)
+          GROUP_ORDER = list(PREFIX_GROUP.values())
+          NO_RESOLVE_TYPES = {"IP-CIDR", "IP-CIDR6", "IP6-CIDR", "IP-ASN", "GEOIP"}
+          LOGICAL_TYPES = {"AND", "OR", "NOT"}
+          RULE_PREFIX_RE = re.compile(r"^(?:" + "|".join(re.escape(x) for x in RULE_TYPES) + r"),", re.I)
+          INNER_RULE_RE = re.compile(r"\(([A-Z][A-Z0-9-]*)\s*,\s*([^()]*)\)")
 
-          def split_rule(line):
-              kind, separator, value = line.partition(",")
-              kind = kind.strip().upper()
-              if not separator or kind not in RULE_TYPES:
+          def clean_rule_line(raw: str) -> str | None:
+              line = raw.strip().replace("\ufeff", "")
+              if not line or line.startswith(("#", "//", ";", "!")):
                   return None
-              value = re.sub(r",\s*no-resolve\s*$", "", value.strip(), flags=re.I)
-              return kind, value
+              if line.startswith("- "):
+                  line = line[2:].strip()
+              if len(line) >= 2 and line[0] == line[-1] and line[0] in "'\"":
+                  line = line[1:-1].strip()
+              line = re.sub(r"\s+#.*$", "", line).strip()
+              return line if RULE_PREFIX_RE.match(line) else None
 
-          def read_rules(path, loon_no_resolve):
-              loon_lines = []
-              grouped = {kind: set() for kind in RULE_TYPES}
-              logical = []
-              for raw in path.read_text(encoding="utf-8", errors="replace").splitlines():
-                  line = raw.strip()
-                  if not line or line.startswith("#"):
-                      continue
-                  had_no_resolve = bool(re.search(r",\s*no-resolve\s*$", line, re.I))
-                  line = re.sub(r",\s*no-resolve\s*$", "", line, flags=re.I)
-                  if logical_re.match(line):
-                      logical.append(line)
-                      loon_lines.append(line)
-                      continue
-                  parsed = split_rule(line)
-                  if parsed is None:
-                      if not re.match(r"^(PROCESS-NAME|SCRIPT),", line, re.I):
-                          loon_lines.append(line)
-                      continue
-                  kind, value = parsed
-                  grouped[kind].add(value)
-                  suffix = ", no-resolve" if had_no_resolve or (loon_no_resolve and kind in IP_TYPES) else ""
-                  loon_lines.append(f"{kind}, {value}{suffix}")
-              return loon_lines, grouped, logical
+          def normalize_rule(prefix: str, value: str) -> tuple[str, str, bool] | None:
+              prefix = prefix.strip().upper()
+              if prefix == "IP6-CIDR":
+                  prefix = "IP-CIDR6"
+              value = value.strip()
+              if not value:
+                  return None
+              parts = [part.strip() for part in value.split(",")]
+              had_no_resolve = any(part.lower() == "no-resolve" for part in parts[1:])
+              parts = [part for part in parts if part.lower() != "no-resolve"]
+              if prefix not in {"DEST-PORT", "DST-PORT", "DOMAIN-REGEX", "URL-REGEX", "USER-AGENT", "DOMAIN-WILDCARD"} and len(parts) > 1:
+                  parts = parts[:1]
+              value = ",".join(parts).strip()
+              if prefix == "DST-PORT":
+                  prefix = "DEST-PORT"
+              return (prefix, value, had_no_resolve) if value else None
 
-          def quote_yaml(value):
-              return json.dumps(value, ensure_ascii=False)
+          def parse_source(content: str) -> tuple[list[tuple[str, str, bool]], list[str], list[tuple[str, str, bool]], int]:
+              rules: list[tuple[str, str, bool]] = []
+              direct_rules: list[tuple[str, str, bool]] = []
+              logical_lines: list[str] = []
+              skipped = 0
+              for raw in content.splitlines():
+                  line = clean_rule_line(raw)
+                  if not line:
+                      if raw.strip():
+                          skipped += 1
+                      continue
+                  prefix, value = line.split(",", 1)
+                  prefix = prefix.strip().upper()
+                  if prefix in LOGICAL_TYPES:
+                      logical_lines.append(line)
+                      for inner_type, inner_value in INNER_RULE_RE.findall(line):
+                          normalized = normalize_rule(inner_type, inner_value)
+                          if normalized:
+                              rules.append(normalized)
+                          else:
+                              skipped += 1
+                      continue
+                  normalized = normalize_rule(prefix, value)
+                  if normalized:
+                      rules.append(normalized)
+                      direct_rules.append(normalized)
+                  else:
+                      skipped += 1
+              return rules, logical_lines, direct_rules, skipped
 
-          raw_dir = Path("raw")
-          for source in sorted(raw_dir.glob("*.clean")):
+          def dedupe(rules: list[tuple[str, str, bool]]) -> list[tuple[str, str, bool]]:
+              result: dict[tuple[str, str], tuple[str, str, bool]] = {}
+              for prefix, value, no_resolve in rules:
+                  key = (prefix, value.lower() if prefix in {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD"} else value)
+                  old = result.get(key)
+                  result[key] = (prefix, value, bool(no_resolve or (old and old[2])))
+              return sorted(result.values(), key=lambda x: (x[0], x[1].lower()))
+
+          def parse_timestamp(source: Path) -> str:
+              from datetime import datetime, timedelta, timezone
+
+              beijing = timezone(timedelta(hours=8))
+              dates: list[datetime] = []
+              text = source.read_text(encoding="utf-8", errors="replace")
+              patterns = (
+                  (r"#\s*UPDATED:\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})", "%Y-%m-%d %H:%M:%S"),
+                  (r"#!date=(\d{4}/\d{2}/\d{2}\s+\d{2}:\d{2}:\d{2})", "%Y/%m/%d %H:%M:%S"),
+                  (r"#Update time:\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})", "%Y-%m-%d %H:%M:%S"),
+                  (r"#\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})", "%Y-%m-%d %H:%M:%S"),
+              )
+              for pattern, fmt in patterns:
+                  dates.extend(datetime.strptime(value, fmt).replace(tzinfo=beijing) for value in re.findall(pattern, text, re.I))
+              dates.extend(datetime.strptime(value, "%Y%m%d%H%M%S").replace(tzinfo=beijing) for value in re.findall(r"#VER=(\d{14})", text, re.I))
+              current = max(dates) if dates else datetime.now(beijing)
+              return current.astimezone(beijing).strftime("%Y-%m-%d %H:%M:%S")
+
+          def old_time(path: Path) -> str | None:
+              if not path.exists():
+                  return None
+              match = re.search(r"^# 更新时间:\s*(.+?)\s*$", path.read_text(encoding="utf-8", errors="replace"), re.M)
+              return match.group(1).strip() if match else None
+
+          def semantic_egern(content: str):
+              try:
+                  data = yaml.safe_load(content)
+              except Exception:
+                  return None
+              if not isinstance(data, dict):
+                  return None
+              return tuple((key, tuple(value) if isinstance(value, list) else value) for key, value in data.items())
+
+          def semantic_loon(content: str) -> tuple[str, ...]:
+              return tuple(line.strip() for line in content.splitlines() if line.strip() and not line.lstrip().startswith("#"))
+
+          def header(name: str, count: int, timestamp: str) -> str:
+              return f"# 规则名称: {name}\n# 规则统计: {count}\n# 更新时间: {timestamp}\n\n"
+
+          def write_stable(path: Path, body: str, name: str, count: int, timestamp: str, semantic, is_egern: bool) -> None:
+              previous = path.read_text(encoding="utf-8", errors="replace") if path.exists() else ""
+              old_semantic = semantic_egern(previous) if is_egern else semantic_loon(previous)
+              if old_semantic == semantic and old_time(path):
+                  timestamp = old_time(path) or timestamp
+              path.write_text(header(name, count, timestamp) + body.rstrip() + "\n", encoding="utf-8", newline="\n")
+
+          for source in sorted(Path("raw").glob("*.source")):
               name = source.stem
+              raw_rules, logical_lines, direct_rules, skipped = parse_source(source.read_text(encoding="utf-8", errors="replace"))
+              rules = dedupe(raw_rules)
+              loon_rules = dedupe(direct_rules)
+              if not rules:
+                  raise RuntimeError(f"{name}: no supported rules; skipped {skipped}")
+              timestamp = parse_timestamp(source)
               loon_no_resolve = name not in {"GeoipCN", "Lan"}
-              loon_lines, grouped, logical = read_rules(source, loon_no_resolve)
-              if loon_lines:
-                  Path("Loon/Rules", f"{name}.list").write_text(
-                      f"# 规则名称: {name}\n# 规则统计: {len(loon_lines)}\n\n" +
-                      "\n".join(loon_lines) + "\n", encoding="utf-8")
-              entries = [(EG_TYPES[k], sorted(v)) for k, v in grouped.items() if v]
-              if not entries:
-                  continue
-              lines = [f"# 规则名称: {name}", f"# 规则统计: {sum(len(v) for v in grouped.values())}", ""]
-              if any(grouped[k] for k in IP_TYPES):
-                  lines += ["# 仅影响 IP/ASN 规则，符合 Egern 官方规则集语义", "no_resolve: true", ""]
-              if logical:
-                  lines += [f"# 警告: 已跳过 {len(logical)} 条 AND/OR/NOT 逻辑规则；规则集文件无法无损表达 Loon 逻辑项", ""]
-              for key, values in entries:
-                  lines.append(f"{key}:")
-                  lines.extend(f"  - {quote_yaml(value)}" for value in values)
-                  lines.append("")
-              Path("Egern/Rules", f"{name}.yaml").write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
-              if logical:
-                  print(f"::warning file={source}::{name}: skipped {len(logical)} logical rules in Egern output")
-          print("Rule files built")
+
+              loon_lines = list(logical_lines)
+              for prefix, value, no_resolve in loon_rules:
+                  suffix = ",no-resolve" if prefix in NO_RESOLVE_TYPES and (no_resolve or loon_no_resolve) else ""
+                  loon_lines.append(f"{prefix},{value}{suffix}")
+              loon_lines = sorted(set(loon_lines), key=lambda x: (x.split(",", 1)[0], x.lower()))
+              loon_body = "\n".join(loon_lines)
+              write_stable(Path("Loon/Rules", f"{name}.list"), loon_body, name, len(loon_lines), timestamp, tuple(loon_lines), False)
+
+              grouped: dict[str, list[str]] = {key: [] for key in GROUP_ORDER}
+              needs_no_resolve = False
+              for prefix, value, no_resolve in rules:
+                  key = PREFIX_GROUP[prefix]
+                  grouped[key].append(value)
+                  if prefix in NO_RESOLVE_TYPES and (no_resolve or loon_no_resolve):
+                      needs_no_resolve = True
+              grouped = {key: sorted(set(values), key=str.lower) for key, values in grouped.items() if values}
+              data: dict[str, object] = {}
+              if needs_no_resolve:
+                  data["no_resolve"] = True
+              for key in GROUP_ORDER:
+                  if key in grouped:
+                      data[key] = grouped[key]
+              egern_body = yaml.safe_dump(data, allow_unicode=True, default_flow_style=False, sort_keys=False, width=4096)
+              egern_body = egern_body.rstrip()
+              egern_semantic = semantic_egern(egern_body)
+              write_stable(Path("Egern/Rules", f"{name}.yaml"), egern_body, name, sum(len(v) for v in grouped.values()), timestamp, egern_semantic, True)
+              print(f"{name}: {len(loon_lines):,} Loon / {sum(len(v) for v in grouped.values()):,} Egern / skipped {skipped:,}")
+
+          if not list(Path("Loon/Rules").glob("*.list")) or not list(Path("Egern/Rules").glob("*.yaml")):
+              raise RuntimeError("No generated rule files")
           PY
 
       - name: Build icon indexes
@@ -184,104 +330,115 @@ jobs:
           MIRROR_ICONS: ${{ inputs.mirror_icons || 'false' }}
         run: |
           set -Eeuo pipefail
-          python3 - <<'PY'
+          python3 <<'PY'
+          from concurrent.futures import ThreadPoolExecutor, as_completed
           import json
           import os
+          import re
           import subprocess
           from pathlib import Path
           from urllib.parse import quote, urlsplit
-          import re
 
-          image_re = re.compile(r"\.(?:png|jpe?g|gif|svg|webp)(?:\?.*)?$", re.I)
-          sources = {
+          SOURCES = {
               "Icons-all": [
                   "https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-All.json",
                   "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/ligeicon.json",
               ],
               "Emby": ["https://emby-icon.vercel.app/TFEL-Emby.json"],
           }
-          mirror = os.environ.get("MIRROR_ICONS", "false").lower() == "true"
-          repo = "${{ github.repository }}"
-          branch = "${{ github.ref_name }}"
+          IMAGE_RE = re.compile(r"\.(?:png|jpe?g|gif|svg|webp)(?:\?.*)?$", re.I)
+          MIRROR = os.environ.get("MIRROR_ICONS", "false").lower() == "true"
+          REPO = os.environ.get("GITHUB_REPOSITORY", "8wfield/Personal")
+          BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
 
           def curl(url):
               return subprocess.check_output([
                   "curl", "--fail", "--silent", "--show-error", "--location",
-                  "--retry", "3", "--connect-timeout", "15", url,
+                  "--retry", "3", "--connect-timeout", "15", "--max-time", "90", url,
               ], stderr=subprocess.DEVNULL)
 
-          def icon_filename(url):
-              name = Path(urlsplit(url).path).name or "icon.png"
-              return quote(name, safe="._-()[]%")
+          def filename(url):
+              return quote(Path(urlsplit(url).path).name or "icon.png", safe="._-()[]%")
 
-          for category, urls in sources.items():
+          urls = [url for group in SOURCES.values() for url in group]
+          with ThreadPoolExecutor(max_workers=8) as pool:
+              futures = {pool.submit(curl, url): url for url in urls}
+              raw_data = {futures[future]: future.result() for future in as_completed(futures)}
+
+          for category, source_urls in SOURCES.items():
               target = Path("Icons", category)
               target.mkdir(parents=True, exist_ok=True)
               icons = {}
-              for source in urls:
-                  try:
-                      data = json.loads(curl(source))
-                  except Exception as exc:
-                      print(f"::warning::{source}: {exc}")
-                      continue
-                  if isinstance(data, dict):
-                      data = data.get("icons", [])
+              for source in source_urls:
+                  data = json.loads(raw_data[source])
+                  data = data.get("icons", []) if isinstance(data, dict) else data
                   if not isinstance(data, list):
                       continue
                   for original in data:
                       if not isinstance(original, dict):
                           continue
                       url = original.get("url")
-                      if not isinstance(url, str) or not image_re.search(url):
+                      if not isinstance(url, str) or not IMAGE_RE.search(url):
                           continue
-                      name = str(original.get("name") or icon_filename(url))
+                      name = str(original.get("name") or filename(url))
                       if name in icons:
                           continue
                       item = dict(original)
-                      if mirror:
-                          destination = target / icon_filename(url)
+                      if MIRROR:
+                          destination = target / filename(url)
                           if not destination.exists():
-                              try:
-                                  destination.write_bytes(curl(url))
-                              except Exception as exc:
-                                  print(f"::warning::{url}: {exc}")
-                                  continue
-                          item["url"] = f"https://raw.githubusercontent.com/{repo}/{branch}/Icons/{category}/{destination.name}"
+                              destination.write_bytes(curl(url))
+                          item["url"] = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/Icons/{category}/{destination.name}"
                       icons[name] = item
-              output = {"name": category, "description": f"{len(icons)} 图标", "icons": list(icons.values())}
               Path("Icons").mkdir(exist_ok=True)
               Path("Icons", f"{category}.json").write_text(
-                  json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+                  json.dumps({"name": category, "description": f"{len(icons)} 图标", "icons": list(icons.values())}, ensure_ascii=False, indent=2) + "\n",
+                  encoding="utf-8",
               )
-              print(f"Built {category}: {len(icons)} icons")
+              print(f"{category}: {len(icons)} icons")
           PY
 
       - name: Validate generated files
         shell: bash
         run: |
           set -Eeuo pipefail
-          ruby - <<'RUBY'
-          require "yaml"
-          Dir["Egern/Rules/*.yaml"].each do |path|
-            data = YAML.load_file(path)
-            abort "invalid Egern rule set: #{path}" unless data.is_a?(Hash)
-            allowed = data.keys.all? { |key| key.to_s == "no_resolve" || key.to_s.end_with?("_set") }
-            abort "invalid Egern rule-set key: #{path}" unless allowed
-          end
-          abort "no Loon rule files" if Dir["Loon/Rules/*.list"].empty?
-          abort "no Egern rule files" if Dir["Egern/Rules/*.yaml"].empty?
-          puts "Egern and Loon files validated"
-          RUBY
-          python3 - <<'PY'
+          python3 <<'PY'
           import json
           from pathlib import Path
+          import yaml
 
+          allowed = {
+              "no_resolve", "domain_set", "domain_suffix_set", "domain_keyword_set",
+              "domain_regex_set", "domain_wildcard_set", "geoip_set", "ip_cidr_set",
+              "ip_cidr6_set", "asn_set", "url_regex_set", "user_agent_set", "dest_port_set",
+              "protocol_set", "ssid_set", "bssid_set", "cellular_set",
+          }
+          for path in sorted(Path("Egern/Rules").glob("*.yaml")):
+              lines = path.read_text(encoding="utf-8").splitlines()
+              assert lines[0] == f"# 规则名称: {path.stem}", path
+              assert lines[1].startswith("# 规则统计: "), path
+              assert lines[2].startswith("# 更新时间: "), path
+              assert not any(line.startswith("#") for line in lines[3:]), path
+              data = yaml.safe_load(path.read_text(encoding="utf-8"))
+              assert isinstance(data, dict) and set(data) <= allowed, path
+              for key, values in data.items():
+                  if key == "no_resolve":
+                      assert isinstance(values, bool), path
+                  else:
+                      assert isinstance(values, list) and values, path
+                      assert all(isinstance(value, str) for value in values), path
+                      assert len(values) == len(set(values)), path
+          for path in sorted(Path("Loon/Rules").glob("*.list")):
+              lines = path.read_text(encoding="utf-8").splitlines()
+              assert lines[0] == f"# 规则名称: {path.stem}", path
+              assert lines[1].startswith("# 规则统计: "), path
+              assert lines[2].startswith("# 更新时间: "), path
+              assert not any(line.startswith("#") for line in lines[3:]), path
           for path in Path("Icons").glob("*.json"):
               data = json.loads(path.read_text(encoding="utf-8"))
-              assert isinstance(data.get("icons"), list), path
-              names = [item.get("name") for item in data["icons"]]
+              names = [item.get("name") for item in data.get("icons", [])]
               assert len(names) == len(set(names)), path
-          print("Icon indexes validated")
+          print("Generated files validated")
           PY
 
       - name: Commit and push
@@ -294,17 +451,15 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add Loon/Rules Egern/Rules Icons
           if git diff --cached --quiet; then
-            if [[ "$ALLOW_EMPTY" != "true" ]]; then
-              echo "No generated changes"
-              exit 0
-            fi
+            [[ "$ALLOW_EMPTY" == "true" ]] || { echo "No generated changes"; exit 0; }
             git commit --allow-empty -m "chore: refresh generated rules and icons"
           else
             git commit -m "chore: update generated rules and icons"
           fi
           for attempt in 1 2 3 4 5; do
-            git pull --rebase origin "${{ github.ref_name }}" && git push origin "HEAD:${{ github.ref_name }}" && exit 0
-            echo "Push attempt $attempt failed; retrying"
+            if git pull --rebase origin "${GITHUB_REF_NAME:-main}" && git push origin "HEAD:${GITHUB_REF_NAME:-main}"; then
+              exit 0
+            fi
             git rebase --abort 2>/dev/null || true
             sleep $((attempt * 2))
           done
