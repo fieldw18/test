@@ -324,79 +324,143 @@ jobs:
               raise RuntimeError("No generated rule files")
           PY
 
-      - name: Build icon indexes
+      - name: Icons
         shell: bash
         env:
           MIRROR_ICONS: ${{ inputs.mirror_icons || 'false' }}
         run: |
           set -Eeuo pipefail
-          python3 <<'PY'
-          from concurrent.futures import ThreadPoolExecutor, as_completed
-          import json
-          import os
-          import re
-          import subprocess
-          from pathlib import Path
-          from urllib.parse import quote, urlsplit
+          mkdir -p Icons/Icons-all Icons/Emby raw/icon-json
 
-          SOURCES = {
-              "Icons-all": [
-                  "https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-All.json",
-                  "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/ligeicon.json",
-              ],
-              "Emby": ["https://emby-icon.vercel.app/TFEL-Emby.json"],
+          sources=(
+            "Icons-all https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-All.json https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/ligeicon.json"
+            "Emby https://emby-icon.vercel.app/TFEL-Emby.json"
+          )
+
+          repo="${{ github.repository }}"
+          branch="main"
+          mirror="${MIRROR_ICONS:-false}"
+          total_failed=0
+
+          encode_url() {
+            jq -rn --arg u "$1" '
+              def enc: gsub("%"; "__PERCENT__") | @uri | gsub("__PERCENT__"; "%");
+              ($u | split("#")[0]) as $clean |
+              ($clean | split("?")) as $query |
+              ($query[0] | split("/")) as $parts |
+              (($parts[0:3] + ($parts[3:] | map(enc))) | join("/")) +
+              (if ($query | length) > 1 then "?" + ($query[1:] | join("?")) else "" end)
+            '
           }
-          IMAGE_RE = re.compile(r"\.(?:png|jpe?g|gif|svg|webp)(?:\?.*)?$", re.I)
-          MIRROR = os.environ.get("MIRROR_ICONS", "false").lower() == "true"
-          REPO = os.environ.get("GITHUB_REPOSITORY", "8wfield/Personal")
-          BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
 
-          def curl(url):
-              return subprocess.check_output([
-                  "curl", "--fail", "--silent", "--show-error", "--location",
-                  "--retry", "3", "--connect-timeout", "15", "--max-time", "90", url,
-              ], stderr=subprocess.DEVNULL)
+          download_icon() {
+            local url="$1" target="$2" temp="$3" encoded
+            if [ -s "$target" ]; then
+              return 0
+            fi
+            encoded=$(encode_url "$url")
+            if curl --fail --silent --show-error --location --retry 3 --retry-all-errors \
+              --connect-timeout 8 --max-time 60 "$encoded" -o "$temp" \
+              && [ -s "$temp" ]; then
+              mv -f "$temp" "$target"
+              return 0
+            fi
+            rm -f "$temp"
+            return 1
+          }
+          export -f encode_url download_icon
 
-          def filename(url):
-              return quote(Path(urlsplit(url).path).name or "icon.png", safe="._-()[]%")
+          for line in "${sources[@]}"; do
+            read -r category urls <<< "$line"
+            output_file="Icons/${category}.json"
+            target_dir="Icons/${category}"
+            work_dir="raw/icons-${category}"
+            mkdir -p "$target_dir" "$work_dir"
+            : > "$work_dir/raw_icons.jsonl"
+            : > "$work_dir/jobs.tsv"
 
-          urls = [url for group in SOURCES.values() for url in group]
-          with ThreadPoolExecutor(max_workers=8) as pool:
-              futures = {pool.submit(curl, url): url for url in urls}
-              raw_data = {futures[future]: future.result() for future in as_completed(futures)}
+            index=0
+            for url in $urls; do
+              json_file="$work_dir/source-${index}.json"
+              encoded=$(encode_url "$url")
+              curl --fail --silent --show-error --location --retry 3 --retry-all-errors \
+                --connect-timeout 15 --max-time 90 "$encoded" -o "$json_file"
+              jq -e 'if type == "object" and has("icons") then .icons elif type == "array" then . else error end' \
+                "$json_file" > "$work_dir/icons-${index}.json"
 
-          for category, source_urls in SOURCES.items():
-              target = Path("Icons", category)
-              target.mkdir(parents=True, exist_ok=True)
-              icons = {}
-              for source in source_urls:
-                  data = json.loads(raw_data[source])
-                  data = data.get("icons", []) if isinstance(data, dict) else data
-                  if not isinstance(data, list):
-                      continue
-                  for original in data:
-                      if not isinstance(original, dict):
-                          continue
-                      url = original.get("url")
-                      if not isinstance(url, str) or not IMAGE_RE.search(url):
-                          continue
-                      name = str(original.get("name") or filename(url))
-                      if name in icons:
-                          continue
-                      item = dict(original)
-                      if MIRROR:
-                          destination = target / filename(url)
-                          if not destination.exists():
-                              destination.write_bytes(curl(url))
-                          item["url"] = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/Icons/{category}/{destination.name}"
-                      icons[name] = item
-              Path("Icons").mkdir(exist_ok=True)
-              Path("Icons", f"{category}.json").write_text(
-                  json.dumps({"name": category, "description": f"{len(icons)} 图标", "icons": list(icons.values())}, ensure_ascii=False, indent=2) + "\n",
-                  encoding="utf-8",
-              )
-              print(f"{category}: {len(icons)} icons")
-          PY
+              jq -c '.[] | select(.url? and (.url | type == "string"))' "$work_dir/icons-${index}.json" > "$work_dir/items-${index}.jsonl"
+              while IFS= read -r icon; do
+                icon_url=$(jq -r '.url' <<< "$icon")
+                lower_url="${icon_url,,}"
+                if [[ "$lower_url" =~ \.(png|jpg|jpeg|gif|svg|webp)(\?.*)?$ ]]; then
+                  jq -c '.' <<< "$icon" >> "$work_dir/raw_icons.jsonl"
+                  if [ "$mirror" = "true" ]; then
+                    icon_path="${icon_url%%\?*}"
+                    filename="${icon_path##*/}"
+                    [ -n "$filename" ] || filename="icon.png"
+                    target="$target_dir/$filename"
+                    if [ -e "$target" ]; then
+                      stem="${filename%.*}"
+                      ext="${filename##*.}"
+                      filename="${stem}-$(printf '%s' "$icon_url" | sha256sum | cut -c1-10).${ext}"
+                      target="$target_dir/$filename"
+                    fi
+                    temp="$work_dir/.${index}-${filename}.tmp"
+                    printf '%s\t%s\t%s\n' "$icon_url" "$target" "$temp" >> "$work_dir/jobs.tsv"
+                  fi
+                fi
+              done < "$work_dir/items-${index}.jsonl"
+              index=$((index + 1))
+            done
+
+            failed=0
+            : > "$work_dir/success.jsonl"
+            if [ "$mirror" = "true" ] && [ -s "$work_dir/jobs.tsv" ]; then
+              while IFS=$'\t' read -r icon_url target temp; do
+                printf '%s\t%s\t%s\n' "$icon_url" "$target" "$temp"
+              done < "$work_dir/jobs.tsv" \
+                | xargs -P 16 -n 3 bash -c 'download_icon "$1" "$2" "$3"' _ \
+                || failed=1
+
+              while IFS=$'\t' read -r icon_url target temp; do
+                if [ -s "$target" ]; then
+                  printf '%s\n' "$(jq -cn --arg url "$icon_url" --arg filename "${target##*/}" '{url:$url,filename:$filename}')" >> "$work_dir/success.jsonl"
+                fi
+              done < "$work_dir/jobs.tsv"
+
+              if [ "$failed" -eq 1 ]; then
+                echo "Warning: some icon downloads failed; original CDN URLs are retained"
+                total_failed=$((total_failed + 1))
+              fi
+            fi
+            jq -s '.' "$work_dir/success.jsonl" > "$work_dir/success.json"
+
+            jq -s --arg category "$category" --arg repo "$repo" --arg branch "$branch" \
+              --argjson mirror "$([ "$mirror" = "true" ] && echo true || echo false)" \
+              --slurpfile success "$work_dir/success.json" '
+              map(select(.name?)) |
+              map(
+                .url as $url |
+                (first($success[0][] | select(.url == $url)) // null) as $match |
+                if $mirror and $match then
+                  .url = ("https://raw.githubusercontent.com/" + $repo + "/" + $branch + "/Icons/" + $category + "/" + $match.filename)
+                else . end
+              ) |
+              group_by(.name) |
+              map(.[0]) |
+              {
+                name: $category,
+                description: ((length | tostring) + " 图标"),
+                icons: .
+              }
+            ' "$work_dir/raw_icons.jsonl" > "$output_file"
+
+            jq . "$output_file" > "$output_file.tmp"
+            mv "$output_file.tmp" "$output_file"
+            touch "$target_dir/updated.flag"
+            rm -rf "$work_dir"
+          done
+          echo "Icon build completed; failed mirror groups: $total_failed"
 
       - name: Validate generated files
         shell: bash
