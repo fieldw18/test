@@ -124004,8 +124004,8 @@ user_agent_set:
 - Best%20Trace*
 - bili*
 - bili-inter*
-- bilibili*
 - Bilibili*
+- bilibili*
 - cmb*
 - cmblife*
 - DomesticMedia*
@@ -124046,8 +124046,8 @@ user_agent_set:
 - WebTorrent*
 - WeChat*
 - xiami*
-- youku*
 - Youku*
+- youku*
 - YYeTs*
 asn_set:
 - '132203'
