@@ -1,6 +1,6 @@
 {
   "name": "Emby",
-  "description": "518 图标",
+  "description": "519 图标",
   "icons": [
     {
       "name": "105°",
@@ -785,6 +785,10 @@
     {
       "name": "Iris_3",
       "url": "https://emby-icon.vercel.app/icons/Iris3.png"
+    },
+    {
+      "name": "Iris_erciyuan",
+      "url": "https://emby-icon.vercel.app/icons/Iris_erciyuan.png"
     },
     {
       "name": "JMS",
