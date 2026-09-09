@@ -124021,8 +124021,8 @@ user_agent_set:
 - Best%20Trace*
 - bili*
 - bili-inter*
-- Bilibili*
 - bilibili*
+- Bilibili*
 - cmb*
 - cmblife*
 - DomesticMedia*
@@ -124030,8 +124030,8 @@ user_agent_set:
 - hearthstone*
 - hide*
 - Himalaya*
-- iQiYi*
 - iQiyi*
+- iQiYi*
 - iQIYI*
 - live4iphone*
 - MegaWerewolf*
@@ -124063,8 +124063,8 @@ user_agent_set:
 - WebTorrent*
 - WeChat*
 - xiami*
-- Youku*
 - youku*
+- Youku*
 - YYeTs*
 asn_set:
 - '132203'

@@ -1,5 +1,5 @@
 # 规则名称: Global
-# 规则统计: 30052
+# 规则统计: 30053
 # 更新时间: 2026-09-08 05:03:30
 
 no_resolve: true
@@ -19274,6 +19274,7 @@ domain_suffix_set:
 - nodequality.com
 - nodereal.io
 - nodeseek.com
+- nodeseek.org
 - nodesource.com
 - nofile.io
 - noisullifb.com
