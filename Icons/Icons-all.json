@@ -1,6 +1,6 @@
 {
   "name": "Icons-all",
-  "description": "1264 图标",
+  "description": "1265 图标",
   "icons": [
     {
       "name": "115",
@@ -3357,6 +3357,10 @@
     {
       "name": "homocloud",
       "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/06jichang/homocloud.png"
+    },
+    {
+      "name": "hongguoduanju",
+      "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/03CNSoft/hongguoduanju.png"
     },
     {
       "name": "hongxingyun",
