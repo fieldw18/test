@@ -1,6 +1,6 @@
 # 规则名称: China
-# 规则统计: 124058
-# 更新时间: 2026-09-08 05:04:42
+# 规则统计: 124059
+# 更新时间: 2026-09-10 04:21:55
 
 DOMAIN,1-fss24-s0.streamhoster.com
 DOMAIN,14033.live.streamtheworld.com
@@ -105375,6 +105375,7 @@ DOMAIN-SUFFIX,yuano.cc
 DOMAIN-SUFFIX,yuanpanguoji.com
 DOMAIN-SUFFIX,yuanqiao.net
 DOMAIN-SUFFIX,yuanqiao.pw
+DOMAIN-SUFFIX,yuanqidesk.com
 DOMAIN-SUFFIX,yuanqilt.com
 DOMAIN-SUFFIX,yuanqingsh.com
 DOMAIN-SUFFIX,yuanqisenlin.com
@@ -124015,8 +124016,8 @@ USER-AGENT,balls*
 USER-AGENT,Best%20Trace*
 USER-AGENT,bili*
 USER-AGENT,bili-inter*
-USER-AGENT,Bilibili*
 USER-AGENT,bilibili*
+USER-AGENT,Bilibili*
 USER-AGENT,cmb*
 USER-AGENT,cmblife*
 USER-AGENT,DomesticMedia*
@@ -124024,9 +124025,9 @@ USER-AGENT,eusoft_ting_en_iphone
 USER-AGENT,hearthstone*
 USER-AGENT,hide*
 USER-AGENT,Himalaya*
-USER-AGENT,iQIYI*
-USER-AGENT,iQiyi*
 USER-AGENT,iQiYi*
+USER-AGENT,iQiyi*
+USER-AGENT,iQIYI*
 USER-AGENT,live4iphone*
 USER-AGENT,MegaWerewolf*
 USER-AGENT,MGTV*
@@ -124057,6 +124058,6 @@ USER-AGENT,walkman*
 USER-AGENT,WebTorrent*
 USER-AGENT,WeChat*
 USER-AGENT,xiami*
-USER-AGENT,Youku*
 USER-AGENT,youku*
+USER-AGENT,Youku*
 USER-AGENT,YYeTs*
