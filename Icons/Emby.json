@@ -1,6 +1,6 @@
 {
   "name": "Emby",
-  "description": "519 图标",
+  "description": "521 图标",
   "icons": [
     {
       "name": "105°",
@@ -81,6 +81,14 @@
     {
       "name": "Alpha_X1",
       "url": "https://emby-icon.vercel.app/icons/Alpha_X1.PNG"
+    },
+    {
+      "name": "AnLiu",
+      "url": "https://emby-icon.vercel.app/icons/AnLiu.png"
+    },
+    {
+      "name": "AnLiu_1",
+      "url": "https://emby-icon.vercel.app/icons/AnLiu_1.png"
     },
     {
       "name": "Anime",
