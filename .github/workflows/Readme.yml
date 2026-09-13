@@ -14,6 +14,7 @@ on:
     paths:
       - "Loon/Rules/**"
       - "Egern/Rules/**"
+      - ".github/workflows/Readme.yml"
 
 permissions:
   contents: write
