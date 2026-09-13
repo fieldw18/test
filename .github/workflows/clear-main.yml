@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       mirror_icons:
-        description: "Mirror icon images into this repository"
+        description: "把图标镜像到本仓库（默认关闭，开启后明显变慢且体积增大）"
         required: false
         default: false
         type: boolean
       allow_empty:
-        description: "Create a commit when generated files do not change"
+        description: "生成内容没有变化时也创建提交"
         required: false
         default: false
         type: boolean
@@ -27,20 +27,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      TZ: Asia/Shanghai
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install YAML parser
-        run: python -m pip install --disable-pip-version-check --no-warn-script-location "PyYAML==6.0.2"
 
       - name: Get date
         id: date
@@ -53,479 +47,705 @@ jobs:
           key: personal-rules-${{ runner.os }}-${{ steps.date.outputs.date }}
 
       - name: Download rule sources
-        shell: bash
         env:
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           set -Eeuo pipefail
-          rm -rf raw
-          mkdir -p raw .cache/sources
           python3 <<'PY'
-          from concurrent.futures import ThreadPoolExecutor, as_completed
           import hashlib
           import os
+          import time
+          from concurrent.futures import ThreadPoolExecutor, as_completed
           from pathlib import Path
           from urllib.request import Request, urlopen
 
           GROUPS = [
-              ("Telegram", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Telegram/Telegram.list"]),
-              ("Alibaba", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Alibaba/Alibaba_All_No_Resolve.list"]),
-              ("ByteDance", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ByteDance/ByteDance.list"]),
-              ("Tencent", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Tencent/Tencent_All_No_Resolve.list"]),
-              ("YouTube", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/YouTube/YouTube.list"]),
-              ("Twitter", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Twitter/Twitter.list"]),
-              ("DouYin", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/DouYin/DouYin.list"]),
-              ("TikTok", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/TikTok/TikTok.list"]),
-              ("Github", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GitHub/GitHub.list"]),
-              ("Google", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Google/Google.list"]),
-              ("Spotify", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Spotify/Spotify.list"]),
-              ("Netflix", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Netflix/Netflix.list"]),
-              ("ChinaIPs", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaIPs/ChinaIPs.list"]),
-              ("BanAD", ["https://anti-ad.net/surge.txt", "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list", "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockloon.list"]),
-              ("China", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax_All_No_Resolve.list", "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/China/China_All_No_Resolve.list"]),
-              ("Apple", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple_All_No_Resolve.list"]),
-              ("AppleCN", ["https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/apple.txt", "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/icloud.txt"]),
-              ("Meta", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Facebook/Facebook.list", "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Instagram/Instagram.list", "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Threads/Threads.list", "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Whatsapp/Whatsapp.list"]),
-              ("HttpDns", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/BlockHttpDNS/BlockHttpDNS.list"]),
+              ("Telegram", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list"]),
+              ("Alibaba", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Alibaba/Alibaba_All_No_Resolve.list"]),
+              ("ByteDance", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ByteDance/ByteDance.list"]),
+              ("Tencent", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Tencent/Tencent_All_No_Resolve.list"]),
+              ("YouTube", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list"]),
+              ("Twitter", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list"]),
+              ("DouYin", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/DouYin/DouYin.list"]),
+              ("TikTok", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list"]),
+              ("Github", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GitHub/GitHub.list"]),
+              ("Google", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Google/Google.list"]),
+              ("Spotify", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list"]),
+              ("Netflix", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Netflix/Netflix.list"]),
+              ("ChinaIPs", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaIPs/ChinaIPs.list"]),
+              ("BanAD", [
+                  "https://anti-ad.net/surge.txt",
+                  "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list",
+                  "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockloon.list",
+              ]),
+              ("China", [
+                  "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_All_No_Resolve.list",
+                  "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/China/China_All_No_Resolve.list",
+              ]),
+              ("Apple", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Apple/Apple_All_No_Resolve.list"]),
+              ("AppleCN", [
+                  "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/apple.txt",
+                  "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/icloud.txt",
+              ]),
+              ("Meta", [
+                  "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Facebook/Facebook.list",
+                  "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Instagram/Instagram.list",
+                  "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Threads/Threads.list",
+                  "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Whatsapp/Whatsapp.list",
+              ]),
+              ("HttpDns", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/BlockHttpDNS/BlockHttpDNS.list"]),
               ("AI", ["https://git.repcz.link/kelee.one/Tool/Loon/Lsr/AI.lsr"]),
-              ("Talkatone", ["https://raw.githubusercontent.com/Repcz/Tool/refs/heads/X/Surge/Rules/Talkatone.list"]),
-              ("Global", ["https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/proxy.txt", "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/gfw.txt", "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Proxy/Proxy_All_No_Resolve.list"]),
+              ("Talkatone", ["https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Rules/Talkatone.list"]),
+              ("Global", [
+                  "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/proxy.txt",
+                  "https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/gfw.txt",
+                  "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Proxy/Proxy_All_No_Resolve.list",
+              ]),
               ("Lan", ["https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Custom/Lan.list"]),
               ("GeoipCN", ["https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Custom/FILTER_REGION.list"]),
               ("SpeedtestChina", ["https://git.repcz.link/kelee.one/Tool/Loon/Lsr/SpeedtestChina.lsr"]),
               ("SpeedtestInternational", ["https://git.repcz.link/kelee.one/Tool/Loon/Lsr/SpeedtestInternational.lsr"]),
-              ("PikPak", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/PikPak/PikPak.list"]),
+              ("PikPak", ["https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PikPak/PikPak.list"]),
           ]
-          CACHE_DIR = Path(".cache/sources")
-          USE_CACHE = os.environ.get("GITHUB_EVENT_NAME") != "workflow_dispatch"
 
-          def cache_files(url):
-              key = hashlib.sha256(url.encode()).hexdigest()
-              return CACHE_DIR / f"{key}.txt", CACHE_DIR / f"{key}.json"
+          CACHE = Path(".cache/sources")
+          USE_CACHE = os.environ.get("EVENT_NAME") != "workflow_dispatch"
 
           def fetch(url):
-              content_file, meta_file = cache_files(url)
-              if USE_CACHE and content_file.is_file() and content_file.stat().st_size:
-                  return content_file.read_text(encoding="utf-8", errors="replace"), meta_file.read_text(encoding="utf-8") if meta_file.exists() else ""
-              request = Request(url, headers={"User-Agent": "Personal-Rule-Builder/2.0", "Accept-Encoding": "identity"})
-              with urlopen(request, timeout=45) as response:
-                  body = response.read().decode("utf-8-sig", errors="replace")
-                  last_modified = response.headers.get("Last-Modified", "")
-              CACHE_DIR.mkdir(parents=True, exist_ok=True)
-              content_file.write_text(body, encoding="utf-8")
-              meta_file.write_text(last_modified, encoding="utf-8")
-              return body, last_modified
+              cached = CACHE / (hashlib.sha256(url.encode()).hexdigest() + ".txt")
+              if USE_CACHE and cached.is_file() and cached.stat().st_size:
+                  print(f"cache hit: {url}")
+                  return cached.read_text(encoding="utf-8", errors="replace")
+              last_error = None
+              for attempt in range(1, 5):
+                  try:
+                      request = Request(url, headers={
+                          "User-Agent": "Personal-Rule-Builder/3.0",
+                          "Accept-Encoding": "identity",
+                      })
+                      with urlopen(request, timeout=45) as response:
+                          body = response.read().decode("utf-8-sig", errors="replace")
+                      if not body.strip():
+                          raise RuntimeError("empty response")
+                      probe = body.lstrip()[:400].lower()
+                      if probe.startswith("<html") or probe.startswith("<!doctype"):
+                          raise RuntimeError("unexpected HTML response")
+                      CACHE.mkdir(parents=True, exist_ok=True)
+                      cached.write_text(body, encoding="utf-8")
+                      return body
+                  except Exception as exc:
+                      last_error = exc
+                      if attempt < 4:
+                          time.sleep(attempt * 2)
+              raise RuntimeError(f"download failed: {url}: {last_error}")
 
-          urls = [url for _, urls in GROUPS for url in urls]
-          contents = {}
+          urls = list(dict.fromkeys(url for _, group_urls in GROUPS for url in group_urls))
+          bodies = {}
           with ThreadPoolExecutor(max_workers=16) as pool:
               futures = {pool.submit(fetch, url): url for url in urls}
               for future in as_completed(futures):
                   url = futures[future]
-                  contents[url] = future.result()
-                  print(f"Downloaded: {url}")
+                  bodies[url] = future.result()
+                  print(f"downloaded: {url}")
 
-          for name, source_urls in GROUPS:
-              pieces = []
-              for url in source_urls:
-                  content, _ = contents[url]
-                  pieces.append(content)
-              Path("raw", f"{name}.source").write_text("\n".join(pieces) + "\n", encoding="utf-8")
-              print(f"{name}: {sum(len(x.splitlines()) for x in pieces):,} source lines")
+          Path("raw").mkdir(exist_ok=True)
+          for name, group_urls in GROUPS:
+              parts = [bodies[url] for url in group_urls]
+              Path("raw", f"{name}.source").write_text("\n".join(parts) + "\n", encoding="utf-8")
+              total = sum(part.count("\n") for part in parts)
+              print(f"{name}: {total:,} source lines")
           PY
 
       - name: Build Loon and Egern rules
-        shell: bash
         run: |
           set -Eeuo pipefail
-          rm -rf Loon/Rules Egern/Rules
-          mkdir -p Loon/Rules Egern/Rules
           python3 <<'PY'
-          from __future__ import annotations
-
           import re
+          from datetime import datetime, timedelta, timezone
           from pathlib import Path
 
-          import yaml
-
-          RULE_TYPES = (
-              "DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD", "DOMAIN-REGEX",
-              "DOMAIN-WILDCARD", "IP-CIDR", "IP-CIDR6", "IP6-CIDR", "GEOIP",
-              "USER-AGENT", "URL-REGEX", "IP-ASN", "DEST-PORT", "DST-PORT",
-              "PROTOCOL", "SSID", "BSSID", "CELLULAR", "AND", "OR", "NOT",
-          )
-          PREFIX_GROUP = {
-              "DOMAIN": "domain_set", "DOMAIN-SUFFIX": "domain_suffix_set",
-              "DOMAIN-KEYWORD": "domain_keyword_set", "DOMAIN-REGEX": "domain_regex_set",
-              "DOMAIN-WILDCARD": "domain_wildcard_set", "IP-CIDR": "ip_cidr_set",
-              "IP-CIDR6": "ip_cidr6_set", "IP6-CIDR": "ip_cidr6_set",
-              "GEOIP": "geoip_set", "URL-REGEX": "url_regex_set", "USER-AGENT": "user_agent_set",
-              "IP-ASN": "asn_set", "DEST-PORT": "dest_port_set", "DST-PORT": "dest_port_set",
-              "PROTOCOL": "protocol_set", "SSID": "ssid_set", "BSSID": "bssid_set",
+          # ---------------------------------------------------------------- 规则类型
+          GROUP_OF = {
+              "DOMAIN": "domain_set",
+              "DOMAIN-SUFFIX": "domain_suffix_set",
+              "DOMAIN-KEYWORD": "domain_keyword_set",
+              "DOMAIN-REGEX": "domain_regex_set",
+              "DOMAIN-WILDCARD": "domain_wildcard_set",
+              "GEOIP": "geoip_set",
+              "IP-CIDR": "ip_cidr_set",
+              "IP-CIDR6": "ip_cidr6_set",
+              "URL-REGEX": "url_regex_set",
+              "IP-ASN": "asn_set",
+              "USER-AGENT": "user_agent_set",
+              "SSID": "ssid_set",
+              "BSSID": "bssid_set",
               "CELLULAR": "cellular_set",
+              "DEST-PORT": "dest_port_set",
+              "PROTOCOL": "protocol_set",
           }
-          GROUP_ORDER = list(PREFIX_GROUP.values())
-          NO_RESOLVE_TYPES = {"IP-CIDR", "IP-CIDR6", "IP6-CIDR", "IP-ASN", "GEOIP"}
-          LOGICAL_TYPES = {"AND", "OR", "NOT"}
-          RULE_PREFIX_RE = re.compile(r"^(?:" + "|".join(re.escape(x) for x in RULE_TYPES) + r"),", re.I)
-          INNER_RULE_RE = re.compile(r"\(([A-Z][A-Z0-9-]*)\s*,\s*([^()]*)\)")
+          GROUP_ORDER = list(GROUP_OF.values())
+          ALIASES = {"DST-PORT": "DEST-PORT", "IP6-CIDR": "IP-CIDR6"}
+          LOGICAL = {"AND", "OR", "NOT"}
+          # 只有这些类型的值本身允许包含逗号，其余类型取逗号前的第一段
+          MULTI_VALUE = {"DEST-PORT", "DOMAIN-REGEX", "URL-REGEX", "USER-AGENT", "DOMAIN-WILDCARD"}
+          # 这些类型按 Egern 官方示例需要加引号
+          ALWAYS_QUOTE = {"DOMAIN-REGEX", "DOMAIN-WILDCARD", "IP-CIDR6", "IP-ASN", "URL-REGEX", "USER-AGENT"}
+          # no-resolve 属于 IP 类规则
+          NO_RESOLVE_TYPES = {"IP-CIDR", "IP-CIDR6", "IP-ASN", "GEOIP"}
+          # 这些分组不做 no-resolve 处理（与既有行为保持一致）
+          NO_RESOLVE_EXEMPT = {"GeoipCN", "Lan"}
+          KNOWN_TYPES = set(GROUP_OF) | set(LOGICAL) | set(ALIASES)
+          INNER_RULE = re.compile(r"\(([A-Za-z][A-Za-z0-9-]*)\s*,\s*([^()]*)\)")
 
-          def clean_rule_line(raw: str) -> str | None:
-              line = raw.strip().replace("\ufeff", "")
-              if not line or line.startswith(("#", "//", ";", "!")):
+          # ---------------------------------------------------------------- 解析
+          def clean(line):
+              text = line.strip().strip("\ufeff")
+              if not text:
                   return None
-              if line.startswith("- "):
-                  line = line[2:].strip()
-              if len(line) >= 2 and line[0] == line[-1] and line[0] in "'\"":
-                  line = line[1:-1].strip()
-              line = re.sub(r"\s+#.*$", "", line).strip()
-              return line if RULE_PREFIX_RE.match(line) else None
+              head = text[0]
+              if head in "#/;!":
+                  return None
+              if head == "-":
+                  if not text.startswith("- "):
+                      return None
+                  text = text[2:].strip()
+              kind, separator, rest = text.partition(",")
+              if not separator:
+                  return None
+              kind = kind.strip().upper()
+              if kind not in KNOWN_TYPES:
+                  return None
+              return kind, rest.strip()
 
-          def normalize_rule(prefix: str, value: str) -> tuple[str, str, bool] | None:
-              prefix = prefix.strip().upper()
-              if prefix == "IP6-CIDR":
-                  prefix = "IP-CIDR6"
-              value = value.strip()
+          def normalize(kind, raw_value):
+              value = raw_value.strip()
               if not value:
                   return None
-              parts = [part.strip() for part in value.split(",")]
-              had_no_resolve = any(part.lower() == "no-resolve" for part in parts[1:])
-              parts = [part for part in parts if part.lower() != "no-resolve"]
-              if prefix not in {"DEST-PORT", "DST-PORT", "DOMAIN-REGEX", "URL-REGEX", "USER-AGENT", "DOMAIN-WILDCARD"} and len(parts) > 1:
-                  parts = parts[:1]
-              value = ",".join(parts).strip()
-              if prefix == "DST-PORT":
-                  prefix = "DEST-PORT"
-              return (prefix, value, had_no_resolve) if value else None
+              no_resolve = False
+              if "," in value:
+                  parts = [part.strip() for part in value.split(",")]
+                  if parts and parts[-1].lower() == "no-resolve":
+                      no_resolve = True
+                      parts = parts[:-1]
+                  if kind not in MULTI_VALUE:
+                      parts = parts[:1]
+                  value = ",".join(parts).strip()
+              if len(value) >= 2 and value[0] == value[-1] and value[0] in "'\"":
+                  value = value[1:-1].strip()
+              kind = ALIASES.get(kind, kind)
+              if not value or kind in LOGICAL:
+                  return None
+              return kind, value, no_resolve
 
-          def parse_source(content: str) -> tuple[list[tuple[str, str, bool]], list[str], list[tuple[str, str, bool]], int]:
-              rules: list[tuple[str, str, bool]] = []
-              direct_rules: list[tuple[str, str, bool]] = []
-              logical_lines: list[str] = []
+          def parse(content):
+              rules = {}          # (kind, 归一化键) -> (kind, value, no_resolve)
+              logical_lines = []
               skipped = 0
               for raw in content.splitlines():
-                  line = clean_rule_line(raw)
-                  if not line:
+                  cleaned = clean(raw)
+                  if cleaned is None:
                       if raw.strip():
                           skipped += 1
                       continue
-                  prefix, value = line.split(",", 1)
-                  prefix = prefix.strip().upper()
-                  if prefix in LOGICAL_TYPES:
-                      logical_lines.append(line)
-                      for inner_type, inner_value in INNER_RULE_RE.findall(line):
-                          normalized = normalize_rule(inner_type, inner_value)
-                          if normalized:
-                              rules.append(normalized)
+                  kind, rest = cleaned
+                  if kind in LOGICAL:
+                      # Loon 支持逻辑规则，原文保留；Egern 规则集不支持，改为拆出内部普通规则
+                      logical_lines.append(f"{kind}, {rest}")
+                      for inner_kind, inner_value in INNER_RULE.findall(rest):
+                          item = normalize(inner_kind.upper(), inner_value)
+                          if item:
+                              rules.setdefault((item[0], item[1].lower()), item)
                           else:
                               skipped += 1
                       continue
-                  normalized = normalize_rule(prefix, value)
-                  if normalized:
-                      rules.append(normalized)
-                      direct_rules.append(normalized)
-                  else:
+                  item = normalize(kind, rest)
+                  if item is None:
                       skipped += 1
-              return rules, logical_lines, direct_rules, skipped
+                      continue
+                  key = (item[0], item[1].lower() if item[0] in {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD"} else item[1])
+                  previous = rules.get(key)
+                  if previous is None:
+                      rules[key] = item
+                  elif item[2] and not previous[2]:
+                      rules[key] = (previous[0], previous[1], True)
+              return rules, logical_lines, skipped
 
-          def dedupe(rules: list[tuple[str, str, bool]]) -> list[tuple[str, str, bool]]:
-              result: dict[tuple[str, str], tuple[str, str, bool]] = {}
-              for prefix, value, no_resolve in rules:
-                  key = (prefix, value.lower() if prefix in {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD"} else value)
-                  old = result.get(key)
-                  result[key] = (prefix, value, bool(no_resolve or (old and old[2])))
-              return sorted(result.values(), key=lambda x: (x[0], x[1].lower()))
+          # ---------------------------------------------------------------- 时间
+          TIME_PATTERNS = (
+              (re.compile(r"#\s*UPDATED:\s*(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})", re.I), "%Y-%m-%d %H:%M:%S"),
+              (re.compile(r"#!date=(\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2})", re.I), "%Y/%m/%d %H:%M:%S"),
+              (re.compile(r"#\s*Update time:\s*(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})", re.I), "%Y-%m-%d %H:%M:%S"),
+              (re.compile(r"#\s*(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})", re.I), "%Y-%m-%d %H:%M:%S"),
+              (re.compile(r"#VER=(\d{14})", re.I), "%Y%m%d%H%M%S"),
+          )
+          BEIJING = timezone(timedelta(hours=8))
 
-          def parse_timestamp(source: Path) -> str:
-              from datetime import datetime, timedelta, timezone
-
-              beijing = timezone(timedelta(hours=8))
-              dates: list[datetime] = []
-              text = source.read_text(encoding="utf-8", errors="replace")
-              patterns = (
-                  (r"#\s*UPDATED:\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})", "%Y-%m-%d %H:%M:%S"),
-                  (r"#!date=(\d{4}/\d{2}/\d{2}\s+\d{2}:\d{2}:\d{2})", "%Y/%m/%d %H:%M:%S"),
-                  (r"#Update time:\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})", "%Y-%m-%d %H:%M:%S"),
-                  (r"#\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})", "%Y-%m-%d %H:%M:%S"),
-              )
-              for pattern, fmt in patterns:
-                  dates.extend(datetime.strptime(value, fmt).replace(tzinfo=beijing) for value in re.findall(pattern, text, re.I))
-              dates.extend(datetime.strptime(value, "%Y%m%d%H%M%S").replace(tzinfo=beijing) for value in re.findall(r"#VER=(\d{14})", text, re.I))
-              current = max(dates) if dates else datetime.now(beijing)
-              return current.astimezone(beijing).strftime("%Y-%m-%d %H:%M:%S")
-
-          def old_time(path: Path) -> str | None:
-              if not path.exists():
-                  return None
-              match = re.search(r"^# 更新时间:\s*(.+?)\s*$", path.read_text(encoding="utf-8", errors="replace"), re.M)
-              return match.group(1).strip() if match else None
-
-          def semantic_egern(content: str):
+          def source_time(path):
               try:
-                  data = yaml.safe_load(content)
-              except Exception:
-                  return None
-              if not isinstance(data, dict):
-                  return None
-              return tuple((key, tuple(value) if isinstance(value, list) else value) for key, value in data.items())
+                  head = path.read_text(encoding="utf-8", errors="replace")[:8192]
+              except OSError:
+                  head = ""
+              best = None
+              for pattern, fmt in TIME_PATTERNS:
+                  for found in pattern.findall(head):
+                      try:
+                          moment = datetime.strptime(found, fmt).replace(tzinfo=BEIJING)
+                      except ValueError:
+                          continue
+                      if best is None or moment > best:
+                          best = moment
+              return (best or datetime.now(BEIJING)).astimezone(BEIJING).strftime("%Y-%m-%d %H:%M:%S")
 
-          def semantic_loon(content: str) -> tuple[str, ...]:
-              return tuple(line.strip() for line in content.splitlines() if line.strip() and not line.lstrip().startswith("#"))
+          # ---------------------------------------------------------------- 序列化
+          PLAIN_FORBIDDEN = set(":[]{}\",#&*!|>%@`\n\t'\\")
+          PLAIN_KEYWORDS = {"true", "false", "yes", "no", "on", "off", "null", "~"}
+          NUMBERISH = re.compile(r"[-+]?[0-9]+(?:\.[0-9]+)?")
 
-          def header(name: str, count: int, timestamp: str) -> str:
+          def scalar(kind, value):
+              quote = kind in ALWAYS_QUOTE
+              if not quote:
+                  if value != value.strip() or not value:
+                      quote = True
+                  elif value[0] in "-?:,[]{}#&*!|>'\"%@`":
+                      quote = True
+                  elif any(char in PLAIN_FORBIDDEN for char in value):
+                      quote = True
+                  elif " #" in value:
+                      quote = True
+                  elif value.lower() in PLAIN_KEYWORDS:
+                      quote = True
+                  elif NUMBERISH.fullmatch(value):
+                      quote = True
+              if not quote:
+                  return value
+              return "'" + value.replace("'", "''") + "'"
+
+          def header(name, count, timestamp):
               return f"# 规则名称: {name}\n# 规则统计: {count}\n# 更新时间: {timestamp}\n\n"
 
-          def write_stable(path: Path, body: str, name: str, count: int, timestamp: str, semantic, is_egern: bool) -> None:
+          def write_stable(path, body, name, count, timestamp):
               previous = path.read_text(encoding="utf-8", errors="replace") if path.exists() else ""
-              old_semantic = semantic_egern(previous) if is_egern else semantic_loon(previous)
-              if old_semantic == semantic and old_time(path):
-                  timestamp = old_time(path) or timestamp
-              path.write_text(header(name, count, timestamp) + body.rstrip() + "\n", encoding="utf-8", newline="\n")
+              old_body = previous.split("\n\n", 1)[1].strip() if "\n\n" in previous else ""
+              old_time = None
+              for line in previous.splitlines()[:4]:
+                  if line.startswith("# 更新时间:"):
+                      old_time = line.split(":", 1)[1].strip()
+              if old_time and old_body == body.strip():
+                  timestamp = old_time
+              path.parent.mkdir(parents=True, exist_ok=True)
+              path.write_text(header(name, count, timestamp) + body.strip() + "\n", encoding="utf-8", newline="\n")
 
-          for source in sorted(Path("raw").glob("*.source")):
+          # ---------------------------------------------------------------- 主流程
+          loon_dir = Path("Loon/Rules")
+          egern_dir = Path("Egern/Rules")
+          loon_dir.mkdir(parents=True, exist_ok=True)
+          egern_dir.mkdir(parents=True, exist_ok=True)
+
+          sources = sorted(Path("raw").glob("*.source"))
+          if not sources:
+              raise SystemExit("no raw/*.source generated")
+
+          generated = set()
+          for source in sources:
               name = source.stem
-              raw_rules, logical_lines, direct_rules, skipped = parse_source(source.read_text(encoding="utf-8", errors="replace"))
-              rules = dedupe(raw_rules)
-              loon_rules = dedupe(direct_rules)
+              rules, logical_lines, skipped = parse(source.read_text(encoding="utf-8", errors="replace"))
               if not rules:
-                  raise RuntimeError(f"{name}: no supported rules; skipped {skipped}")
-              timestamp = parse_timestamp(source)
-              loon_no_resolve = name not in {"GeoipCN", "Lan"}
+                  raise SystemExit(f"{name}: no usable rules (skipped {skipped})")
+              timestamp = source_time(source)
+              use_no_resolve = name not in NO_RESOLVE_EXEMPT
 
-              loon_lines = list(logical_lines)
-              for prefix, value, no_resolve in loon_rules:
-                  suffix = ",no-resolve" if prefix in NO_RESOLVE_TYPES and (no_resolve or loon_no_resolve) else ""
-                  loon_lines.append(f"{prefix},{value}{suffix}")
-              loon_lines = sorted(set(loon_lines), key=lambda x: (x.split(",", 1)[0], x.lower()))
-              loon_body = "\n".join(loon_lines)
-              write_stable(Path("Loon/Rules", f"{name}.list"), loon_body, name, len(loon_lines), timestamp, tuple(loon_lines), False)
+              # Loon：保留逻辑规则原文，IP 类补 no-resolve
+              loon_rules = []
+              for kind, value, no_resolve in rules.values():
+                  suffix = ",no-resolve" if kind in NO_RESOLVE_TYPES and (no_resolve or use_no_resolve) else ""
+                  loon_rules.append((kind, f"{kind},{value}{suffix}"))
+              loon_rules.sort(key=lambda item: (item[0], item[1].lower()))
+              loon_lines = [line for _, line in loon_rules] + sorted(logical_lines)
+              write_stable(loon_dir / f"{name}.list", "\n".join(loon_lines), name, len(loon_lines), timestamp)
 
-              grouped: dict[str, list[str]] = {key: [] for key in GROUP_ORDER}
+              # Egern：只输出普通规则集字段，逻辑规则已在解析阶段展开
+              groups = {key: [] for key in GROUP_ORDER}
               needs_no_resolve = False
-              for prefix, value, no_resolve in rules:
-                  key = PREFIX_GROUP[prefix]
-                  grouped[key].append(value)
-                  if prefix in NO_RESOLVE_TYPES and (no_resolve or loon_no_resolve):
+              for kind, value, no_resolve in rules.values():
+                  group = GROUP_OF[kind]
+                  groups[group].append((kind, value))
+                  if kind in NO_RESOLVE_TYPES and (no_resolve or use_no_resolve):
                       needs_no_resolve = True
-              grouped = {key: sorted(set(values), key=str.lower) for key, values in grouped.items() if values}
-              data: dict[str, object] = {}
+              body = []
               if needs_no_resolve:
-                  data["no_resolve"] = True
-              for key in GROUP_ORDER:
-                  if key in grouped:
-                      data[key] = grouped[key]
-              egern_body = yaml.safe_dump(data, allow_unicode=True, default_flow_style=False, sort_keys=False, width=4096)
-              egern_body = egern_body.rstrip()
-              egern_semantic = semantic_egern(egern_body)
-              write_stable(Path("Egern/Rules", f"{name}.yaml"), egern_body, name, sum(len(v) for v in grouped.values()), timestamp, egern_semantic, True)
-              print(f"{name}: {len(loon_lines):,} Loon / {sum(len(v) for v in grouped.values()):,} Egern / skipped {skipped:,}")
+                  body.append("no_resolve: true")
+              total = 0
+              for group in GROUP_ORDER:
+                  items = groups[group]
+                  if not items:
+                      continue
+                  body.append(f"{group}:")
+                  for kind, value in sorted(set(items), key=lambda item: item[1].lower()):
+                      body.append(f"- {scalar(kind, value)}")
+                      total += 1
+              write_stable(egern_dir / f"{name}.yaml", "\n".join(body), name, total, timestamp)
+              generated.add(name)
+              print(f"{name}: {len(loon_lines):,} Loon / {total:,} Egern / skipped {skipped:,}")
 
-          if not list(Path("Loon/Rules").glob("*.list")) or not list(Path("Egern/Rules").glob("*.yaml")):
-              raise RuntimeError("No generated rule files")
+          for directory, suffix in ((loon_dir, ".list"), (egern_dir, ".yaml")):
+              for path in directory.glob(f"*{suffix}"):
+                  if path.stem not in generated:
+                      path.unlink()
+                      print(f"removed stale: {path}")
+
+          print("rule files built")
           PY
 
       - name: Icons
-        shell: bash
         env:
           MIRROR_ICONS: ${{ inputs.mirror_icons || 'false' }}
         run: |
           set -Eeuo pipefail
-          mkdir -p Icons/Icons-all Icons/Emby raw/icon-json
+          mkdir -p Icons raw/icon-work
+          WORK="raw/icon-work"
 
+          # 分类沿用上游自己的划分
+          #   direct：该清单整包属于同一分类
+          #   path  ：按上游目录前缀细分（lige47）
           sources=(
-            "Icons-all https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-All.json https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/ligeicon.json"
-            "Emby https://emby-icon.vercel.app/TFEL-Emby.json"
+            "Flags|direct|https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Area.json"
+            "Media|direct|https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Media.json"
+            "Apps|direct|https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-AppGame.json"
+            "Services|direct|https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Service.json"
+            "Server|direct|https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Server.json"
+            "Common|direct|https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Common.json"
+            "Inhibition|direct|https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Inhibition.json"
+            "Other|direct|https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Other.json"
+            "Other|path|https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/ligeicon.json"
+            "Emby|direct|https://emby-icon.vercel.app/TFEL-Emby.json"
           )
 
           repo="${{ github.repository }}"
-          branch="main"
+          branch="${{ github.ref_name }}"
           mirror="${MIRROR_ICONS:-false}"
-          total_failed=0
+          mirror_json=$([ "$mirror" = "true" ] && echo true || echo false)
 
-          encode_url() {
-            jq -rn --arg u "$1" '
-              def enc: gsub("%"; "__PERCENT__") | @uri | gsub("__PERCENT__"; "%");
-              ($u | split("#")[0]) as $clean |
-              ($clean | split("?")) as $query |
-              ($query[0] | split("/")) as $parts |
-              (($parts[0:3] + ($parts[3:] | map(enc))) | join("/")) +
-              (if ($query | length) > 1 then "?" + ($query[1:] | join("?")) else "" end)
-            '
-          }
+          cat > "$WORK/extract.jq" <<'JQ'
+          def enc_url:
+            explode | map([.] | implode)
+            | map(if test("^[A-Za-z0-9._~:/?#@!$&'()*+,;=%-]$") then . else @uri end)
+            | join("");
+          def icons:
+            if type == "object" and has("icons") then .icons
+            elif type == "array" then .
+            else error("unsupported icon source") end;
+          def classify($u):
+            if   ($u | test("icon/01Country/"))       then "Flags"
+            elif ($u | test("icon/02ProxySoftLogo/")) then "ProxyTools"
+            elif ($u | test("icon/03CNSoft/"))        then "CNApps"
+            elif ($u | test("icon/04ProxySoft/"))     then "Apps"
+            elif ($u | test("icon/05icon/"))          then "Functional"
+            elif ($u | test("icon/06jichang/"))       then "Airport"
+            else "Other" end;
+          icons
+          | .[]
+          | select(.url? and (.url | type == "string"))
+          | select(.url | test("\\.(png|jpe?g|gif|svg|webp)(\\?.*)?$"; "i"))
+          | {
+              category: (if $mode == "path" then classify(.url) else $category end),
+              name: ((.name // "") | tostring),
+              url: .url,
+              encoded: (.url | enc_url)
+            }
+          JQ
 
           download_icon() {
-            local url="$1" target="$2" temp="$3" encoded
-            if [ -s "$target" ]; then
-              return 0
-            fi
-            encoded=$(encode_url "$url")
+            local encoded="$1" target="$2" temp="$3"
+            [ -s "$target" ] && return 0
             if curl --fail --silent --show-error --location --retry 3 --retry-all-errors \
-              --connect-timeout 8 --max-time 60 "$encoded" -o "$temp" \
-              && [ -s "$temp" ]; then
+              --connect-timeout 8 --max-time 60 "$encoded" -o "$temp" && [ -s "$temp" ]; then
+              mkdir -p "${target%/*}"
               mv -f "$temp" "$target"
               return 0
             fi
             rm -f "$temp"
             return 1
           }
-          export -f encode_url download_icon
+          export -f download_icon
 
-          for line in "${sources[@]}"; do
-            read -r category urls <<< "$line"
-            output_file="Icons/${category}.json"
-            target_dir="Icons/${category}"
-            work_dir="raw/icons-${category}"
-            mkdir -p "$target_dir" "$work_dir"
-            : > "$work_dir/raw_icons.jsonl"
-            : > "$work_dir/jobs.tsv"
-
-            index=0
-            for url in $urls; do
-              json_file="$work_dir/source-${index}.json"
-              encoded=$(encode_url "$url")
-              curl --fail --silent --show-error --location --retry 3 --retry-all-errors \
-                --connect-timeout 15 --max-time 90 "$encoded" -o "$json_file"
-              jq -e 'if type == "object" and has("icons") then .icons elif type == "array" then . else error end' \
-                "$json_file" > "$work_dir/icons-${index}.json"
-
-              jq -c '.[] | select(.url? and (.url | type == "string"))' "$work_dir/icons-${index}.json" > "$work_dir/items-${index}.jsonl"
-              while IFS= read -r icon; do
-                icon_url=$(jq -r '.url' <<< "$icon")
-                lower_url="${icon_url,,}"
-                if [[ "$lower_url" =~ \.(png|jpg|jpeg|gif|svg|webp)(\?.*)?$ ]]; then
-                  jq -c '.' <<< "$icon" >> "$work_dir/raw_icons.jsonl"
-                  if [ "$mirror" = "true" ]; then
-                    icon_path="${icon_url%%\?*}"
-                    filename="${icon_path##*/}"
-                    [ -n "$filename" ] || filename="icon.png"
-                    target="$target_dir/$filename"
-                    if [ -e "$target" ]; then
-                      stem="${filename%.*}"
-                      ext="${filename##*.}"
-                      filename="${stem}-$(printf '%s' "$icon_url" | sha256sum | cut -c1-10).${ext}"
-                      target="$target_dir/$filename"
-                    fi
-                    temp="$work_dir/.${index}-${filename}.tmp"
-                    printf '%s\t%s\t%s\n' "$icon_url" "$target" "$temp" >> "$work_dir/jobs.tsv"
-                  fi
-                fi
-              done < "$work_dir/items-${index}.jsonl"
-              index=$((index + 1))
-            done
-
-            failed=0
-            : > "$work_dir/success.jsonl"
-            if [ "$mirror" = "true" ] && [ -s "$work_dir/jobs.tsv" ]; then
-              while IFS=$'\t' read -r icon_url target temp; do
-                printf '%s\t%s\t%s\n' "$icon_url" "$target" "$temp"
-              done < "$work_dir/jobs.tsv" \
-                | xargs -P 16 -n 3 bash -c 'download_icon "$1" "$2" "$3"' _ \
-                || failed=1
-
-              while IFS=$'\t' read -r icon_url target temp; do
-                if [ -s "$target" ]; then
-                  printf '%s\n' "$(jq -cn --arg url "$icon_url" --arg filename "${target##*/}" '{url:$url,filename:$filename}')" >> "$work_dir/success.jsonl"
-                fi
-              done < "$work_dir/jobs.tsv"
-
-              if [ "$failed" -eq 1 ]; then
-                echo "Warning: some icon downloads failed; original CDN URLs are retained"
-                total_failed=$((total_failed + 1))
-              fi
+          : > "$WORK/all.jsonl"
+          index=0
+          ok_sources=0
+          for entry in "${sources[@]}"; do
+            IFS='|' read -r category mode url <<< "$entry"
+            index=$((index + 1))
+            src="$WORK/source-$index.json"
+            if ! curl --fail --silent --show-error --location --retry 3 --retry-all-errors \
+              --connect-timeout 15 --max-time 90 "$url" -o "$src"; then
+              echo "::warning::icon source unavailable: $url"
+              continue
             fi
-            jq -s '.' "$work_dir/success.jsonl" > "$work_dir/success.json"
-
-            jq -s --arg category "$category" --arg repo "$repo" --arg branch "$branch" \
-              --argjson mirror "$([ "$mirror" = "true" ] && echo true || echo false)" \
-              --slurpfile success "$work_dir/success.json" '
-              map(select(.name?)) |
-              map(
-                .url as $url |
-                (first($success[0][] | select(.url == $url)) // null) as $match |
-                if $mirror and $match then
-                  .url = ("https://raw.githubusercontent.com/" + $repo + "/" + $branch + "/Icons/" + $category + "/" + $match.filename)
-                else . end
-              ) |
-              group_by(.name) |
-              map(.[0]) |
-              {
-                name: $category,
-                description: ((length | tostring) + " 图标"),
-                icons: .
-              }
-            ' "$work_dir/raw_icons.jsonl" > "$output_file"
-
-            jq . "$output_file" > "$output_file.tmp"
-            mv "$output_file.tmp" "$output_file"
-            touch "$target_dir/updated.flag"
-            rm -rf "$work_dir"
+            if ! jq -c -e -f "$WORK/extract.jq" --arg category "$category" --arg mode "$mode" "$src" > "$WORK/part-$index.jsonl" 2>/dev/null; then
+              echo "::warning::icon source skipped: $url"
+              continue
+            fi
+            ok_sources=$((ok_sources + 1))
+            echo "[$category/$mode] $(wc -l < "$WORK/part-$index.jsonl") icons <- $url"
+            cat "$WORK/part-$index.jsonl" >> "$WORK/all.jsonl"
           done
-          echo "Icon build completed; failed mirror groups: $total_failed"
+          if [ "$ok_sources" -eq 0 ] || [ ! -s "$WORK/all.jsonl" ]; then
+            echo "::error::no icon source could be parsed"
+            exit 1
+          fi
 
-      - name: Validate generated files
-        shell: bash
+          jq -s 'group_by(.category) | map({category: .[0].category, icons: (group_by(.name) | map(.[0]))})' \
+            "$WORK/all.jsonl" > "$WORK/groups.json"
+
+          if [ "$mirror" = "true" ]; then
+            declare -A USED=()
+            : > "$WORK/mirror-list.tsv"
+            : > "$WORK/jobs.tsv"
+            jq -r '.[] | .category as $c | .icons[] | [$c, .encoded, .url] | @tsv' "$WORK/groups.json" > "$WORK/mirror-list.tsv"
+            while IFS=$'\t' read -r category encoded url; do
+              base="${url%%\?*}"
+              base="${base##*/}"
+              base="${base// /%20}"
+              [ -n "$base" ] || base="icon.png"
+              key="$category/$base"
+              if [ -n "${USED[$key]:-}" ]; then
+                if [[ "$base" == *.* ]]; then
+                  base="${base%.*}-$(printf '%s' "$url" | sha256sum | cut -c1-10).${base##*.}"
+                else
+                  base="$(printf '%s' "$url" | sha256sum | cut -c1-10).png"
+                fi
+                key="$category/$base"
+              fi
+              USED[$key]=1
+              printf '%s\t%s\t%s\t%s\t%s\n' "$encoded" "Icons/$category/$base" "$WORK/.tmp-$category-$base" "$url" "$category" >> "$WORK/jobs.tsv"
+            done < "$WORK/mirror-list.tsv"
+
+            if [ -s "$WORK/jobs.tsv" ]; then
+              cut -f1-3 "$WORK/jobs.tsv" | xargs -P 16 -n 3 bash -c 'download_icon "$1" "$2" "$3"' _ || true
+            fi
+
+            : > "$WORK/success.tsv"
+            while IFS=$'\t' read -r encoded target temp url category; do
+              if [ -s "$target" ]; then
+                printf '%s\t%s\t%s\n' "$url" "$category" "${target##*/}" >> "$WORK/success.tsv"
+              fi
+            done < "$WORK/jobs.tsv"
+            total=$(wc -l < "$WORK/jobs.tsv")
+            done_count=$(wc -l < "$WORK/success.tsv")
+            echo "mirrored $done_count/$total icons"
+            if [ "$done_count" -lt "$total" ]; then
+              echo "::warning::$((total - done_count)) icons kept on upstream URLs"
+            fi
+            jq -Rn '[inputs | split("\t") | {url: .[0], category: .[1], filename: .[2]}]' \
+              < "$WORK/success.tsv" > "$WORK/success.json"
+          else
+            printf '[]\n' > "$WORK/success.json"
+          fi
+
+          jq --arg repo "$repo" --arg branch "$branch" --argjson mode "$mirror_json" \
+            --slurpfile success "$WORK/success.json" '
+            def zh($c): ({Flags:"国旗",Media:"媒体",Apps:"应用",CNApps:"国内应用",Airport:"机场",ProxyTools:"代理工具",Functional:"功能",Services:"服务",Server:"服务器",Common:"公共",Inhibition:"拦截",Other:"其他",Emby:"Emby"}[$c] // $c);
+            .[]
+            | .category as $category
+            | (.icons | map(
+                .url as $u
+                | (first($success[0][] | select(.url == $u)) // null) as $m
+                | if $mode and $m then
+                    {name: .name, url: ("https://raw.githubusercontent.com/" + $repo + "/" + $branch + "/Icons/" + $m.category + "/" + $m.filename)}
+                  else {name: .name, url: .url} end
+              )) as $icons
+            | {
+                name: $category,
+                description: (zh($category) + " " + (($icons | length) | tostring) + " 图标"),
+                icons: $icons
+              }
+          ' "$WORK/groups.json" > "$WORK/output.jsonl"
+
+          jq -c '.' "$WORK/output.jsonl" | while IFS= read -r obj; do
+            category=$(jq -r '.name' <<< "$obj")
+            jq '.' <<< "$obj" > "Icons/$category.json"
+          done
+
+          jq -s '{
+            name: "Icons-all",
+            description: ("全部 " + ((map(.icons) | add | length) | tostring) + " 图标"),
+            icons: (map(.icons) | add | group_by(.name) | map(.[0]))
+          }' "$WORK/output.jsonl" > "Icons/Icons-all.json"
+
+          if [ "$mirror" = "true" ]; then
+            for f in Icons/*.json; do
+              name="${f##*/}"
+              name="${name%.json}"
+              [ "$name" = "Icons-all" ] && continue
+              mkdir -p "Icons/$name"
+              touch "Icons/$name/updated.flag"
+            done
+          fi
+
+          for f in Icons/*.json; do
+            printf '%-20s %s\n' "${f##*/}" "$(jq -r '(.icons|length|tostring) + " 图标"' "$f")"
+          done
+
+          rm -rf "$WORK"
+
+      - name: Validate
         run: |
           set -Eeuo pipefail
           python3 <<'PY'
           import json
+          import shutil
+          import subprocess
           from pathlib import Path
-          import yaml
 
-          allowed = {
+          EGERN_KEYS = {
               "no_resolve", "domain_set", "domain_suffix_set", "domain_keyword_set",
               "domain_regex_set", "domain_wildcard_set", "geoip_set", "ip_cidr_set",
-              "ip_cidr6_set", "asn_set", "url_regex_set", "user_agent_set", "dest_port_set",
-              "protocol_set", "ssid_set", "bssid_set", "cellular_set",
+              "ip_cidr6_set", "url_regex_set", "asn_set", "user_agent_set",
+              "ssid_set", "bssid_set", "cellular_set", "dest_port_set", "protocol_set",
           }
-          for path in sorted(Path("Egern/Rules").glob("*.yaml")):
-              lines = path.read_text(encoding="utf-8").splitlines()
-              assert lines[0] == f"# 规则名称: {path.stem}", path
-              assert lines[1].startswith("# 规则统计: "), path
-              assert lines[2].startswith("# 更新时间: "), path
-              assert not any(line.startswith("#") for line in lines[3:]), path
-              data = yaml.safe_load(path.read_text(encoding="utf-8"))
-              assert isinstance(data, dict) and set(data) <= allowed, path
-              for key, values in data.items():
-                  if key == "no_resolve":
-                      assert isinstance(values, bool), path
-                  else:
-                      assert isinstance(values, list) and values, path
-                      assert all(isinstance(value, str) for value in values), path
-                      assert len(values) == len(set(values)), path
-          for path in sorted(Path("Loon/Rules").glob("*.list")):
-              lines = path.read_text(encoding="utf-8").splitlines()
-              assert lines[0] == f"# 规则名称: {path.stem}", path
-              assert lines[1].startswith("# 规则统计: "), path
-              assert lines[2].startswith("# 更新时间: "), path
-              assert not any(line.startswith("#") for line in lines[3:]), path
-          for path in Path("Icons").glob("*.json"):
-              data = json.loads(path.read_text(encoding="utf-8"))
-              names = [item.get("name") for item in data.get("icons", [])]
-              assert len(names) == len(set(names)), path
-          print("Generated files validated")
+          problems = []
+
+          def report(path, message):
+              problems.append(f"{path}: {message}")
+
+          def read_lines(path):
+              return path.read_text(encoding="utf-8").splitlines()
+
+          def check_header(path, lines):
+              if len(lines) < 4:
+                  report(path, "file is too short")
+                  return False
+              if lines[0] != f"# 规则名称: {path.stem}":
+                  report(path, f"unexpected name header: {lines[0]!r}")
+              if not lines[1].startswith("# 规则统计: "):
+                  report(path, "missing count header")
+              if not lines[2].startswith("# 更新时间: "):
+                  report(path, "missing update-time header")
+              if lines[3].strip():
+                  report(path, "header must be followed by a blank line")
+              return True
+
+          egern_files = sorted(Path("Egern/Rules").glob("*.yaml"))
+          loon_files = sorted(Path("Loon/Rules").glob("*.list"))
+          if not egern_files:
+              problems.append("Egern/Rules: no output")
+          if not loon_files:
+              problems.append("Loon/Rules: no output")
+
+          for path in egern_files:
+              lines = read_lines(path)
+              if not check_header(path, lines):
+                  continue
+              declared = int(lines[1].split(":", 1)[1].strip())
+              counted = 0
+              current = None
+              for line in lines[4:]:
+                  if not line.strip():
+                      continue
+                  if line.lstrip().startswith("#"):
+                      report(path, f"unexpected comment: {line[:40]!r}")
+                      continue
+                  if line.startswith("- "):
+                      if current is None:
+                          report(path, f"list item before any key: {line[:40]!r}")
+                      counted += 1
+                      continue
+                  if line.startswith("  - ") or line.startswith("\t"):
+                      report(path, f"unexpected indentation: {line[:40]!r}")
+                      continue
+                  if line.endswith(":"):
+                      current = line[:-1]
+                      if current not in EGERN_KEYS:
+                          report(path, f"unsupported key: {current!r}")
+                      continue
+                  if line in ("no_resolve: true", "no_resolve: false"):
+                      continue
+                  report(path, f"unexpected line: {line[:60]!r}")
+              if counted != declared:
+                  report(path, f"declared {declared} rules but found {counted}")
+
+          for path in loon_files:
+              lines = read_lines(path)
+              if not check_header(path, lines):
+                  continue
+              declared = int(lines[1].split(":", 1)[1].strip())
+              counted = 0
+              for line in lines[4:]:
+                  if not line.strip():
+                      continue
+                  if line.lstrip().startswith("#"):
+                      report(path, f"unexpected comment: {line[:40]!r}")
+                      continue
+                  if "," not in line:
+                      report(path, f"not a Loon rule: {line[:60]!r}")
+                      continue
+                  counted += 1
+              if counted != declared:
+                  report(path, f"declared {declared} rules but found {counted}")
+
+          icon_files = sorted(Path("Icons").glob("*.json"))
+          if not icon_files:
+              problems.append("Icons: no output")
+          for path in icon_files:
+              try:
+                  data = json.loads(path.read_text(encoding="utf-8"))
+              except json.JSONDecodeError as exc:
+                  report(path, f"invalid JSON: {exc}")
+                  continue
+              icons = data.get("icons")
+              if not isinstance(icons, list) or not icons:
+                  report(path, "empty icon list")
+                  continue
+              names = [item.get("name") for item in icons]
+              if len(names) != len(set(names)):
+                  report(path, "duplicate icon names")
+              if any(not isinstance(item.get("url"), str) or not item["url"].startswith("http") for item in icons):
+                  report(path, "icon without valid url")
+
+          if problems:
+              print("\n".join(problems))
+              raise SystemExit(f"validation failed with {len(problems)} problem(s)")
+          print(f"structural check passed: {len(egern_files)} Egern, {len(loon_files)} Loon, {len(icon_files)} icon files")
           PY
+          if command -v ruby >/dev/null 2>&1; then
+            ruby -ryaml -e '
+              Dir["Egern/Rules/*.yaml"].each do |path|
+                begin
+                  data = YAML.load_file(path)
+                rescue => e
+                  abort "#{path}: invalid YAML: #{e.message}"
+                end
+                abort "#{path}: root is not a mapping" unless data.is_a?(Hash)
+                total = data.reject { |k, _| k == "no_resolve" }.values.sum { |v| v.is_a?(Array) ? v.length : 0 }
+                abort "#{path}: no rules" if total.zero?
+              end
+              puts "YAML parse check passed (#{Dir["Egern/Rules/*.yaml"].length} files)"
+            '
+          else
+            echo "ruby not available, skipped full YAML parse"
+          fi
 
       - name: Commit and push
-        shell: bash
         env:
           ALLOW_EMPTY: ${{ inputs.allow_empty || 'false' }}
         run: |
           set -Eeuo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Loon/Rules Egern/Rules Icons
+          git add Loon Egern Icons
           if git diff --cached --quiet; then
-            [[ "$ALLOW_EMPTY" == "true" ]] || { echo "No generated changes"; exit 0; }
+            [[ "${ALLOW_EMPTY:-false}" == "true" ]] || { echo "no generated changes"; exit 0; }
             git commit --allow-empty -m "chore: refresh generated rules and icons"
           else
             git commit -m "chore: update generated rules and icons"
           fi
+          BRANCH="${GITHUB_REF_NAME:-main}"
           for attempt in 1 2 3 4 5; do
-            if git pull --rebase origin "${GITHUB_REF_NAME:-main}" && git push origin "HEAD:${GITHUB_REF_NAME:-main}"; then
+            if git pull --rebase origin "$BRANCH" && git push origin "HEAD:$BRANCH"; then
+              echo "pushed"
               exit 0
             fi
             git rebase --abort 2>/dev/null || true
             sleep $((attempt * 2))
           done
-          echo "Unable to push after five attempts" >&2
+          echo "push failed after 5 attempts" >&2
           exit 1
