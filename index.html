@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>规则集导航</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg:#ffffff; --fg:#0f1115; --muted:#6b7280;
+    --line:#e9ebef; --soft:#fafbfc; --hover:#f1f3f5; --accent:#0a84ff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0c0e12; --fg:#e8eaed; --muted:#98a0aa;
+      --line:#21252c; --soft:#12151a; --hover:#181d24; --accent:#4da3ff;
+    }
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body {
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family:-apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+                "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+    font-size:15px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:820px; margin:0 auto; padding:56px 24px 72px; }
+  header { margin-bottom:28px; }
+  h1 { margin:0 0 6px; font-size:24px; font-weight:600; letter-spacing:-.01em; }
+  .sub { margin:0; color:var(--muted); font-size:14px; }
+  .meta { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:22px 0 34px;
+          color:var(--muted); font-size:13px; }
+  .meta b { color:var(--fg); font-weight:600; font-variant-numeric:tabular-nums; }
+  .meta i { width:3px; height:3px; border-radius:50%; background:currentColor; opacity:.5; }
+  h2 { font-size:15px; font-weight:600; color:var(--fg); margin:44px 0 14px;
+       padding-top:26px; border-top:1px solid var(--line); }
+  h2:first-of-type { border-top:none; padding-top:0; }
+  table { width:100%; border-collapse:collapse; }
+  th { text-align:left; font-size:12px; font-weight:500; color:var(--muted);
+       padding:0 12px 10px; border-bottom:1px solid var(--line); }
+  th.num, td.num { text-align:right; }
+  th.go, td.go { text-align:right; }
+  td { padding:11px 12px; border-bottom:1px solid var(--line); vertical-align:middle; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr { transition:background .12s ease; }
+  tbody tr:hover { background:var(--soft); }
+  td.rule .rw { display:inline-flex; align-items:center; gap:10px; }
+  td.rule .rn { font-weight:500; }
+  td.rule img { border-radius:5px; flex:none; }
+  td.num { color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  td.go { white-space:nowrap; }
+  .act {
+    display:inline-flex; align-items:center; gap:7px;
+    padding:5px 13px 5px 7px; margin-left:7px;
+    border:1px solid var(--line); border-radius:999px;
+    background:var(--soft); color:var(--fg); text-decoration:none;
+    font-size:13px; font-weight:500; white-space:nowrap;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .act:hover { background:var(--hover); }
+  .act:active { transform:translateY(1px); }
+  .act img { width:18px; height:18px; border-radius:4px; display:block; }
+  ol, ul { margin:0; padding-left:20px; }
+  li { margin:6px 0; }
+  li::marker { color:var(--muted); }
+  a { color:var(--accent); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .thanks { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:4px 24px; }
+  .thanks a { display:inline-block; padding:3px 0; }
+  footer { margin-top:52px; padding-top:22px; border-top:1px solid var(--line);
+           color:var(--muted); font-size:12px; }
+  @media (max-width:640px) {
+    .wrap { padding:32px 16px 52px; }
+    h1 { font-size:20px; }
+    thead { display:none; }
+    table, tbody, tr, td { display:block; width:100%; }
+    tr { padding:14px 0; border-bottom:1px solid var(--line); }
+    tr:last-child { border-bottom:none; }
+    tbody tr:hover { background:transparent; }
+    td { border:none; padding:0; }
+    td.rule { margin-bottom:2px; }
+    td.rule .rn { font-size:16px; font-weight:600; }
+    td.num { margin-bottom:12px; font-size:13px; text-align:left; }
+    td.num::after { content:" 条规则"; }
+    td.go { text-align:left; }
+    .act { margin:0 8px 0 0; padding:8px 16px 8px 9px; }
+    .thanks { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>规则集导航</h1>
+    <p class="sub">选择规则组，一键导入对应 App</p>
+  </header>
+
+  <div class="meta">
+    <span><b>27</b> 组规则</span><i></i>
+    <span><b>437,103</b> 条</span><i></i>
+    <span>更新于 2026-09-13 16:52:22</span>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>规则</th><th class="num">条数</th><th class="go">导入</th></tr>
+    </thead>
+    <tbody>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/chatGPT-green.png" width="22" height="22" alt=""><span class="rn">AI</span></span></td>
+<td class="num">101</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FAI.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FAI.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Alibaba.png" width="22" height="22" alt=""><span class="rn">Alibaba</span></span></td>
+<td class="num">1,320</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FAlibaba.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FAlibaba.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/03CNSoft/apple.png" width="22" height="22" alt=""><span class="rn">Apple</span></span></td>
+<td class="num">1,603</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FApple.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FApple.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/iCloud.png" width="22" height="22" alt=""><span class="rn">AppleCN</span></span></td>
+<td class="num">165</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FAppleCN.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FAppleCN.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Advertising.png" width="22" height="22" alt=""><span class="rn">BanAD</span></span></td>
+<td class="num">232,865</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FBanAD.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FBanAD.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/tiktok.png" width="22" height="22" alt=""><span class="rn">ByteDance</span></span></td>
+<td class="num">371</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FByteDance.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FByteDance.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png" width="22" height="22" alt=""><span class="rn">China</span></span></td>
+<td class="num">124,069</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FChina.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FChina.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png" width="22" height="22" alt=""><span class="rn">ChinaIPs</span></span></td>
+<td class="num">23,161</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FChinaIPs.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FChinaIPs.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/tiktok.png" width="22" height="22" alt=""><span class="rn">DouYin</span></span></td>
+<td class="num">13</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FDouYin.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FDouYin.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png" width="22" height="22" alt=""><span class="rn">GeoipCN</span></span></td>
+<td class="num">1</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FGeoipCN.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FGeoipCN.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/GitHub.png" width="22" height="22" alt=""><span class="rn">Github</span></span></td>
+<td class="num">31</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FGithub.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FGithub.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png" width="22" height="22" alt=""><span class="rn">Global</span></span></td>
+<td class="num">30,037</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FGlobal.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FGlobal.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/google.png" width="22" height="22" alt=""><span class="rn">Google</span></span></td>
+<td class="num">698</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FGoogle.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FGoogle.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png" width="22" height="22" alt=""><span class="rn">HttpDns</span></span></td>
+<td class="num">63</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FHttpDns.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FHttpDns.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/05icon/direct.png" width="22" height="22" alt=""><span class="rn">Lan</span></span></td>
+<td class="num">14</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FLan.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FLan.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/meta.png" width="22" height="22" alt=""><span class="rn">Meta</span></span></td>
+<td class="num">586</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FMeta.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FMeta.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/netflix.png" width="22" height="22" alt=""><span class="rn">Netflix</span></span></td>
+<td class="num">1,157</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FNetflix.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FNetflix.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/03CNSoft/pikpak.png" width="22" height="22" alt=""><span class="rn">PikPak</span></span></td>
+<td class="num">7</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FPikPak.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FPikPak.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png" width="22" height="22" alt=""><span class="rn">SpeedtestChina</span></span></td>
+<td class="num">11</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FSpeedtestChina.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FSpeedtestChina.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png" width="22" height="22" alt=""><span class="rn">SpeedtestInternational</span></span></td>
+<td class="num">17,965</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FSpeedtestInternational.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FSpeedtestInternational.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/spotify.png" width="22" height="22" alt=""><span class="rn">Spotify</span></span></td>
+<td class="num">30</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FSpotify.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FSpotify.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/talkatone.png" width="22" height="22" alt=""><span class="rn">Talkatone</span></span></td>
+<td class="num">16</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FTalkatone.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FTalkatone.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png" width="22" height="22" alt=""><span class="rn">Telegram</span></span></td>
+<td class="num">41</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FTelegram.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FTelegram.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/03CNSoft/Tencent.png" width="22" height="22" alt=""><span class="rn">Tencent</span></span></td>
+<td class="num">2,523</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FTencent.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FTencent.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/tiktok.png" width="22" height="22" alt=""><span class="rn">TikTok</span></span></td>
+<td class="num">32</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FTikTok.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FTikTok.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Twitter.png" width="22" height="22" alt=""><span class="rn">Twitter</span></span></td>
+<td class="num">33</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FTwitter.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FTwitter.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+<tr>
+<td class="rule"><span class="rw"><img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/04ProxySoft/Youtube.png" width="22" height="22" alt=""><span class="rn">YouTube</span></span></td>
+<td class="num">190</td>
+<td class="go"><a class="act" href="https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FYouTube.list"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fe/c4/5f/fec45fa1-1194-c944-7c5c-a939e1ee0dfe/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/100x100bb.jpg" alt=""><span>Loon</span></a><a class="act" href="https://egernapp.com/rules/new?type=rule_set&amp;match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FYouTube.yaml&amp;policy=DIRECT"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c3/8c/38/c38c38c1-54ad-175a-7f73-6284de3c5841/AppIcon-0-0-1x_U007epad-0-1-85-220.png/100x100bb.jpg" alt=""><span>Egern</span></a></td>
+</tr>
+    </tbody>
+  </table>
+
+  <h2>使用说明</h2>
+  <ol>
+    <li>点开需要的规则组对应的导入按钮</li>
+    <li>系统唤起 App 后确认导入</li>
+    <li>规则会加入 App 的规则列表，本仓库每天自动同步</li>
+  </ol>
+
+  <h2>声明</h2>
+  <ul>
+    <li>本仓库仅对公开规则做整理与分类，不生产、不修改规则内容。</li>
+    <li>规则均来自互联网公开项目，版权归原作者所有。</li>
+    <li>仅供个人学习与技术交流，请勿用于商业用途。</li>
+    <li>使用本规则可能影响网络访问，请自行评估风险并承担相应后果。</li>
+    <li>如有侵权，请联系删除。</li>
+  </ul>
+
+  <h2>感谢</h2>
+  <p style="margin:0 0 8px; color:var(--muted); font-size:13px;">规则与图标来自以下项目，感谢每一位作者。</p>
+  <div class="thanks">
+    <a href="https://github.com/blackmatrix7/ios_rule_script">blackmatrix7/ios_rule_script</a>
+    <a href="https://github.com/Loyalsoldier/surge-rules">Loyalsoldier/surge-rules</a>
+    <a href="https://github.com/Repcz/Tool">Repcz/Tool</a>
+    <a href="https://github.com/Koolson/Qure">Koolson/Qure</a>
+    <a href="https://github.com/lige47/QuanX-icon-rule">lige47/QuanX-icon-rule</a>
+    <a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule">TG-Twilight/AWAvenue-Ads-Rule</a>
+    <a href="https://github.com/217heidai/adblockfilters">217heidai/adblockfilters</a>
+    <a href="https://anti-ad.net/">anti-AD</a>
+  </div>
+
+  <footer>最后更新 2026-09-13 16:52:22 · 由 GitHub Actions 自动生成</footer>
+</div>
+</body>
+</html>
