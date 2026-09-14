@@ -14,6 +14,7 @@ on:
     paths:
       - "Loon/Rules/**"
       - "Egern/Rules/**"
+      - "Icons/**"
       - ".github/workflows/Readme.yml"
 
 permissions:
@@ -57,10 +58,14 @@ jobs:
 
           LOON_DIR = Path("Loon/Rules")
           EGERN_DIR = Path("Egern/Rules")
+          ICON_DIR = Path("Icons")
 
           # 标题（想改名只改这两行）
           TITLE = "规则中心"
           TAGLINE = "选择规则组，点击图标即可导入对应 App"
+
+          # 图标尺寸
+          ICON_SIZE = 28
 
           # 分组：按用途归类，未列出的规则自动落到「其他」
           SECTIONS = [
@@ -72,13 +77,33 @@ jobs:
           ]
           OTHER_TITLE = "其他"
 
-          # ------------------------------------------------------------ 导入目标 App
-          def app_icon(app_id):
-              """从 App Store 取应用图标，失败返回空字符串。"""
+          # ------------------------------------------------------------ 导入目标 App 图标
+          # 优先使用仓库自带图标库里的透明 Logo（无白底，深浅色都干净），
+          # 找不到时回退到 App Store 官方图标。
+          def local_icon(app_name):
+              target = app_name.strip().lower()
+              if not ICON_DIR.is_dir():
+                  return ""
+              for path in sorted(ICON_DIR.glob("*.json")):
+                  try:
+                      data = json.loads(path.read_text(encoding="utf-8"))
+                  except (OSError, json.JSONDecodeError):
+                      continue
+                  for item in data.get("icons", []):
+                      url = item.get("url")
+                      if not isinstance(url, str) or not url:
+                          continue
+                      if str(item.get("name") or "").strip().lower() != target:
+                          continue
+                      if url.lower().endswith(".png") or url.lower().endswith(".svg"):
+                          return url
+              return ""
+
+          def store_icon(app_id):
               try:
                   request = urllib.request.Request(
                       "https://itunes.apple.com/lookup?id=" + app_id + "&country=us",
-                      headers={"User-Agent": "readme-generator/4.0"},
+                      headers={"User-Agent": "readme-generator/5.0"},
                   )
                   with urllib.request.urlopen(request, timeout=20) as response:
                       payload = json.loads(response.read().decode("utf-8", errors="replace"))
@@ -87,15 +112,20 @@ jobs:
                       if icon:
                           return icon
               except Exception as exc:
-                  print("App 图标获取失败 " + app_id + "：" + str(exc))
+                  print("App Store 图标获取失败 " + app_id + "：" + str(exc))
               return ""
 
           APPS = [
-              {"name": "Loon", "icon": app_icon("1373567447")},
-              {"name": "Egern", "icon": app_icon("1616105820")},
+              {"name": "Loon", "id": "1373567447"},
+              {"name": "Egern", "id": "1616105820"},
           ]
           for app in APPS:
-              print("App " + app["name"] + " 图标：" + ("ok" if app["icon"] else "缺失"))
+              app["icon"] = local_icon(app["name"])
+              app["source"] = "图标库" if app["icon"] else ""
+              if not app["icon"]:
+                  app["icon"] = store_icon(app["id"])
+                  app["source"] = "App Store" if app["icon"] else "缺失"
+              print("App " + app["name"] + " 图标来源：" + app["source"])
 
           # ------------------------------------------------------------ 规则信息
           def parse_count(path):
@@ -156,14 +186,14 @@ jobs:
               buckets.append((OTHER_TITLE, rest))
           print("共 " + str(len(groups)) + " 组 / " + f"{total_rules:,}" + " 条，分 " + str(len(buckets)) + " 个板块")
 
-          # ------------------------------------------------------------ 只显示图标的按钮
+          # ------------------------------------------------------------ 渲染片段
           def icon_md(app, url, size):
               if not app["icon"]:
                   return "[" + app["name"] + "](" + url + ")"
               return ('[<img src="' + app["icon"] + '" width="' + str(size) + '" height="' + str(size)
                       + '" alt="导入 ' + app["name"] + '">](' + url + ")")
 
-          def buttons_md(item, size=26):
+          def buttons_md(item, size=ICON_SIZE):
               out = []
               if item["loon_url"]:
                   out.append(icon_md(APPS[0], loon_link(item["loon_url"]), size))
@@ -185,6 +215,7 @@ jobs:
               return "".join(out)
 
           # ------------------------------------------------------------ README.md
+          # 单列布局：规则名 + 条数 + 图标连成一串，避免列宽拉伸造成长短不齐
           md = []
           md.append("<!-- 由 GitHub Actions 自动生成，请勿手动编辑 -->")
           md.append("")
@@ -200,26 +231,13 @@ jobs:
               md.append("")
               md.append("### " + title + " <sub>" + str(len(items)) + " 组</sub>")
               md.append("")
-              md.append("| 规则 | 导入 |")
-              md.append("|:---|:---:|")
+              md.append("| 规则 |")
+              md.append("|:---|")
               for item in items:
-                  md.append("| **" + item["name"] + "** <sub>" + f"{item['count']:,}"
-                            + "</sub> | " + buttons_md(item) + " |")
+                  md.append("| **" + item["name"] + "**&nbsp;&nbsp;<sub>" + f"{item['count']:,}"
+                            + "</sub>&nbsp;&nbsp;&nbsp;" + buttons_md(item) + " |")
               md.append("")
 
-          md.append("---")
-          md.append("")
-          md.append("### 使用说明")
-          md.append("")
-          md.append("| 图标 | 用途 |")
-          md.append("|:---:|:---|")
-          md.append("| " + icon_md(APPS[0], "https://apps.apple.com/app/id1373567447", 22)
-                    + " | 点击导入 Loon |")
-          md.append("| " + icon_md(APPS[1], "https://apps.apple.com/app/id1616105820", 22)
-                    + " | 点击导入 Egern |")
-          md.append("")
-          md.append("点击后会唤起对应 App 并弹出确认，确认后规则即加入 App。规则每天自动同步，无需手动更新。")
-          md.append("")
           md.append("---")
           md.append("")
           md.append("### 声明")
@@ -239,6 +257,7 @@ jobs:
           md.append("| [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | 主力规则来源 |")
           md.append("| [Loyalsoldier/surge-rules](https://github.com/Loyalsoldier/surge-rules) | 国内外分流规则 |")
           md.append("| [Repcz/Tool](https://github.com/Repcz/Tool) | 补充与自定义规则 |")
+          md.append("| [lige47/QuanX-icon-rule](https://github.com/lige47/QuanX-icon-rule) | 图标库 |")
           md.append("| [TG-Twilight/AWAvenue-Ads-Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule) | 去广告规则 |")
           md.append("| [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) | 去广告规则 |")
           md.append("| [anti-AD](https://anti-ad.net/) | 去广告规则 |")
@@ -271,15 +290,6 @@ jobs:
                   + "    </section>"
               )
 
-          legend = (
-              '<div class="legend">'
-              + icon_html(APPS[0], "https://apps.apple.com/app/id1373567447", 20)
-              + "<span>导入 Loon</span>"
-              + icon_html(APPS[1], "https://apps.apple.com/app/id1616105820", 20)
-              + "<span>导入 Egern</span>"
-              + "</div>"
-          )
-
           template = """<!DOCTYPE html>
           <html lang="zh-CN">
           <head>
@@ -309,8 +319,8 @@ jobs:
                           "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
               font-size:15px; line-height:1.65; -webkit-font-smoothing:antialiased;
             }
-            .wrap { max-width:720px; margin:0 auto; padding:64px 24px 80px; }
-            header { text-align:center; margin-bottom:10px; }
+            .wrap { max-width:680px; margin:0 auto; padding:64px 24px 80px; }
+            header { text-align:center; }
             h1 { margin:0 0 10px; font-size:27px; font-weight:600; letter-spacing:-.015em; }
             .tagline { margin:0; color:var(--muted); font-size:14px; }
             .stats { margin:6px 0 0; color:var(--muted); font-size:13px; }
@@ -318,7 +328,7 @@ jobs:
             section { margin-top:46px; }
             h2 {
               display:flex; align-items:baseline; gap:9px;
-              margin:0 0 6px; padding-bottom:12px; border-bottom:1px solid var(--line-strong);
+              margin:0 0 4px; padding-bottom:12px; border-bottom:1px solid var(--line-strong);
               font-size:15px; font-weight:600;
             }
             h2 .n { font-size:12.5px; font-weight:400; color:var(--muted); }
@@ -330,21 +340,16 @@ jobs:
               margin-left:10px; font-size:12.5px; color:var(--muted);
               font-variant-numeric:tabular-nums;
             }
-            td.go { text-align:right; white-space:nowrap; }
+            td.go { text-align:right; white-space:nowrap; width:1%; }
 
             .act {
               display:inline-flex; align-items:center; justify-content:center;
-              width:40px; height:40px; margin-left:8px; border-radius:11px;
-              border:1px solid var(--line-strong); background:var(--soft);
+              width:42px; height:42px; margin-left:6px; border-radius:11px;
+              border:1px solid transparent; background:transparent;
               text-decoration:none; transition:background .15s ease, border-color .15s ease;
             }
-            .act:hover { background:var(--soft-hover); border-color:var(--muted); }
-            .act img { width:22px; height:22px; border-radius:6px; display:block; }
-
-            .legend { display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-                      margin:14px 0 0; color:var(--muted); font-size:13.5px; }
-            .legend .act { margin:0 0 0 6px; width:34px; height:34px; border-radius:9px; }
-            .legend .act img { width:19px; height:19px; }
+            .act:hover { background:var(--soft-hover); border-color:var(--line-strong); }
+            .act img { width:28px; height:28px; display:block; }
 
             h3 {
               margin:54px 0 14px; padding-top:26px; border-top:1px solid var(--line);
@@ -356,8 +361,7 @@ jobs:
               color:var(--muted); font-size:14px;
             }
             .notice p { margin:5px 0; }
-            table.plain td { border-bottom:1px solid var(--line); }
-            table.plain td:first-child { width:44%; }
+            table.plain td:first-child { width:46%; }
             a { color:var(--accent); text-decoration:none; }
             a:hover { text-decoration:underline; }
             footer { margin-top:56px; padding-top:22px; border-top:1px solid var(--line);
@@ -372,9 +376,9 @@ jobs:
               td { border:none; padding:0; }
               td.rule { display:flex; align-items:baseline; gap:9px; margin-bottom:11px; }
               td.rule .nm { font-size:16px; }
-              td.go { text-align:left; }
-              .act { margin:0 10px 0 0; width:46px; height:46px; border-radius:13px; }
-              .act img { width:26px; height:26px; }
+              td.go { text-align:left; width:auto; }
+              .act { margin:0 10px 0 0; width:46px; height:46px; }
+              .act img { width:30px; height:30px; }
               section { margin-top:34px; }
             }
           </style>
@@ -388,11 +392,6 @@ jobs:
             </header>
 
           __SECTIONS__
-
-            <h3>使用说明</h3>
-            <p>点击规则右侧的图标即可导入，系统会唤起对应 App 并弹出确认。</p>
-            __LEGEND__
-            <p style="margin-top:14px">规则每天自动同步，无需手动更新。</p>
 
             <h3>声明</h3>
             <div class="notice">
@@ -408,6 +407,7 @@ jobs:
               <tr><td><a href="https://github.com/blackmatrix7/ios_rule_script">blackmatrix7/ios_rule_script</a></td><td>主力规则来源</td></tr>
               <tr><td><a href="https://github.com/Loyalsoldier/surge-rules">Loyalsoldier/surge-rules</a></td><td>国内外分流规则</td></tr>
               <tr><td><a href="https://github.com/Repcz/Tool">Repcz/Tool</a></td><td>补充与自定义规则</td></tr>
+              <tr><td><a href="https://github.com/lige47/QuanX-icon-rule">lige47/QuanX-icon-rule</a></td><td>图标库</td></tr>
               <tr><td><a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule">TG-Twilight/AWAvenue-Ads-Rule</a></td><td>去广告规则</td></tr>
               <tr><td><a href="https://github.com/217heidai/adblockfilters">217heidai/adblockfilters</a></td><td>去广告规则</td></tr>
               <tr><td><a href="https://anti-ad.net/">anti-AD</a></td><td>去广告规则</td></tr>
@@ -421,7 +421,6 @@ jobs:
 
           Path("index.html").write_text(
               template.replace("__SECTIONS__", "\n".join(sections_html))
-              .replace("__LEGEND__", legend)
               .replace("__TITLE__", TITLE)
               .replace("__TAGLINE__", TAGLINE)
               .replace("__GROUP_COUNT__", str(len(groups)))
