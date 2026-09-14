@@ -42,54 +42,74 @@ jobs:
         run: |
           set -Eeuo pipefail
           python3 <<'PY'
+          import base64
           import html
           import json
           import os
           import re
           import urllib.parse
           import urllib.request
-          from datetime import datetime, timedelta, timezone
           from pathlib import Path
 
           REPO = os.environ.get("GITHUB_REPOSITORY", "fieldw18/test")
           BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
           RAW = "https://raw.githubusercontent.com/" + REPO + "/" + BRANCH
-          REPO_URL = "https://github.com/" + REPO
-          BEIJING = timezone(timedelta(hours=8))
           WITH_HTML = os.environ.get("GENERATE_HTML", "true").lower() == "true"
 
           LOON_DIR = Path("Loon/Rules")
           EGERN_DIR = Path("Egern/Rules")
+          ASSET_DIR = Path("assets")
+          BANNER = ASSET_DIR / "header.svg"
+
+          # 标题（想改名只改这两行）
+          TITLE = "分流规则库"
+          SUBTITLE = "选择规则组，一键导入 Loon / Egern"
+
+          # 分组规则：按用途归类，未列出的规则自动落到「其他」
+          SECTIONS = [
+              ("常用服务", ["AI", "Apple", "AppleCN", "Github", "Google", "Meta", "Telegram", "Twitter", "Talkatone"]),
+              ("流媒体", ["Netflix", "PikPak", "Spotify", "YouTube"]),
+              ("国内应用", ["Alibaba", "ByteDance", "China", "ChinaIPs", "DouYin", "GeoipCN", "Tencent", "TikTok"]),
+              ("网络工具", ["Global", "HttpDns", "Lan", "SpeedtestChina", "SpeedtestInternational"]),
+              ("广告拦截", ["BanAD"]),
+          ]
+          OTHER_TITLE = "其他"
+
+          def http_get(url, timeout=20):
+              request = urllib.request.Request(url, headers={"User-Agent": "readme-generator/3.0"})
+              with urllib.request.urlopen(request, timeout=timeout) as response:
+                  return response.read()
 
           # ------------------------------------------------------------ 导入目标 App
-          def app_icon(app_id):
-              """从 App Store 取应用图标，失败返回空字符串。"""
+          def app_info(app_id):
+              """返回 (图标URL, 图标字节)。任一失败则相应为空。"""
               try:
-                  request = urllib.request.Request(
-                      "https://itunes.apple.com/lookup?id=" + app_id + "&country=us",
-                      headers={"User-Agent": "readme-generator/2.0"},
-                  )
-                  with urllib.request.urlopen(request, timeout=20) as response:
-                      payload = json.loads(response.read().decode("utf-8", errors="replace"))
+                  payload = json.loads(http_get(
+                      "https://itunes.apple.com/lookup?id=" + app_id + "&country=us").decode("utf-8", "replace"))
                   for result in payload.get("results") or []:
-                      icon = result.get("artworkUrl100") or result.get("artworkUrl512")
-                      if icon:
-                          return icon
+                      icon_url = result.get("artworkUrl100") or result.get("artworkUrl512")
+                      if not icon_url:
+                          continue
+                      try:
+                          return icon_url, http_get(icon_url)
+                      except Exception as exc:
+                          print("图标下载失败 " + app_id + "：" + str(exc))
+                          return icon_url, b""
               except Exception as exc:
-                  print("App 图标获取失败 " + app_id + "：" + str(exc))
-              return ""
+                  print("App 查询失败 " + app_id + "：" + str(exc))
+              return "", b""
 
-          APPS = {
-              "Loon": {"icon": app_icon("1373567447")},
-              "Egern": {"icon": app_icon("1616105820")},
-          }
-          for app_name, app in APPS.items():
-              print("App 图标 " + app_name + "：" + ("ok" if app["icon"] else "缺失"))
+          APPS = [
+              {"name": "Loon", "key": "loon", "url": "1373567447"},
+              {"name": "Egern", "key": "egern", "url": "1616105820"},
+          ]
+          for app in APPS:
+              app["icon"], app["bytes"] = app_info(app["url"])
+              app["mime"] = "image/jpeg" if app["icon"].lower().endswith((".jpg", ".jpeg")) else "image/png"
+              print("App " + app["name"] + "：" + ("ok" if app["icon"] else "缺失"))
 
           # ------------------------------------------------------------ 规则信息
-          def parse_meta(path, name):
-              count = 0
-              updated = ""
+          def parse_count(path):
               try:
                   with path.open(encoding="utf-8", errors="replace") as handle:
                       for _ in range(6):
@@ -97,89 +117,154 @@ jobs:
                           if not line:
                               break
                           found = re.match(r"#\s*规则统计:\s*(\d+)", line)
-                          if found and not count:
-                              count = int(found.group(1))
-                          found = re.match(r"#\s*更新时间:\s*(.+)", line)
-                          if found and not updated:
-                              updated = found.group(1).strip()
+                          if found:
+                              return int(found.group(1))
               except OSError:
                   pass
-              return {"name": name, "count": count, "updated": updated}
+              return 0
 
           def loon_link(url):
               return "https://www.nsloon.com/openloon/import?rules=" + urllib.parse.quote(url, safe="")
 
           def egern_link(url):
-              return (
-                  "https://egernapp.com/rules/new?type=rule_set&match="
-                  + urllib.parse.quote(url, safe="")
-                  + "&policy=DIRECT"
-              )
+              return ("https://egernapp.com/rules/new?type=rule_set&match="
+                      + urllib.parse.quote(url, safe="") + "&policy=DIRECT")
 
           groups = []
           seen = set()
           for path in sorted(LOON_DIR.glob("*.list")):
-              item = parse_meta(path, path.stem)
-              item["loon_url"] = RAW + "/Loon/Rules/" + path.name
               egern_path = EGERN_DIR / (path.stem + ".yaml")
-              item["egern_url"] = (RAW + "/Egern/Rules/" + egern_path.name) if egern_path.exists() else ""
-              groups.append(item)
+              groups.append({
+                  "name": path.stem,
+                  "count": parse_count(path),
+                  "loon_url": RAW + "/Loon/Rules/" + path.name,
+                  "egern_url": (RAW + "/Egern/Rules/" + egern_path.name) if egern_path.exists() else "",
+              })
               seen.add(path.stem)
 
           for path in sorted(EGERN_DIR.glob("*.yaml")):
               if path.stem in seen:
                   continue
-              item = parse_meta(path, path.stem)
-              item["loon_url"] = ""
-              item["egern_url"] = RAW + "/Egern/Rules/" + path.name
-              groups.append(item)
+              groups.append({
+                  "name": path.stem,
+                  "count": parse_count(path),
+                  "loon_url": "",
+                  "egern_url": RAW + "/Egern/Rules/" + path.name,
+              })
 
           if not groups:
               raise SystemExit("未找到规则文件，请先运行 Build workflow")
 
           total_rules = sum(item["count"] for item in groups)
-          generated = datetime.now(BEIJING).strftime("%Y-%m-%d %H:%M:%S")
-          latest = max((item["updated"] for item in groups if item["updated"]), default=generated)
-          print("共 " + str(len(groups)) + " 组，规则 " + f"{total_rules:,}" + " 条")
 
-          def md_target(app_name, url):
-              app = APPS.get(app_name, {})
-              if app.get("icon"):
-                  label = ('<img src="' + app["icon"] + '" width="14" height="14" alt=""> '
-                           + app_name)
+          # 归组
+          buckets = []
+          for title, names in SECTIONS:
+              items = [g for g in groups if g["name"] in names]
+              if items:
+                  buckets.append((title, items))
+          rest = [g for g in groups if not any(g["name"] in names for _, names in SECTIONS)]
+          if rest:
+              buckets.append((OTHER_TITLE, rest))
+          print("共 " + str(len(groups)) + " 组 / " + f"{total_rules:,}" + " 条，分 " + str(len(buckets)) + " 个板块")
+
+          def button_md(app, url):
+              if app["icon"]:
+                  label = '<img src="' + app["icon"] + '" width="14" height="14" alt=""> ' + app["name"]
               else:
-                  label = app_name
+                  label = app["name"]
               return "[" + label + "](" + url + ")"
 
-          def md_buttons(item):
+          def buttons_md(item):
               out = []
               if item["loon_url"]:
-                  out.append(md_target("Loon", loon_link(item["loon_url"])))
+                  out.append(button_md(APPS[0], loon_link(item["loon_url"])))
               if item["egern_url"]:
-                  out.append(md_target("Egern", egern_link(item["egern_url"])))
+                  out.append(button_md(APPS[1], egern_link(item["egern_url"])))
               return " · ".join(out) if out else "—"
 
+          # ------------------------------------------------------------ assets/header.svg
+          def chip(x, width, app):
+              label_x = x + (41 if app["bytes"] else 15)
+              image = ""
+              if app["bytes"]:
+                  encoded = base64.b64encode(app["bytes"]).decode("ascii")
+                  image = ('<image x="' + str(x + 7) + '" y="8" width="26" height="26" '
+                           'xlink:href="data:' + app["mime"] + ";base64," + encoded + '"/>')
+              return (
+                  "<g>"
+                  '<rect class="chip" x="' + str(x) + '" y="0" width="' + str(width) + '" height="42" rx="21"/>'
+                  + image
+                  + '<text class="chiptxt" x="' + str(label_x) + '" y="27">' + app["name"] + "</text>"
+                  "</g>"
+              )
+
+          chips_x = 860 - (92 + 8 + 100)
+          svg = """<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="860" height="150" viewBox="0 0 860 150" fill="none" role="img" aria-label="__TITLE__">
+            <style>
+              text { font-family:-apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+                     "Microsoft YaHei", "Segoe UI", Roboto, sans-serif; }
+              .title { font-size:31px; font-weight:700; fill:#111418; letter-spacing:-0.5px; }
+              .sub { font-size:14.5px; fill:#6b7280; }
+              .stat { font-size:13px; fill:#6b7280; }
+              .statv { font-weight:600; fill:#111418; }
+              .chip { fill:#f7f8fa; stroke:#e6e9ee; }
+              .chiptxt { font-size:13.5px; font-weight:500; fill:#111418; }
+              .rule { stroke:#eceef1; }
+              @media (prefers-color-scheme: dark) {
+                .title { fill:#eef1f5; }
+                .sub { fill:#8b939f; }
+                .stat { fill:#8b939f; }
+                .statv { fill:#eef1f5; }
+                .chip { fill:#14171b; stroke:#262b33; }
+                .chiptxt { fill:#eef1f5; }
+                .rule { stroke:#1d2127; }
+              }
+            </style>
+            <g transform="translate(0, 22)">
+          __CHIPS__
+            </g>
+            <text class="title" x="0" y="66">__TITLE__</text>
+            <text class="sub" x="0" y="94">__SUBTITLE__</text>
+            <line class="rule" x1="0" y1="118" x2="860" y2="118"/>
+            <text class="stat" x="0" y="140">
+              <tspan class="statv">__GROUP_COUNT__</tspan> 组规则
+              <tspan> · </tspan>
+              <tspan class="statv">__TOTAL__</tspan> 条
+            </text>
+          </svg>
+          """
+          svg = svg.replace("__CHIPS__", chip(chips_x, 92, APPS[0]) + chip(chips_x + 100, 100, APPS[1]))
+          svg = svg.replace("__TITLE__", TITLE).replace("__SUBTITLE__", SUBTITLE)
+          svg = svg.replace("__GROUP_COUNT__", str(len(groups)))
+          svg = svg.replace("__TOTAL__", f"{total_rules:,}")
+          ASSET_DIR.mkdir(parents=True, exist_ok=True)
+          BANNER.write_text(svg, encoding="utf-8", newline="\n")
+          print("assets/header.svg 已生成")
+
           # ------------------------------------------------------------ README.md
+          banner_url = RAW + "/assets/header.svg"
           md = []
           md.append("<!-- 本文件由 GitHub Actions 自动生成，请勿手动编辑 -->")
           md.append("")
-          md.append("# 规则集导航")
-          md.append("")
-          md.append("<sub>选择规则组，一键导入对应 App</sub>")
-          md.append("")
-          md.append("`" + str(len(groups)) + "` 组规则 · `" + f"{total_rules:,}"
-                    + "` 条 · 更新于 " + generated)
-          md.append("")
-          md.append("---")
-          md.append("")
-          md.append("| 规则 | 导入 |")
-          md.append("|:---|:---|")
-          for item in groups:
-              md.append("| **" + item["name"] + "** <sub>" + f"{item['count']:,}"
-                        + "</sub> | " + md_buttons(item) + " |")
+          md.append('<div align="center">')
+          md.append('<img src="' + banner_url + '" width="860" alt="' + TITLE + '">')
+          md.append("</div>")
           md.append("")
           md.append("> 点击导入按钮会唤起对应 App 并弹出确认，确认后规则即加入 App。")
           md.append("")
+
+          for title, items in buckets:
+              md.append("### " + title + " <sub>" + str(len(items)) + " 组</sub>")
+              md.append("")
+              md.append("| 规则 | 导入 |")
+              md.append("|:---|:---|")
+              for item in items:
+                  md.append("| **" + item["name"] + "** <sub>" + f"{item['count']:,}"
+                            + "</sub> | " + buttons_md(item) + " |")
+              md.append("")
+
           md.append("---")
           md.append("")
           md.append("## 使用说明")
@@ -222,7 +307,7 @@ jobs:
           md.append("")
           md.append("---")
           md.append("")
-          md.append("<sub>最后更新 " + generated + " · 由 GitHub Actions 自动生成</sub>")
+          md.append("<sub>由 GitHub Actions 自动生成</sub>")
           md.append("")
 
           Path("README.md").write_text("\n".join(md), encoding="utf-8", newline="\n")
@@ -231,28 +316,33 @@ jobs:
           if not WITH_HTML:
               raise SystemExit(0)
 
-          def html_target(app_name, url):
-              app = APPS.get(app_name, {})
-              image = ('<img src="' + html.escape(app["icon"]) + '" alt="">') if app.get("icon") else ""
+          def button_html(app, url):
+              image = ('<img src="' + html.escape(app["icon"]) + '" alt="">') if app["icon"] else ""
               return ('<a class="act" href="' + html.escape(url) + '">' + image
-                      + "<span>" + app_name + "</span></a>")
+                      + "<span>" + app["name"] + "</span></a>")
 
-          def html_buttons(item):
+          def buttons_html(item):
               out = []
               if item["loon_url"]:
-                  out.append(html_target("Loon", loon_link(item["loon_url"])))
+                  out.append(button_html(APPS[0], loon_link(item["loon_url"])))
               if item["egern_url"]:
-                  out.append(html_target("Egern", egern_link(item["egern_url"])))
+                  out.append(button_html(APPS[1], egern_link(item["egern_url"])))
               return "".join(out)
 
-          body_rows = []
-          for item in groups:
-              body_rows.append(
-                  "<tr>\n"
-                  + '<td class="rule"><span class="nm">' + html.escape(item["name"])
-                  + '</span><span class="ct">' + f"{item['count']:,}" + "</span></td>\n"
-                  + '<td class="go">' + html_buttons(item) + "</td>\n"
-                  + "</tr>"
+          sections_html = []
+          for title, items in buckets:
+              rows = []
+              for item in items:
+                  rows.append(
+                      "<tr><td class=\"rule\"><span class=\"nm\">" + html.escape(item["name"])
+                      + "</span><span class=\"ct\">" + f"{item['count']:,}" + "</span></td>"
+                      + "<td class=\"go\">" + buttons_html(item) + "</td></tr>"
+                  )
+              sections_html.append(
+                  "    <section>\n"
+                  + "      <h2>" + html.escape(title) + " <span class=\"n\">" + str(len(items)) + " 组</span></h2>\n"
+                  + "      <table><tbody>\n" + "\n".join(rows) + "\n      </tbody></table>\n"
+                  + "    </section>"
               )
 
           template = """<!DOCTYPE html>
@@ -261,59 +351,42 @@ jobs:
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <meta name="color-scheme" content="light dark">
-          <title>规则集导航</title>
+          <title>__TITLE__</title>
           <style>
             :root {
               color-scheme: light dark;
-              --bg:#ffffff;
-              --fg:#121417;
-              --muted:#6b7280;
-              --line:#eceef1;
-              --line-strong:#dcdfe4;
-              --soft:#f7f8fa;
-              --soft-hover:#eef0f3;
-              --accent:#0a84ff;
+              --bg:#ffffff; --fg:#111418; --muted:#6b7280;
+              --line:#eceef1; --line-strong:#dfe3e9;
+              --soft:#f7f8fa; --soft-hover:#eef0f3; --accent:#0a84ff;
             }
             @media (prefers-color-scheme: dark) {
               :root {
-                --bg:#0b0d10;
-                --fg:#e9ecf0;
-                --muted:#8b939f;
-                --line:#1d2127;
-                --line-strong:#2a2f37;
-                --soft:#14171b;
-                --soft-hover:#1c2026;
-                --accent:#4da3ff;
+                --bg:#0b0d10; --fg:#eef1f5; --muted:#8b939f;
+                --line:#1d2127; --line-strong:#2a2f37;
+                --soft:#14171b; --soft-hover:#1c2026; --accent:#4da3ff;
               }
             }
             * { box-sizing:border-box; }
             html { -webkit-text-size-adjust:100%; }
             body {
-              margin:0;
-              background:var(--bg);
-              color:var(--fg);
+              margin:0; background:var(--bg); color:var(--fg);
               font-family:-apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
                           "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
-              font-size:15px;
-              line-height:1.65;
-              -webkit-font-smoothing:antialiased;
+              font-size:15px; line-height:1.65; -webkit-font-smoothing:antialiased;
             }
-            .wrap { max-width:720px; margin:0 auto; padding:64px 24px 80px; }
+            .wrap { max-width:860px; margin:0 auto; padding:52px 24px 80px; }
+            .banner { display:block; width:100%; max-width:860px; height:auto; margin:0 0 22px; }
+            .lead { margin:0 0 8px; color:var(--muted); font-size:14px; }
 
-            header { margin-bottom:18px; }
-            h1 { margin:0; font-size:26px; font-weight:600; letter-spacing:-.015em; }
-            .sub { margin:8px 0 0; color:var(--muted); font-size:14px; }
-            .meta { margin:26px 0 34px; color:var(--muted); font-size:13px; }
-            .meta b { color:var(--fg); font-weight:600; font-variant-numeric:tabular-nums; }
-            .meta span { margin-right:14px; }
-
+            section { margin-top:44px; }
+            h2 {
+              display:flex; align-items:baseline; gap:9px;
+              margin:0 0 6px; padding-bottom:12px; border-bottom:1px solid var(--line-strong);
+              font-size:15px; font-weight:600;
+            }
+            h2 .n { font-size:12.5px; font-weight:400; color:var(--muted); }
             table { width:100%; border-collapse:collapse; }
-            th {
-              text-align:left; font-size:12px; font-weight:500; color:var(--muted);
-              padding:0 0 12px; border-bottom:1px solid var(--line-strong);
-            }
-            th.go { text-align:right; }
-            td { padding:14px 0; border-bottom:1px solid var(--line); vertical-align:middle; }
+            td { padding:13px 0; border-bottom:1px solid var(--line); vertical-align:middle; }
             tr:last-child td { border-bottom:none; }
             td.rule .nm { font-size:15px; font-weight:500; }
             td.rule .ct {
@@ -333,9 +406,8 @@ jobs:
             .act:hover { background:var(--soft-hover); border-color:var(--muted); }
             .act img { width:18px; height:18px; border-radius:5px; display:block; }
 
-            section { margin-top:52px; }
-            h2 {
-              margin:0 0 14px; padding-top:26px; border-top:1px solid var(--line);
+            h3 {
+              margin:56px 0 14px; padding-top:26px; border-top:1px solid var(--line);
               font-size:15px; font-weight:600;
             }
             ol, ul { margin:0; padding-left:20px; }
@@ -346,19 +418,16 @@ jobs:
             .links { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:2px 28px; }
             .links a { display:inline-block; padding:3px 0; font-size:14px; }
             .note { color:var(--muted); font-size:13px; margin:0 0 10px; }
-
             footer {
               margin-top:56px; padding-top:22px; border-top:1px solid var(--line);
               color:var(--muted); font-size:12px;
             }
 
             @media (max-width:640px) {
-              .wrap { padding:36px 18px 56px; }
-              h1 { font-size:21px; }
-              .meta { font-size:12.5px; margin:20px 0 26px; }
+              .wrap { padding:28px 18px 56px; }
+              .banner { margin-bottom:16px; }
               table, tbody, tr, td { display:block; width:100%; }
-              thead { display:none; }
-              tr { padding:16px 0; border-bottom:1px solid var(--line); }
+              tr { padding:15px 0; border-bottom:1px solid var(--line); }
               tr:last-child { border-bottom:none; }
               td { border:none; padding:0; }
               td.rule { display:flex; align-items:baseline; gap:9px; margin-bottom:11px; }
@@ -367,78 +436,55 @@ jobs:
               .act { margin:0 8px 0 0; padding:9px 17px 9px 10px; }
               .act img { width:19px; height:19px; }
               .links { grid-template-columns:1fr; }
-              section { margin-top:40px; }
+              section { margin-top:34px; }
             }
           </style>
           </head>
           <body>
           <div class="wrap">
-            <header>
-              <h1>规则集导航</h1>
-              <p class="sub">选择规则组，一键导入对应 App</p>
-            </header>
+            <img class="banner" src="assets/header.svg" alt="__TITLE__">
+            <p class="lead">点击导入按钮会唤起对应 App 并弹出确认，确认后规则即加入 App。</p>
 
-            <div class="meta">
-              <span><b>__GROUP_COUNT__</b> 组规则</span>
-              <span><b>__TOTAL__</b> 条</span>
-              <span>更新于 __GENERATED__</span>
+          __SECTIONS__
+
+            <h3>使用说明</h3>
+            <ol>
+              <li>点开需要的规则组对应的导入按钮</li>
+              <li>系统唤起 App 后确认导入</li>
+              <li>规则会加入 App 的规则列表，本仓库每天自动同步</li>
+            </ol>
+
+            <h3>声明</h3>
+            <ul>
+              <li>本仓库仅对公开规则做整理与分类，不生产、不修改规则内容。</li>
+              <li>规则均来自互联网公开项目，版权归原作者所有。</li>
+              <li>仅供个人学习与技术交流，请勿用于商业用途。</li>
+              <li>使用本规则可能影响网络访问，请自行评估风险并承担相应后果。</li>
+              <li>如有侵权，请联系删除。</li>
+            </ul>
+
+            <h3>感谢</h3>
+            <p class="note">规则来自以下开源项目，感谢每一位作者。</p>
+            <div class="links">
+              <a href="https://github.com/blackmatrix7/ios_rule_script">blackmatrix7/ios_rule_script</a>
+              <a href="https://github.com/Loyalsoldier/surge-rules">Loyalsoldier/surge-rules</a>
+              <a href="https://github.com/Repcz/Tool">Repcz/Tool</a>
+              <a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule">TG-Twilight/AWAvenue-Ads-Rule</a>
+              <a href="https://github.com/217heidai/adblockfilters">217heidai/adblockfilters</a>
+              <a href="https://anti-ad.net/">anti-AD</a>
             </div>
 
-            <table>
-              <thead>
-                <tr><th>规则</th><th class="go">导入</th></tr>
-              </thead>
-              <tbody>
-          __ROWS__
-              </tbody>
-            </table>
-
-            <section>
-              <h2>使用说明</h2>
-              <ol>
-                <li>点开需要的规则组对应的导入按钮</li>
-                <li>系统唤起 App 后确认导入</li>
-                <li>规则会加入 App 的规则列表，本仓库每天自动同步</li>
-              </ol>
-            </section>
-
-            <section>
-              <h2>声明</h2>
-              <ul>
-                <li>本仓库仅对公开规则做整理与分类，不生产、不修改规则内容。</li>
-                <li>规则均来自互联网公开项目，版权归原作者所有。</li>
-                <li>仅供个人学习与技术交流，请勿用于商业用途。</li>
-                <li>使用本规则可能影响网络访问，请自行评估风险并承担相应后果。</li>
-                <li>如有侵权，请联系删除。</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2>感谢</h2>
-              <p class="note">规则来自以下开源项目，感谢每一位作者。</p>
-              <div class="links">
-                <a href="https://github.com/blackmatrix7/ios_rule_script">blackmatrix7/ios_rule_script</a>
-                <a href="https://github.com/Loyalsoldier/surge-rules">Loyalsoldier/surge-rules</a>
-                <a href="https://github.com/Repcz/Tool">Repcz/Tool</a>
-                <a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule">TG-Twilight/AWAvenue-Ads-Rule</a>
-                <a href="https://github.com/217heidai/adblockfilters">217heidai/adblockfilters</a>
-                <a href="https://anti-ad.net/">anti-AD</a>
-              </div>
-            </section>
-
-            <footer>最后更新 __GENERATED__ · 由 GitHub Actions 自动生成</footer>
+            <footer>由 GitHub Actions 自动生成</footer>
           </div>
           </body>
           </html>
           """
 
-          doc = (
-              template.replace("__ROWS__", "\n".join(body_rows))
-              .replace("__GROUP_COUNT__", str(len(groups)))
-              .replace("__TOTAL__", f"{total_rules:,}")
-              .replace("__GENERATED__", generated)
+          Path("index.html").write_text(
+              template.replace("__SECTIONS__", "\n".join(sections_html))
+              .replace("__TITLE__", TITLE),
+              encoding="utf-8", newline="\n",
           )
-          Path("index.html").write_text(doc, encoding="utf-8", newline="\n")
           print("index.html 已生成")
           PY
 
@@ -449,6 +495,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
           if [ -f index.html ]; then git add index.html; fi
+          if [ -f assets/header.svg ]; then git add assets/header.svg; fi
           if git diff --cached --quiet; then
             echo "no changes"
             exit 0
