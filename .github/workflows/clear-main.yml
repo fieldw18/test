@@ -13,6 +13,14 @@ on:
         required: false
         default: false
         type: boolean
+      generate_html:
+        description: "额外生成响应式 index.html（可选）"
+        required: false
+        default: false
+        type: boolean
+  push:
+    paths:
+      - ".github/workflows/clear-main.yml"
   schedule:
     - cron: "0 */8 * * *"
 
@@ -164,7 +172,6 @@ jobs:
           from datetime import datetime, timedelta, timezone
           from pathlib import Path
 
-          # ---------------------------------------------------------------- 规则类型
           GROUP_OF = {
               "DOMAIN": "domain_set",
               "DOMAIN-SUFFIX": "domain_suffix_set",
@@ -186,18 +193,13 @@ jobs:
           GROUP_ORDER = list(GROUP_OF.values())
           ALIASES = {"DST-PORT": "DEST-PORT", "IP6-CIDR": "IP-CIDR6"}
           LOGICAL = {"AND", "OR", "NOT"}
-          # 只有这些类型的值本身允许包含逗号，其余类型取逗号前的第一段
           MULTI_VALUE = {"DEST-PORT", "DOMAIN-REGEX", "URL-REGEX", "USER-AGENT", "DOMAIN-WILDCARD"}
-          # 这些类型按 Egern 官方示例需要加引号
           ALWAYS_QUOTE = {"DOMAIN-REGEX", "DOMAIN-WILDCARD", "IP-CIDR6", "IP-ASN", "URL-REGEX", "USER-AGENT"}
-          # no-resolve 属于 IP 类规则
           NO_RESOLVE_TYPES = {"IP-CIDR", "IP-CIDR6", "IP-ASN", "GEOIP"}
-          # 这些分组不做 no-resolve 处理（与既有行为保持一致）
           NO_RESOLVE_EXEMPT = {"GeoipCN", "Lan"}
           KNOWN_TYPES = set(GROUP_OF) | set(LOGICAL) | set(ALIASES)
           INNER_RULE = re.compile(r"\(([A-Za-z][A-Za-z0-9-]*)\s*,\s*([^()]*)\)")
 
-          # ---------------------------------------------------------------- 解析
           def clean(line):
               text = line.strip().strip("\ufeff")
               if not text:
@@ -249,7 +251,6 @@ jobs:
                       continue
                   kind, rest = cleaned
                   if kind in LOGICAL:
-                      # Loon 支持逻辑规则，原文保留；Egern 规则集不支持，改为拆出内部普通规则
                       logical_lines.append(f"{kind}, {rest}")
                       for inner_kind, inner_value in INNER_RULE.findall(rest):
                           item = normalize(inner_kind.upper(), inner_value)
@@ -270,7 +271,6 @@ jobs:
                       rules[key] = (previous[0], previous[1], True)
               return rules, logical_lines, skipped
 
-          # ---------------------------------------------------------------- 时间
           TIME_PATTERNS = (
               (re.compile(r"#\s*UPDATED:\s*(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})", re.I), "%Y-%m-%d %H:%M:%S"),
               (re.compile(r"#!date=(\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2})", re.I), "%Y/%m/%d %H:%M:%S"),
@@ -296,7 +296,6 @@ jobs:
                           best = moment
               return (best or datetime.now(BEIJING)).astimezone(BEIJING).strftime("%Y-%m-%d %H:%M:%S")
 
-          # ---------------------------------------------------------------- 序列化
           PLAIN_FORBIDDEN = set(":[]{}\",#&*!|>%@`\n\t'\\")
           PLAIN_KEYWORDS = {"true", "false", "yes", "no", "on", "off", "null", "~"}
           NUMBERISH = re.compile(r"[-+]?[0-9]+(?:\.[0-9]+)?")
@@ -335,7 +334,6 @@ jobs:
               path.parent.mkdir(parents=True, exist_ok=True)
               path.write_text(header(name, count, timestamp) + body.strip() + "\n", encoding="utf-8", newline="\n")
 
-          # ---------------------------------------------------------------- 主流程
           loon_dir = Path("Loon/Rules")
           egern_dir = Path("Egern/Rules")
           loon_dir.mkdir(parents=True, exist_ok=True)
@@ -354,7 +352,6 @@ jobs:
               timestamp = source_time(source)
               use_no_resolve = name not in NO_RESOLVE_EXEMPT
 
-              # Loon：保留逻辑规则原文，IP 类补 no-resolve
               loon_rules = []
               for kind, value, no_resolve in rules.values():
                   suffix = ",no-resolve" if kind in NO_RESOLVE_TYPES and (no_resolve or use_no_resolve) else ""
@@ -363,7 +360,6 @@ jobs:
               loon_lines = [line for _, line in loon_rules] + sorted(logical_lines)
               write_stable(loon_dir / f"{name}.list", "\n".join(loon_lines), name, len(loon_lines), timestamp)
 
-              # Egern：只输出普通规则集字段，逻辑规则已在解析阶段展开
               groups = {key: [] for key in GROUP_ORDER}
               needs_no_resolve = False
               for kind, value, no_resolve in rules.values():
@@ -404,9 +400,6 @@ jobs:
           mkdir -p Icons raw/icon-work
           WORK="raw/icon-work"
 
-          # 分类沿用上游自己的划分
-          #   direct：该清单整包属于同一分类
-          #   path  ：按上游目录前缀细分（lige47）
           sources=(
             "Flags|direct|https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Area.json"
             "Media|direct|https://raw.githubusercontent.com/Koolson/Qure/master/Other/QureColor-Media.json"
@@ -724,6 +717,389 @@ jobs:
             echo "ruby not available, skipped full YAML parse"
           fi
 
+      - name: Generate README
+        env:
+          GENERATE_HTML: ${{ inputs.generate_html || 'false' }}
+        run: |
+          set -Eeuo pipefail
+          python3 <<'PY'
+          import html
+          import json
+          import os
+          import re
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          REPO = os.environ.get("GITHUB_REPOSITORY", "fieldw18/test")
+          BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
+          RAW = "https://raw.githubusercontent.com/" + REPO + "/" + BRANCH
+          WITH_HTML = os.environ.get("GENERATE_HTML", "false").lower() == "true"
+
+          LOON_DIR = Path("Loon/Rules")
+          EGERN_DIR = Path("Egern/Rules")
+          ICON_DIR = Path("Icons")
+
+          TITLE = "规则中心"
+          TAGLINE = "选择规则组，点击图标即可导入对应 App"
+
+          ICON_SIZE = 28
+
+          SECTIONS = [
+              ("常用服务", ["AI", "Apple", "AppleCN", "Github", "Google", "Meta", "Telegram", "Twitter", "Talkatone"]),
+              ("流媒体", ["Netflix", "PikPak", "Spotify", "YouTube"]),
+              ("国内应用", ["Alibaba", "ByteDance", "China", "ChinaIPs", "DouYin", "GeoipCN", "Tencent", "TikTok"]),
+              ("网络工具", ["Global", "HttpDns", "Lan", "SpeedtestChina", "SpeedtestInternational"]),
+              ("广告拦截", ["BanAD"]),
+          ]
+          OTHER_TITLE = "其他"
+
+          def local_icon(app_name):
+              target = app_name.strip().lower()
+              if not ICON_DIR.is_dir():
+                  return ""
+              for path in sorted(ICON_DIR.glob("*.json")):
+                  try:
+                      data = json.loads(path.read_text(encoding="utf-8"))
+                  except (OSError, json.JSONDecodeError):
+                      continue
+                  for item in data.get("icons", []):
+                      url = item.get("url")
+                      if not isinstance(url, str) or not url:
+                          continue
+                      if str(item.get("name") or "").strip().lower() != target:
+                          continue
+                      if url.lower().endswith(".png") or url.lower().endswith(".svg"):
+                          return url
+              return ""
+
+          def store_icon(app_id):
+              try:
+                  request = urllib.request.Request(
+                      "https://itunes.apple.com/lookup?id=" + app_id + "&country=us",
+                      headers={"User-Agent": "readme-generator/5.0"},
+                  )
+                  with urllib.request.urlopen(request, timeout=20) as response:
+                      payload = json.loads(response.read().decode("utf-8", errors="replace"))
+                  for result in payload.get("results") or []:
+                      icon = result.get("artworkUrl100") or result.get("artworkUrl512")
+                      if icon:
+                          return icon
+              except Exception as exc:
+                  print("App Store 图标获取失败 " + app_id + "：" + str(exc))
+              return ""
+
+          APPS = [
+              {"name": "Loon", "id": "1373567447"},
+              {"name": "Egern", "id": "1616105820"},
+          ]
+          for app in APPS:
+              app["icon"] = local_icon(app["name"])
+              app["source"] = "图标库" if app["icon"] else ""
+              if not app["icon"]:
+                  app["icon"] = store_icon(app["id"])
+                  app["source"] = "App Store" if app["icon"] else "缺失"
+              print("App " + app["name"] + " 图标来源：" + app["source"])
+
+          def parse_count(path):
+              try:
+                  with path.open(encoding="utf-8", errors="replace") as handle:
+                      for _ in range(6):
+                          line = next(handle, "")
+                          if not line:
+                              break
+                          found = re.match(r"#\s*规则统计:\s*(\d+)", line)
+                          if found:
+                              return int(found.group(1))
+              except OSError:
+                  pass
+              return 0
+
+          def loon_link(url):
+              return "https://www.nsloon.com/openloon/import?rules=" + urllib.parse.quote(url, safe="")
+
+          def egern_link(url):
+              return ("https://egernapp.com/rules/new?type=rule_set&match="
+                      + urllib.parse.quote(url, safe="") + "&policy=DIRECT")
+
+          groups = []
+          seen = set()
+          for path in sorted(LOON_DIR.glob("*.list")):
+              egern_path = EGERN_DIR / (path.stem + ".yaml")
+              groups.append({
+                  "name": path.stem,
+                  "count": parse_count(path),
+                  "loon_url": RAW + "/Loon/Rules/" + path.name,
+                  "egern_url": (RAW + "/Egern/Rules/" + egern_path.name) if egern_path.exists() else "",
+              })
+              seen.add(path.stem)
+
+          for path in sorted(EGERN_DIR.glob("*.yaml")):
+              if path.stem in seen:
+                  continue
+              groups.append({
+                  "name": path.stem,
+                  "count": parse_count(path),
+                  "loon_url": "",
+                  "egern_url": RAW + "/Egern/Rules/" + path.name,
+              })
+
+          if not groups:
+              raise SystemExit("未找到规则文件，请先运行 Build workflow")
+
+          total_rules = sum(item["count"] for item in groups)
+
+          buckets = []
+          for title, names in SECTIONS:
+              items = [g for g in groups if g["name"] in names]
+              if items:
+                  buckets.append((title, items))
+          rest = [g for g in groups if not any(g["name"] in names for _, names in SECTIONS)]
+          if rest:
+              buckets.append((OTHER_TITLE, rest))
+          print("共 " + str(len(groups)) + " 组 / " + f"{total_rules:,}" + " 条，分 " + str(len(buckets)) + " 个板块")
+
+          def icon_md(app, url, size):
+              if not app["icon"]:
+                  return "[" + app["name"] + "](" + url + ")"
+              return ('[<img src="' + app["icon"] + '" width="' + str(size) + '" height="' + str(size)
+                      + '" alt="导入 ' + app["name"] + '">](' + url + ")")
+
+          def buttons_md(item, size=ICON_SIZE):
+              out = []
+              if item["loon_url"]:
+                  out.append(icon_md(APPS[0], loon_link(item["loon_url"]), size))
+              if item["egern_url"]:
+                  out.append(icon_md(APPS[1], egern_link(item["egern_url"]), size))
+              return "&nbsp;&nbsp;".join(out) if out else "—"
+
+          def icon_html(app, url, size):
+              image = ('<img src="' + html.escape(app["icon"]) + '" width="' + str(size)
+                       + '" height="' + str(size) + '" alt="导入 ' + app["name"] + '">') if app["icon"] else app["name"]
+              return '<a class="act" href="' + html.escape(url) + '">' + image + "</a>"
+
+          def buttons_html(item, size=22):
+              out = []
+              if item["loon_url"]:
+                  out.append(icon_html(APPS[0], loon_link(item["loon_url"]), size))
+              if item["egern_url"]:
+                  out.append(icon_html(APPS[1], egern_link(item["egern_url"]), size))
+              return "".join(out)
+
+          md = []
+          md.append("<!-- 由 GitHub Actions 自动生成，请勿手动编辑 -->")
+          md.append("")
+          md.append('<h1 align="center">' + TITLE + "</h1>")
+          md.append("")
+          md.append('<p align="center"><sub>' + TAGLINE + "</sub></p>")
+          md.append("")
+          md.append('<p align="center"><sub>共 ' + str(len(groups)) + " 组规则，" + f"{total_rules:,}" + " 条</sub></p>")
+          md.append("")
+
+          for title, items in buckets:
+              md.append("---")
+              md.append("")
+              md.append("### " + title + " <sub>" + str(len(items)) + " 组</sub>")
+              md.append("")
+              md.append("| 规则 |")
+              md.append("|:---|")
+              for item in items:
+                  md.append("| **" + item["name"] + "**&nbsp;&nbsp;<sub>" + f"{item['count']:,}"
+                            + "</sub>&nbsp;&nbsp;&nbsp;" + buttons_md(item) + " |")
+              md.append("")
+
+          md.append("---")
+          md.append("")
+          md.append("### 声明")
+          md.append("")
+          md.append("> 本仓库仅对公开规则做整理与分类，不生产、不修改规则内容。<br>")
+          md.append("> 规则均来自互联网公开项目，版权归原作者所有。<br>")
+          md.append("> 仅供个人学习与技术交流，请勿用于商业用途。<br>")
+          md.append("> 使用本规则可能影响网络访问，请自行评估风险并承担相应后果。<br>")
+          md.append("> 如有侵权，请联系删除。")
+          md.append("")
+          md.append("---")
+          md.append("")
+          md.append("### 感谢")
+          md.append("")
+          md.append("| 项目 | 说明 |")
+          md.append("|:---|:---|")
+          md.append("| [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | 主力规则来源 |")
+          md.append("| [Loyalsoldier/surge-rules](https://github.com/Loyalsoldier/surge-rules) | 国内外分流规则 |")
+          md.append("| [Repcz/Tool](https://github.com/Repcz/Tool) | 补充与自定义规则 |")
+          md.append("| [lige47/QuanX-icon-rule](https://github.com/lige47/QuanX-icon-rule) | 图标库 |")
+          md.append("| [TG-Twilight/AWAvenue-Ads-Rule](https://github.com/TG-Twilight/AWAvenue-Ads-Rule) | 去广告规则 |")
+          md.append("| [217heidai/adblockfilters](https://github.com/217heidai/adblockfilters) | 去广告规则 |")
+          md.append("| [anti-AD](https://anti-ad.net/) | 去广告规则 |")
+          md.append("")
+          md.append("---")
+          md.append("")
+          md.append('<sub>由 GitHub Actions 自动生成</sub>')
+          md.append("")
+
+          Path("README.md").write_text("\n".join(md), encoding="utf-8", newline="\n")
+          print("README.md 已生成（不产生其他文件）")
+
+          if not WITH_HTML:
+              print("已跳过 index.html（未开启）")
+              raise SystemExit(0)
+
+          sections_html = []
+          for title, items in buckets:
+              rows = []
+              for item in items:
+                  rows.append(
+                      "<tr><td class=\"rule\"><span class=\"nm\">" + html.escape(item["name"])
+                      + "</span><span class=\"ct\">" + f"{item['count']:,}" + "</span></td>"
+                      + "<td class=\"go\">" + buttons_html(item) + "</td></tr>"
+                  )
+              sections_html.append(
+                  "    <section>\n"
+                  + "      <h2>" + html.escape(title) + " <span class=\"n\">" + str(len(items)) + " 组</span></h2>\n"
+                  + "      <table><tbody>\n" + "\n".join(rows) + "\n      </tbody></table>\n"
+                  + "    </section>"
+              )
+
+          template = """<!DOCTYPE html>
+          <html lang="zh-CN">
+          <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <meta name="color-scheme" content="light dark">
+          <title>__TITLE__</title>
+          <style>
+            :root {
+              color-scheme: light dark;
+              --bg:#ffffff; --fg:#111418; --muted:#6b7280;
+              --line:#eceef1; --line-strong:#dfe3e9;
+              --soft:#f7f8fa; --soft-hover:#eef0f3; --accent:#0a84ff;
+            }
+            @media (prefers-color-scheme: dark) {
+              :root {
+                --bg:#0b0d10; --fg:#eef1f5; --muted:#8b939f;
+                --line:#1d2127; --line-strong:#2a2f37;
+                --soft:#14171b; --soft-hover:#1c2026; --accent:#4da3ff;
+              }
+            }
+            * { box-sizing:border-box; }
+            html { -webkit-text-size-adjust:100%; }
+            body {
+              margin:0; background:var(--bg); color:var(--fg);
+              font-family:-apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+                          "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+              font-size:15px; line-height:1.65; -webkit-font-smoothing:antialiased;
+            }
+            .wrap { max-width:680px; margin:0 auto; padding:64px 24px 80px; }
+            header { text-align:center; }
+            h1 { margin:0 0 10px; font-size:27px; font-weight:600; letter-spacing:-.015em; }
+            .tagline { margin:0; color:var(--muted); font-size:14px; }
+            .stats { margin:6px 0 0; color:var(--muted); font-size:13px; }
+
+            section { margin-top:46px; }
+            h2 {
+              display:flex; align-items:baseline; gap:9px;
+              margin:0 0 4px; padding-bottom:12px; border-bottom:1px solid var(--line-strong);
+              font-size:15px; font-weight:600;
+            }
+            h2 .n { font-size:12.5px; font-weight:400; color:var(--muted); }
+            table { width:100%; border-collapse:collapse; }
+            td { padding:12px 0; border-bottom:1px solid var(--line); vertical-align:middle; }
+            tr:last-child td { border-bottom:none; }
+            td.rule .nm { font-size:15px; font-weight:500; }
+            td.rule .ct {
+              margin-left:10px; font-size:12.5px; color:var(--muted);
+              font-variant-numeric:tabular-nums;
+            }
+            td.go { text-align:right; white-space:nowrap; width:1%; }
+
+            .act {
+              display:inline-flex; align-items:center; justify-content:center;
+              width:42px; height:42px; margin-left:6px; border-radius:11px;
+              border:1px solid transparent; background:transparent;
+              text-decoration:none; transition:background .15s ease, border-color .15s ease;
+            }
+            .act:hover { background:var(--soft-hover); border-color:var(--line-strong); }
+            .act img { width:28px; height:28px; display:block; }
+
+            h3 {
+              margin:54px 0 14px; padding-top:26px; border-top:1px solid var(--line);
+              font-size:15px; font-weight:600;
+            }
+            p { margin:0 0 12px; }
+            .notice {
+              border-left:3px solid var(--line-strong); padding:2px 0 2px 16px;
+              color:var(--muted); font-size:14px;
+            }
+            .notice p { margin:5px 0; }
+            table.plain td:first-child { width:46%; }
+            a { color:var(--accent); text-decoration:none; }
+            a:hover { text-decoration:underline; }
+            footer { margin-top:56px; padding-top:22px; border-top:1px solid var(--line);
+                     color:var(--muted); font-size:12px; text-align:center; }
+
+            @media (max-width:640px) {
+              .wrap { padding:36px 18px 56px; }
+              h1 { font-size:22px; }
+              table, tbody, tr, td { display:block; width:100%; }
+              tr { padding:14px 0; border-bottom:1px solid var(--line); }
+              tr:last-child { border-bottom:none; }
+              td { border:none; padding:0; }
+              td.rule { display:flex; align-items:baseline; gap:9px; margin-bottom:11px; }
+              td.rule .nm { font-size:16px; }
+              td.go { text-align:left; width:auto; }
+              .act { margin:0 10px 0 0; width:46px; height:46px; }
+              .act img { width:30px; height:30px; }
+              section { margin-top:34px; }
+            }
+          </style>
+          </head>
+          <body>
+          <div class="wrap">
+            <header>
+              <h1>__TITLE__</h1>
+              <p class="tagline">__TAGLINE__</p>
+              <p class="stats">共 __GROUP_COUNT__ 组规则，__TOTAL__ 条</p>
+            </header>
+
+          __SECTIONS__
+
+            <h3>声明</h3>
+            <div class="notice">
+              <p>本仓库仅对公开规则做整理与分类，不生产、不修改规则内容。</p>
+              <p>规则均来自互联网公开项目，版权归原作者所有。</p>
+              <p>仅供个人学习与技术交流，请勿用于商业用途。</p>
+              <p>使用本规则可能影响网络访问，请自行评估风险并承担相应后果。</p>
+              <p>如有侵权，请联系删除。</p>
+            </div>
+
+            <h3>感谢</h3>
+            <table class="plain"><tbody>
+              <tr><td><a href="https://github.com/blackmatrix7/ios_rule_script">blackmatrix7/ios_rule_script</a></td><td>主力规则来源</td></tr>
+              <tr><td><a href="https://github.com/Loyalsoldier/surge-rules">Loyalsoldier/surge-rules</a></td><td>国内外分流规则</td></tr>
+              <tr><td><a href="https://github.com/Repcz/Tool">Repcz/Tool</a></td><td>补充与自定义规则</td></tr>
+              <tr><td><a href="https://github.com/lige47/QuanX-icon-rule">lige47/QuanX-icon-rule</a></td><td>图标库</td></tr>
+              <tr><td><a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule">TG-Twilight/AWAvenue-Ads-Rule</a></td><td>去广告规则</td></tr>
+              <tr><td><a href="https://github.com/217heidai/adblockfilters">217heidai/adblockfilters</a></td><td>去广告规则</td></tr>
+              <tr><td><a href="https://anti-ad.net/">anti-AD</a></td><td>去广告规则</td></tr>
+            </tbody></table>
+
+            <footer>由 GitHub Actions 自动生成</footer>
+          </div>
+          </body>
+          </html>
+          """
+
+          Path("index.html").write_text(
+              template.replace("__SECTIONS__", "\n".join(sections_html))
+              .replace("__TITLE__", TITLE)
+              .replace("__TAGLINE__", TAGLINE)
+              .replace("__GROUP_COUNT__", str(len(groups)))
+              .replace("__TOTAL__", f"{total_rules:,}"),
+              encoding="utf-8", newline="\n",
+          )
+          print("index.html 已生成")
+          PY
+
       - name: Commit and push
         env:
           ALLOW_EMPTY: ${{ inputs.allow_empty || 'false' }}
@@ -731,7 +1107,8 @@ jobs:
           set -Eeuo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Loon Egern Icons
+          git add Loon Egern Icons README.md
+          if [ -f index.html ]; then git add index.html; fi
           if git diff --cached --quiet; then
             [[ "${ALLOW_EMPTY:-false}" == "true" ]] || { echo "no generated changes"; exit 0; }
             git commit --allow-empty -m "chore: refresh generated rules and icons"
