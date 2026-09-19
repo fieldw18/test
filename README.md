@@ -4,7 +4,7 @@
 
 <p align="center"><sub>选择规则组，点击图标即可导入对应 App</sub></p>
 
-<p align="center"><sub>共 27 组规则，445,443 条</sub></p>
+<p align="center"><sub>共 27 组规则，445,360 条</sub></p>
 
 ---
 
@@ -66,7 +66,7 @@
 
 | 规则 |
 |:---|
-| **BanAD**&nbsp;&nbsp;<sub>241,163</sub>&nbsp;&nbsp;&nbsp;[<img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/02ProxySoftLogo/Loon.png" width="28" height="28" alt="导入 Loon">](https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FBanAD.list)&nbsp;&nbsp;[<img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/02ProxySoftLogo/Egern.png" width="28" height="28" alt="导入 Egern">](https://egernapp.com/rules/new?type=rule_set&match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FBanAD.yaml&policy=DIRECT) |
+| **BanAD**&nbsp;&nbsp;<sub>241,080</sub>&nbsp;&nbsp;&nbsp;[<img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/02ProxySoftLogo/Loon.png" width="28" height="28" alt="导入 Loon">](https://www.nsloon.com/openloon/import?rules=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FLoon%2FRules%2FBanAD.list)&nbsp;&nbsp;[<img src="https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/02ProxySoftLogo/Egern.png" width="28" height="28" alt="导入 Egern">](https://egernapp.com/rules/new?type=rule_set&match=https%3A%2F%2Fraw.githubusercontent.com%2Ffieldw18%2Ftest%2Fmain%2FEgern%2FRules%2FBanAD.yaml&policy=DIRECT) |
 
 ---
 
