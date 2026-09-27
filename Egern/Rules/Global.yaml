@@ -1,6 +1,6 @@
 # 规则名称: Global
-# 规则统计: 30049
-# 更新时间: 2026-09-23 03:38:29
+# 规则统计: 30051
+# 更新时间: 2026-09-28 03:39:11
 
 no_resolve: true
 domain_set:
@@ -5864,6 +5864,7 @@ domain_suffix_set:
 - c-span.org
 - c-spanvideo.org
 - c.gle
+- c.go-mpulse.net
 - c.mi.com
 - c0930.com
 - c100tibet.org
@@ -26624,6 +26625,7 @@ domain_suffix_set:
 - vaultify.info
 - vaultify.net
 - vaultproject.io
+- vava8.com
 - vbcdn.com
 - vbcdn.net
 - vbejeyv.shop
