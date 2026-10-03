@@ -1,6 +1,6 @@
 # 规则名称: Global
-# 规则统计: 30061
-# 更新时间: 2026-10-02 04:53:49
+# 规则统计: 30063
+# 更新时间: 2026-10-04 03:06:28
 
 DOMAIN,1password.drift.click
 DOMAIN,3dns-1.adobe.com
@@ -6791,6 +6791,7 @@ DOMAIN-SUFFIX,classymomsex.com
 DOMAIN-SUFFIX,clau.de
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
+DOMAIN-SUFFIX,claude.dev
 DOMAIN-SUFFIX,claudemcpclient.com
 DOMAIN-SUFFIX,claudemcpcontent.com
 DOMAIN-SUFFIX,claudeusercontent.com
@@ -23535,6 +23536,7 @@ DOMAIN-SUFFIX,sinara.ru
 DOMAIN-SUFFIX,sinchew.com.my
 DOMAIN-SUFFIX,sinchew.my
 DOMAIN-SUFFIX,sing-box.app
+DOMAIN-SUFFIX,sing-box.sagernet.org
 DOMAIN-SUFFIX,sing4.lat
 DOMAIN-SUFFIX,sing68.com
 DOMAIN-SUFFIX,singaporepools.com.sg

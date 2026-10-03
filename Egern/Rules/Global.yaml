@@ -1,6 +1,6 @@
 # 规则名称: Global
-# 规则统计: 30061
-# 更新时间: 2026-10-02 04:53:49
+# 规则统计: 30063
+# 更新时间: 2026-10-04 03:06:28
 
 no_resolve: true
 domain_set:
@@ -6768,6 +6768,7 @@ domain_suffix_set:
 - clau.de
 - claude.ai
 - claude.com
+- claude.dev
 - claudemcpclient.com
 - claudemcpcontent.com
 - claudeusercontent.com
@@ -23512,6 +23513,7 @@ domain_suffix_set:
 - sinchew.com.my
 - sinchew.my
 - sing-box.app
+- sing-box.sagernet.org
 - sing4.lat
 - sing68.com
 - singaporepools.com.sg
