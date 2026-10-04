@@ -1,6 +1,6 @@
 {
   "name": "Airport",
-  "description": "机场 308 图标",
+  "description": "机场 309 图标",
   "icons": [
     {
       "name": "69yun",
@@ -1213,6 +1213,10 @@
     {
       "name": "yunkaijianyue",
       "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/06jichang/yunkaijianyue.png"
+    },
+    {
+      "name": "yunyou",
+      "url": "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/06jichang/yunyou.png"
     },
     {
       "name": "yunzhiyi",
