@@ -1,6 +1,6 @@
 # 规则名称: ByteDance
-# 规则统计: 371
-# 更新时间: 2025-09-28 02:08:33
+# 规则统计: 372
+# 更新时间: 2026-10-04 04:29:43
 
 no_resolve: true
 domain_suffix_set:
@@ -53,6 +53,7 @@ domain_suffix_set:
 - bytegecko.com
 - bytegoofy.com
 - bytegslb.com
+- bytehwm.com
 - byteimg.com
 - bytelb.net
 - bytelove.cn

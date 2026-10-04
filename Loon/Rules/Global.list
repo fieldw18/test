@@ -1,6 +1,6 @@
 # 规则名称: Global
-# 规则统计: 30063
-# 更新时间: 2026-10-04 03:06:28
+# 规则统计: 30065
+# 更新时间: 2026-10-05 03:20:07
 
 DOMAIN,1password.drift.click
 DOMAIN,3dns-1.adobe.com
@@ -28009,6 +28009,7 @@ DOMAIN-SUFFIX,wikibooks.org
 DOMAIN-SUFFIX,wikidata.org
 DOMAIN-SUFFIX,wikidot.com
 DOMAIN-SUFFIX,wikifeet.com
+DOMAIN-SUFFIX,wikifunctions.org
 DOMAIN-SUFFIX,wikihow.com
 DOMAIN-SUFFIX,wikileaks-forum.com
 DOMAIN-SUFFIX,wikileaks.ch
@@ -28033,6 +28034,7 @@ DOMAIN-SUFFIX,wikiquote.org
 DOMAIN-SUFFIX,wikis.tw
 DOMAIN-SUFFIX,wikisexguide.com
 DOMAIN-SUFFIX,wikisource.org
+DOMAIN-SUFFIX,wikispecies.org
 DOMAIN-SUFFIX,wikiunblocked.org
 DOMAIN-SUFFIX,wikiversity.org
 DOMAIN-SUFFIX,wikivoyage.org

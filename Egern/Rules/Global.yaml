@@ -1,6 +1,6 @@
 # 规则名称: Global
-# 规则统计: 30063
-# 更新时间: 2026-10-04 03:06:28
+# 规则统计: 30065
+# 更新时间: 2026-10-05 03:20:07
 
 no_resolve: true
 domain_set:
@@ -27986,6 +27986,7 @@ domain_suffix_set:
 - wikidata.org
 - wikidot.com
 - wikifeet.com
+- wikifunctions.org
 - wikihow.com
 - wikileaks-forum.com
 - wikileaks.ch
@@ -28010,6 +28011,7 @@ domain_suffix_set:
 - wikis.tw
 - wikisexguide.com
 - wikisource.org
+- wikispecies.org
 - wikiunblocked.org
 - wikiversity.org
 - wikivoyage.org

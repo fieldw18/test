@@ -1,6 +1,6 @@
 # 规则名称: ByteDance
-# 规则统计: 371
-# 更新时间: 2025-09-28 02:08:33
+# 规则统计: 372
+# 更新时间: 2026-10-04 04:29:43
 
 DOMAIN-SUFFIX,2333333333333.com
 DOMAIN-SUFFIX,365yg.com
@@ -51,6 +51,7 @@ DOMAIN-SUFFIX,bytefcdnrd.com
 DOMAIN-SUFFIX,bytegecko.com
 DOMAIN-SUFFIX,bytegoofy.com
 DOMAIN-SUFFIX,bytegslb.com
+DOMAIN-SUFFIX,bytehwm.com
 DOMAIN-SUFFIX,byteimg.com
 DOMAIN-SUFFIX,bytelb.net
 DOMAIN-SUFFIX,bytelove.cn
